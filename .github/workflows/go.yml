@@ -2,13 +2,10 @@
 
 name: Check
 
-on:
-  push:
-    branches: [ "main" ]
-
+on: [ push ]
 jobs:
 
-  build:
+  checks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
