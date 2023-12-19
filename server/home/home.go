@@ -6,7 +6,7 @@ import (
 )
 
 func Home(c *gin.Context) {
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"title": "Home"})
+	c.HTML(http.StatusOK, "home.tmpl", nil)
 }
 
 func Favicon(c *gin.Context) {

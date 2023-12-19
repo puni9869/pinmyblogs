@@ -1,7 +1,6 @@
 package command
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/server"
 	"github.com/urfave/cli"
@@ -18,10 +17,9 @@ var Server = cli.Command{
 // versionAction prints the current version
 func startAction(ctx *cli.Context) error {
 	router := gin.Default()
-	router.LoadHTMLGlob("templates/**/*")
+	router.LoadHTMLGlob("templates/*/**")
 	server.RegisterRoutes(router)
 	err := router.Run()
-	fmt.Println(err)
 	if err != nil {
 		panic(err)
 	}
