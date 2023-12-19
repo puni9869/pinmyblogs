@@ -1,3 +1,11 @@
+.PHONY: build
+build:
+	go build ./cmd/main.go
+
+.PHONY: server
+server:
+	air
+
 .PHONY: test
 test:
 	go test ./... -cover
