@@ -6,7 +6,7 @@ import (
 	"github.com/urfave/cli"
 )
 
-// Start configures the command name, flags, and action.
+// Server configures the command name and action.
 var Server = cli.Command{
 	Name:    "server",
 	Aliases: []string{"up"},
@@ -17,7 +17,13 @@ var Server = cli.Command{
 // versionAction prints the current version
 func startAction(ctx *cli.Context) error {
 	router := gin.Default()
-	router.LoadHTMLGlob("templates/*/**")
+	gin.SetMode(gin.DebugMode)
+
+	// Serve the static content like *.js, *.css, *.icon, *.img
+	router.Static("/statics", "./frontend")
+
+	// Serve the templates strict to the extension *.tmpl
+	router.LoadHTMLGlob("templates/*/**.tmpl")
 	server.RegisterRoutes(router)
 	err := router.Run()
 	if err != nil {

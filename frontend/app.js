@@ -1,1 +1,1 @@
-alert('Hello world');
+console.log("App is loaded");

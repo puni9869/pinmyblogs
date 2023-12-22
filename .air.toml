@@ -19,3 +19,9 @@ clean_on_exit = true
 [screen]
 clear_on_rebuild = false
 keep_scroll = false
+
+[color]
+build = "yellow"
+main = "magenta"
+runner = "green"
+watcher = "cyan"
