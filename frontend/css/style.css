@@ -1,4 +1,17 @@
 body {
     color: black;
-    background-color: aqua;
+}
+
+#logo {
+    font-family: 'Montserrat', cursive;
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: bolder;
+    cursor: default;
+    color: dodgerblue;
+}
+
+#logo:hover {
+    color: black;
+    text-decoration: underline;
 }
