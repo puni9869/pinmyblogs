@@ -1,1 +1,17 @@
-
+{{define "layout/nav"}}
+  <aside class="sidebar w-48 -translate-x-full transform bg-white p-1 translate-x-0 md:ml-0">
+    <div class="my-1 w-full">
+      <div class="flex flex-row">
+        <button type="button" class="bg-white text-wrap rounded-md p-1 inline-flex items-end justify-end text-gray-900 ml-auto hover:text-gray-500 hover:bg-gray-200">
+          <span class="sr-only">Close menu</span>
+          <svg class="h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <span class="flex flex-row items-end select-none" id="logo">pinmyblogs.com</span>
+    <div class="my-1">
+    </div>
+  </aside>
+{{end}}

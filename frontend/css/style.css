@@ -9,6 +9,8 @@ body {
     font-weight: bolder;
     cursor: default;
     color: dodgerblue;
+    flex-direction: row;
+    padding-left: 20px;
 }
 
 #logo:hover {
