@@ -7,8 +7,15 @@ import (
 
 // RegisterRoutes configures the available Web server routes.
 func RegisterRoutes(r *gin.Engine) {
+	// diagnose url
+	r.GET("/health", home.Health)
+
+	// navbar handler
+	r.GET("/", home.Home)
 	r.GET("/home", home.Home)
 	r.GET("/favourite", home.Favourite)
 	r.GET("/archived", home.Archived)
-	r.GET("/", home.Home)
+
+	// this route will accept all the params
+	r.NoRoute(home.OK)
 }
