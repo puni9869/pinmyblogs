@@ -8,13 +8,13 @@ body {
     font-style: italic;
     font-weight: bolder;
     cursor: default;
-    color: dodgerblue;
+    color: black;
     flex-direction: row;
     padding-left: 10px;
     padding-right: 10px;
 }
 
 #logo:hover {
-    color: black;
-    text-decoration: underline;
+    color: rgb(249 115 22);
+    text-decoration: none;
 }

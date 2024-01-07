@@ -1,4 +1,7 @@
-import NavItemSelected from "./home/index.js";
+import {NavItemSelected, SideNavCollapse} from './home/index.js';
 
-NavItemSelected();
-console.log("App is loaded");
+document.addEventListener('DOMContentLoaded', function () {
+    NavItemSelected();
+    SideNavCollapse();
+    console.log("App is loaded");
+}, false);
