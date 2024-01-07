@@ -7,5 +7,8 @@ import (
 
 // RegisterRoutes configures the available Web server routes.
 func RegisterRoutes(r *gin.Engine) {
-	r.GET("/ping", home.Home)
+	r.GET("/home", home.Home)
+	r.GET("/favourite", home.Favourite)
+	r.GET("/archived", home.Archived)
+	r.GET("/", home.Home)
 }

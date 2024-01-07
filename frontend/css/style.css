@@ -4,13 +4,14 @@ body {
 
 #logo {
     font-family: 'Montserrat', cursive;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-style: italic;
     font-weight: bolder;
     cursor: default;
     color: dodgerblue;
     flex-direction: row;
-    padding-left: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #logo:hover {
