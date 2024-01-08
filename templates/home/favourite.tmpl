@@ -1,11 +1,11 @@
 {{template "layout/base" .}}
 <div class="flex min-h-screen flex-row bg-gray-100 text-gray-800">
   {{template "layout/nav" .}}
-    <main class="main -ml-48 flex flex-grow flex-col transition-all duration-150 ease-in md:ml-0">
-      <div class="flex-col py-3 px-2 bg-white">
-          {{template "layout/nav_bar_opener" .}}
-          {{template "layout/search" .}}
-      </div>
-    </main>
+  <main class="main -ml-48 flex flex-grow flex-col duration-150 ease-out md:ml-0">
+    <div class="flex flex-row py-3 px-2 bg-white border-l-2 border-r-2 border-gray-200">
+        {{template "layout/nav_bar_opener" .}}
+        {{template "layout/search" .}}
+    </div>
+  </main>
 </div>
 {{template "footer" .}}

@@ -13,6 +13,7 @@ func Home(c *gin.Context) {
 func Favourite(c *gin.Context) {
 	c.HTML(http.StatusOK, "favourite.tmpl", nil)
 }
+
 func Archived(c *gin.Context) {
 	c.HTML(http.StatusOK, "archived.tmpl", nil)
 }
