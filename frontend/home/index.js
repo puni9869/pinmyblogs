@@ -30,5 +30,6 @@ export function SideNavCollapse() {
     }
     sideNavOpener.addEventListener('click', (e) => {
         sideNav.classList.toggle('hidden');
+        sideNavOpener.classList.toggle('text-orange-500');
     });
 }
