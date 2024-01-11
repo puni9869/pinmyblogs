@@ -29,5 +29,5 @@ func OK(c *gin.Context) {
 	log := logger.NewLogger()
 	p := c.Request.URL
 	log.Infof("%#v", p)
-	c.HTML(http.StatusInternalServerError, "error/500", nil)
+	c.String(http.StatusOK, "OK")
 }
