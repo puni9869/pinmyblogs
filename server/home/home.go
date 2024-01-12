@@ -18,6 +18,10 @@ func Archived(c *gin.Context) {
 	c.HTML(http.StatusOK, "archived.tmpl", nil)
 }
 
+func Trash(c *gin.Context) {
+	c.HTML(http.StatusOK, "trash.tmpl", nil)
+}
+
 func Favicon(c *gin.Context) {
 	c.String(http.StatusOK, "OK")
 }

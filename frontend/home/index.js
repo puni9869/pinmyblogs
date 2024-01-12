@@ -4,6 +4,7 @@ const navUrl = {
   '/archived': 'archived',
   '/favourite': 'favourite',
   '/setting': 'setting',
+  '/trash': 'trash',
   '/login': 'login'
 };
 

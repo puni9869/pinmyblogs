@@ -22,6 +22,7 @@ func RegisterRoutes(r *gin.Engine) {
 	r.GET("/home", home.Home)
 	r.GET("/favourite", home.Favourite)
 	r.GET("/archived", home.Archived)
+	r.GET("/trash", home.Trash)
 
 	// setting handler
 	r.GET("/setting", setting.Setting)
