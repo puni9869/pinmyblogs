@@ -2,12 +2,17 @@
 <div class="flex h-full justify-center mx-6">
   <div class="flex flex-col w-7/12 bg-white">
     <div class="border-t-2 border-gray-200"></div>
-    <div class="flex flex-row px-2 py-2 items-center">
-      <input type="checkbox" id="select_all" class="h-4 w-4 mr-1 accent-orange-600 focus:accent-orange-600"/>
-      <label for="select_all" class="text-gray-700 text-sm select-none">Select all</p>
+    <div class="flex flex-row px-2 py-2">
+      <div class="flex items-center justify-center">
+        <input type="checkbox" id="select_all" class="h-4 w-4 mr-1 accent-orange-600 hover:accent-orange-600" />
+        <label for="select_all" class="text-gray-700 text-md select-none">Select all</label>
+      </div>
+      <div class="flex ml-auto border-gray-200">
+        {{template "widget/sort" .}}
+      </div>
     </div>
+
     <div class="border-t-2 border-gray-200"></div>
   </div>
 </div>
 {{end}}
-
