@@ -2,22 +2,70 @@
 <div class="flex h-full justify-center mx-6">
   <div class="flex flex-col w-7/12 bg-white">
     <div class="border-t-2 border-gray-200"></div>
-    <div class="flex flex-row px-2 py-2 group">
+    <div class="flex flex-row px-3 py-2 group">
       <div class="flex items-center justify-center">
-       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-6 w-6 text-orange-400 mr-1 group-hover:text-orange-600">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077 1.41-.513m14.095-5.13 1.41-.513M5.106 17.785l1.15-.964m11.49-9.642 1.149-.964M7.501 19.795l.75-1.3m7.5-12.99.75-1.3m-6.063 16.658.26-1.477m2.605-14.772.26-1.477m0 17.726-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205 12 12m6.894 5.785-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495"
-        />
-      </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.7" stroke="currentColor" class="h-6 w-6 text-orange-400 mr-1 group-hover:text-orange-600">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z"
+          />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
         <label class="text-gray-700 text-md select-none">
-            Setting
+          Setting
         </label>
       </div>
     </div>
     <div class="border-t-2 border-gray-200"></div>
-    <div class="bg-gray-200 h-fit flex flex-col items-center justify-start">
+    <div class="h-fit px-4 py-2 flex flex-col items-start justify-start">
+      <div class="leading-relaxed text-pretty" id="account-setting">
+        <p class="mt-2 border-b-4 border-gray-500 text-2xl w-fit select-none">Account</p>
+        <div class="mt-4">
+          <p class="mb-3 text-md">
+            Your current email-id is
+            <span class="border-b-2 px-2 text-md border-gray-500 border-dashed text-black text-md"> hello@pinmyblogs.com</span> .
+            <span class="text-blue-400 cursor-pointer hover:underline hover:underline-offset-4">Change Email</span>
+          </p>
+
+          <p class="select-none">
+            Your current password is <span class="px-2 border-b-2 border-gray-500 border-dashed text-grey-300">********</span>.
+            <span class="ml-2 text-blue-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Change Password</span> or
+            <span class="text-blue-400 cursor-pointer select-none hover:underline hover:underline-offset-4">Forget Password?</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-6"></div>
+
+      <div class="leading-relaxed text-pretty" id="profile-setting">
+        <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">Profile</p>
+        <div class="mt-4">
+          <p class="mb-3 text-md">
+            Your display name is
+            <span class="border-b-2 px-2 text-md border-gray-500 border-dashed text-black text-md">hello</span> .
+            <span class="text-blue-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Change Display Name</span>
+          </p>
+
+          <p class="">
+            Your username is <span class="text-gray-500 italic">pinmyblogs.com/</span><span class="px-2 border-b-2 border-gray-500 border-dashed text-grey-300">punitinani1</span>
+            <span class="ml-2 text-blue-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Change Profile Name</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="mb-6"></div>
+      <div class="leading-relaxed text-pretty" id="delect-account-setting">
+        <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">Delete Account</p>
+        <div class="mt-4">
+          <p class="mb-3 text-md">
+            I have no interest in utilizing
+            <a class="pl-1 italic text-blue-400 hover:underline hover:underline-offset-4 cursor-pointer" href="http://pinmyblogs.com" target="_blank">pinmyblogs.com</a>.
+            I am aware that this action will result in the complete deletion of all my data.
+            <span class="font-bold italic">I authorize the removal of my account, along with all associated data.</span><span class="h-5 w-5">&#128542;</span>
+          <p><span class="text-red-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Delete My Account</span></p>
+        </div>
+      </div>
     </div>
   </div>
 </div>
