@@ -16,9 +16,10 @@ func RegisterRoutes(r *gin.Engine) {
 	r.Any("/logout", auth.Logout)
 	r.POST("/login", auth.Login)
 	r.GET("/login", auth.Login)
+	r.GET("/signup", auth.Signup)
 
 	// navbar handler
-	r.GET("/", home.Home)
+	r.GET("/", auth.Login)
 	r.GET("/home", home.Home)
 	r.GET("/favourite", home.Favourite)
 	r.GET("/archived", home.Archived)

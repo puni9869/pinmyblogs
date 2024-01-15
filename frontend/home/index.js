@@ -19,8 +19,8 @@ export function NavItemSelected() {
   if (!selector) {
     return;
   }
-  selector.classList.add('text-orange-500');
-  selector.querySelector('svg').classList.add('text-orange-500');
+  selector.classList.add('text-indigo-500');
+  selector.querySelector('svg').classList.add('text-indigo-500');
   console.log('NavBar loaded...', navUrl[window.location.pathname]);
   console.log('NavBar selected item ', selector);
 }
@@ -33,6 +33,6 @@ export function SideNavCollapse() {
   }
   sideNavOpener.addEventListener('click', (e) => {
     sideNav.classList.toggle('hidden');
-    sideNavOpener.classList.toggle('text-orange-500');
+    sideNavOpener.classList.toggle('text-indigo-500');
   });
 }
