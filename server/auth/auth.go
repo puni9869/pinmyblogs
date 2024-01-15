@@ -10,7 +10,7 @@ func Login(c *gin.Context) {
 }
 
 func Logout(c *gin.Context) {
-	c.String(http.StatusOK, "Logging out...")
+	c.Redirect(http.StatusFound, "/login")
 }
 
 func Signup(c *gin.Context) {

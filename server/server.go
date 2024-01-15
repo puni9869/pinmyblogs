@@ -29,5 +29,5 @@ func RegisterRoutes(r *gin.Engine) {
 	r.GET("/setting", setting.Setting)
 
 	// this route will accept all the params
-	r.NoRoute(home.OK)
+	r.NoRoute(home.Home)
 }
