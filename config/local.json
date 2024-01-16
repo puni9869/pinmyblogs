@@ -1,0 +1,23 @@
+{
+  "environment": "local",
+  "appConfig": {
+    "debug": true,
+    "secretKey": "APP_SECRET_KEY",
+    "defaultPort": "8080",
+    "customPort": "",
+    "useCDN": false,
+    "hostname": "localhost"
+  },
+  "database": {
+    "type": "postgres",
+    "username": "username",
+    "password": "password",
+    "port": "5432",
+    "databaseName": "pinmyblogs"
+  },
+  "enableSsl": false,
+  "authentication": {
+    "enableLogin": true,
+    "enableRegistration": true
+  }
+}

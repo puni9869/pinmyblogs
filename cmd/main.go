@@ -27,7 +27,7 @@ const appName = "Pinmyblogs"
 const appAbout = "Pinmyblogs®"
 const appEdition = "ce"
 const appDescription = "Pinmyblogs is the url saving website."
-const appCopyright = "(c) 2017-2023 Pinmyblogs. All rights reserved."
+const appCopyright = "(c) 2017-2024 Pinmyblogs. All rights reserved."
 
 // Metadata contains build specific information.
 var Metadata = map[string]interface{}{

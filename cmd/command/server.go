@@ -2,9 +2,14 @@ package command
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/puni9869/pinmyblogs/pkg/config"
+	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/server"
 	"github.com/urfave/cli"
+	"os"
 )
+
+var environmentKey = "ENVIRONMENT"
 
 // Server configures the command name and action.
 var Server = cli.Command{
@@ -16,8 +21,21 @@ var Server = cli.Command{
 
 // versionAction prints the current version
 func startAction(ctx *cli.Context) error {
+	log := logger.NewLogger()
+	e := os.Getenv(environmentKey)
+	if err := config.LoadConfig(e); err != nil {
+		return err
+	}
+	log.Infof("Loading environment... %s", config.GetEnv())
+	log.Infof("App config loaded...")
+
 	router := gin.Default()
-	gin.SetMode(gin.DebugMode)
+
+	if config.C.AppConfig.Debug {
+		gin.SetMode(gin.DebugMode)
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+	}
 
 	// Serve the static content like *.js, *.css, *.icon, *.img
 	router.Static("/statics", "./frontend")
@@ -25,6 +43,7 @@ func startAction(ctx *cli.Context) error {
 	// Serve the templates strict to the extension *.tmpl
 	router.LoadHTMLGlob("templates/*/**.tmpl")
 	server.RegisterRoutes(router)
+
 	err := router.Run()
 	if err != nil {
 		panic(err)
