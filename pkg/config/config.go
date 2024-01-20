@@ -45,17 +45,21 @@ type ConfigProvider struct {
 
 var C ConfigProvider
 
-func LoadConfig(env string) error {
-	if len(env) == 0 {
-		return errors.New("environment is not provided. ie. local or prod")
-	}
-	var err error
-	for _, e := range environments {
-		if environment == e {
-			break
+func contains(source []string, target string) bool {
+	for _, s := range source {
+		if s == target {
+			return true
 		}
 	}
+	return false
+}
 
+func LoadConfig(env string) error {
+	if !contains(environments, env) {
+		return errors.New("environment is not provided. ie. local or prod")
+	}
+
+	var err error
 	viper.SetConfigName(environment)
 	// load from the config directory
 	viper.AddConfigPath(GetDefaultPath())
