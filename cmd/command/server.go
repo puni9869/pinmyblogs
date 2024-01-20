@@ -29,14 +29,13 @@ func startAction(ctx *cli.Context) error {
 	log.Infof("Loading environment... %s", config.GetEnv())
 	log.Infof("App config loaded...")
 
-	router := gin.Default()
-
 	if config.C.AppConfig.Debug {
 		gin.SetMode(gin.DebugMode)
 	} else {
 		gin.SetMode(gin.ReleaseMode)
-	}
 
+	}
+	router := gin.Default()
 	// Serve the static content like *.js, *.css, *.icon, *.img
 	router.Static("/statics", "./frontend")
 

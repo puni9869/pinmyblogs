@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	environment  = "local"
+	defaultEnv   = "local"
 	defaultPath  = "./config"
 	environments = []string{"local", "prod"}
 )
@@ -54,13 +54,14 @@ func contains(source []string, target string) bool {
 	return false
 }
 
-func LoadConfig(env string) error {
-	if !contains(environments, env) {
+func LoadConfig(environment string) error {
+	if !contains(environments, environment) {
 		return errors.New("environment is not provided. ie. local or prod")
 	}
 
 	var err error
 	viper.SetConfigName(environment)
+
 	// load from the config directory
 	viper.AddConfigPath(GetDefaultPath())
 	if err = viper.ReadInConfig(); err != nil {
@@ -70,6 +71,7 @@ func LoadConfig(env string) error {
 	if err != nil {
 		return err
 	}
+	defaultEnv = environment
 	return nil
 }
 
@@ -82,7 +84,7 @@ func GetStringMap(key string) map[string]any {
 }
 
 func GetEnv() string {
-	return environment
+	return defaultEnv
 }
 
 func GetDefaultPath() string {
