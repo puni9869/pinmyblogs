@@ -27,13 +27,13 @@ func startAction(ctx *cli.Context) error {
 		return err
 	}
 	log.Infof("Loading environment... %s", config.GetEnv())
-	log.Infof("App config loaded...")
+	log.Infoln("App config loaded...")
 
 	if config.C.AppConfig.Debug {
 		gin.SetMode(gin.DebugMode)
 	} else {
 		gin.SetMode(gin.ReleaseMode)
-
+		log.Infof("Web server will listen on port: %s", config.C.AppConfig.DefaultPort)
 	}
 	router := gin.Default()
 	// Serve the static content like *.js, *.css, *.icon, *.img
