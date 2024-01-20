@@ -35,15 +35,15 @@ type Authentication struct {
 	EnableRegistration bool `json:"enableRegistration"`
 }
 
-// Provider ie converted value in go types
-type Provider struct {
+// ConfigProvider ie converted value in go types
+type ConfigProvider struct {
 	EnableSSL      bool           `json:"enableSSL"`
 	Database       Database       `json:"database"`
 	AppConfig      AppConfig      `json:"appConfig"`
 	Authentication Authentication `json:"authentication"`
 }
 
-var C Provider
+var C ConfigProvider
 
 func LoadConfig(env string) error {
 	if len(env) == 0 {
