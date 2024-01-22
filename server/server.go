@@ -2,11 +2,9 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/server/auth"
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/setting"
-	"gorm.io/gorm"
 )
 
 // RegisterRoutes configures the available Web server routes.
@@ -32,9 +30,4 @@ func RegisterRoutes(r *gin.Engine) {
 
 	// this route will accept all the params
 	r.NoRoute(home.Home)
-}
-
-// RegisterModels configures the available models.
-func RegisterModels(db *gorm.DB) {
-	_ = db.AutoMigrate(&models.User{})
 }

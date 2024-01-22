@@ -2,6 +2,8 @@ package auth
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/puni9869/pinmyblogs/models"
+	"github.com/puni9869/pinmyblogs/pkg/database"
 	"net/http"
 )
 
@@ -14,5 +16,8 @@ func Logout(c *gin.Context) {
 }
 
 func Signup(c *gin.Context) {
+	user := models.User{Name: "Jinzhu", Age: 1}
+	db := database.Db()
+	db.Create(&user)
 	c.HTML(http.StatusOK, "signup.tmpl", nil)
 }

@@ -38,15 +38,15 @@ func startAction(ctx *cli.Context) error {
 		return err
 	}
 
+	_ = database.RegisterModels(db)
+
+	// webapp apply debug level
 	if config.C.AppConfig.Debug {
 		gin.SetMode(gin.DebugMode)
-		db.Debug()
 	} else {
 		gin.SetMode(gin.ReleaseMode)
 		log.Infof("Web server will listen on port: %s", config.C.AppConfig.DefaultPort)
 	}
-	// register all the models
-	server.RegisterModels(db)
 
 	router := gin.Default()
 	// Serve the static content like *.js, *.css, *.icon, *.img

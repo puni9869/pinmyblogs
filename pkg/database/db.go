@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -11,7 +12,11 @@ import (
 	"time"
 )
 
-func NewDBLogger() logger.Interface {
+// dbObj instance of database
+var dbObj *gorm.DB
+
+// NewLogger is the logger configuration for sql
+func NewLogger() logger.Interface {
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
@@ -39,7 +44,7 @@ func NewConnection(cfg *config.Database) (*gorm.DB, error) {
 	var dbLogger logger.Interface
 
 	if cfg.LogSql {
-		dbLogger = NewDBLogger()
+		dbLogger = NewLogger()
 	}
 	ormConfig := gorm.Config{
 		Logger: dbLogger,
@@ -48,5 +53,16 @@ func NewConnection(cfg *config.Database) (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
+	dbObj = db
 	return db, nil
+}
+
+// RegisterModels configures the available models.
+func RegisterModels(db *gorm.DB) *gorm.DB {
+	_ = db.AutoMigrate(&models.User{})
+	return db
+}
+
+func Db() *gorm.DB {
+	return dbObj
 }
