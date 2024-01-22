@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/puni9869/pinmyblogs/models"
@@ -13,8 +14,12 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-// dbObj is the instance of the database
-var dbObj *gorm.DB
+var (
+	// dbObj is the instance of the database
+	dbObj     *gorm.DB
+	once      sync.Once
+	dbObjLock sync.Mutex
+)
 
 // NewLogger returns the SQL logger configuration
 func NewLogger() logger.Interface {
@@ -58,7 +63,11 @@ func NewConnection(cfg *config.Database) (*gorm.DB, error) {
 	}
 
 	dbObj = db
-	return db, nil
+
+	once.Do(func() {
+		dbObj = db
+	})
+	return dbObj, nil
 }
 
 // RegisterModels configures the available models
