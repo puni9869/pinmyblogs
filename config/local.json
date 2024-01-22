@@ -10,10 +10,12 @@
   },
   "database": {
     "type": "postgres",
-    "username": "username",
-    "password": "password",
+    "host": "127.0.0.1",
+    "username": "puni9869",
+    "password": "",
     "port": "5432",
-    "databaseName": "pinmyblogs"
+    "databaseName": "pinmyblogs",
+    "logSql": true
   },
   "enableSsl": false,
   "authentication": {

@@ -24,10 +24,12 @@ type AppConfig struct {
 // Database is the "database"
 type Database struct {
 	Type         string `json:"type"`
+	Host         string `json:"host"`
 	Username     string `json:"username"`
 	Password     string `json:"password"`
 	Port         string `json:"port"`
 	DatabaseName string `json:"databaseName"`
+	LogSql       bool   `json:"logSql"`
 }
 
 type Authentication struct {
