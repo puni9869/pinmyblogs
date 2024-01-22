@@ -16,9 +16,8 @@ import (
 
 var (
 	// dbObj is the instance of the database
-	dbObj     *gorm.DB
-	once      sync.Once
-	dbObjLock sync.Mutex
+	dbObj *gorm.DB
+	once  sync.Once
 )
 
 // NewLogger returns the SQL logger configuration
