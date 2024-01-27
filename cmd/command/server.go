@@ -2,6 +2,7 @@ package command
 
 import (
 	"github.com/gin-contrib/cors"
+	gormsessions "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/database"
@@ -41,6 +42,10 @@ func startAction(ctx *cli.Context) error {
 
 	_ = database.RegisterModels(db)
 
+	// sessionStore is store in database for session values
+	sessionStore := gormsessions.NewStore(db, true, []byte("secret"))
+
+	//CSRF := csrf.Protect([]byte("32-byte-long-auth-key"))
 	// webapp apply debug level
 	if config.C.AppConfig.Debug {
 		gin.SetMode(gin.DebugMode)
@@ -52,18 +57,17 @@ func startAction(ctx *cli.Context) error {
 	router := gin.Default()
 	// Serve the static content like *.js, *.css, *.icon, *.img
 	router.Static("/statics", "./frontend")
-
 	// Serve the templates strict to the extension *.tmpl
 	router.LoadHTMLGlob("templates/*/**.tmpl")
 	// register all the server routes
-	server.RegisterRoutes(router)
-	//router.Use(setCors())
+	server.RegisterRoutes(router, sessionStore)
 	err = router.Run()
 	if err != nil {
 		panic(err)
 	}
 	return nil
 }
+
 func setCors() gin.HandlerFunc {
 	// - No origin allowed by default
 	// - GET,POST, PUT, HEAD methods
