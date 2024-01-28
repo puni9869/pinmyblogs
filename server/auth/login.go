@@ -2,54 +2,42 @@ package auth
 
 import (
 	"fmt"
-	"net/http"
-	"strings"
-
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-
-	"github.com/puni9869/pinmyblogs/models"
-	"github.com/puni9869/pinmyblogs/pkg/database"
+	"net/http"
 )
-
-const userkey = "user"
 
 func LoginPost(c *gin.Context) {
 	session := sessions.Default(c)
 	username := c.PostForm("email")
 	password := c.PostForm("password")
 
-	// Validate form input
-	if strings.Trim(username, " ") == "" || strings.Trim(password, " ") == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Parameters can't be empty"})
-		return
-	}
-
-	// Check for username and password match, usually from a database
+	// Validate form input and check authentication
 	if username != "hello" || password != "itsme" {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication failed"})
 		return
 	}
 
 	// Save the username in the session
-	session.Set(userkey, username) // In real world usage you'd set this to the users ID
+	session.Set(userkey, username)
 	if err := session.Save(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
 		return
 	}
-	c.Redirect(http.StatusTemporaryRedirect, "/home")
+	fmt.Println(c.Request.URL.Path)
+	// Redirect to the home route upon successful login
+	c.HTML(http.StatusAccepted, "home.tmpl", nil)
 }
 
 func LoginGet(c *gin.Context) {
 	session := sessions.Default(c)
 	user := session.Get(userkey)
-	fmt.Println(user)
 	if user == nil {
 		c.HTML(http.StatusOK, "login.tmpl", nil)
-		c.Abort()
+		return
 	}
 	fmt.Println("Escape Get")
-	c.Redirect(http.StatusTemporaryRedirect, "/home")
+	c.HTML(http.StatusAccepted, "home.tmpl", nil)
 }
 
 // Logout is the handler called for the user to log out.
@@ -57,7 +45,8 @@ func Logout(c *gin.Context) {
 	session := sessions.Default(c)
 	user := session.Get(userkey)
 	if user == nil {
-		c.HTML(http.StatusBadRequest, "index.tmpl", nil)
+		c.Redirect(http.StatusTemporaryRedirect, "/login")
+		c.Abort()
 		return
 	}
 
@@ -68,11 +57,5 @@ func Logout(c *gin.Context) {
 	}
 	c.HTML(http.StatusOK, "index.tmpl", nil)
 	c.Abort()
-}
-
-func Signup(c *gin.Context) {
-	user := models.User{Name: "Jinzhu", Age: 1}
-	db := database.Db()
-	db.Create(&user)
-	c.HTML(http.StatusOK, "signup.tmpl", nil)
+	return
 }

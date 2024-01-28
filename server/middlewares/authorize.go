@@ -9,16 +9,17 @@ import (
 
 const userkey = "user"
 
-// AuthRequired is a simple middleware to check the session.
 func AuthRequired(c *gin.Context) {
 	session := sessions.Default(c)
 	user := session.Get(userkey)
-	fmt.Println("AuthRequired")
 	if user == nil {
-		// Abort the request with the appropriate error code
+		// Redirect to the login page if not authenticated
 		c.Redirect(http.StatusTemporaryRedirect, "/login")
+		c.Abort()
 		return
 	}
-	// Continue down the chain to handler etc
-	c.Next()
+	// Continue down the chain to the handler, etc.
+	fmt.Println(c.HandlerNames())
+	c.Handler()
+	return
 }

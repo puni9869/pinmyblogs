@@ -1,7 +1,6 @@
 package server
 
 import (
-	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/server/auth"
@@ -12,8 +11,8 @@ import (
 
 // RegisterRoutes configures the available Web server routes.
 func RegisterRoutes(r *gin.Engine, sessionStore gorm.Store) {
-	r.Use(middlewares.Cors())
-	r.Use(sessions.Sessions("session", sessionStore))
+	//r.Use(middlewares.Cors())
+	r.Use(middlewares.Session(sessionStore))
 	// diagnose url
 	r.GET("/health", home.Health)
 
@@ -24,18 +23,18 @@ func RegisterRoutes(r *gin.Engine, sessionStore gorm.Store) {
 	r.GET("/logout", auth.Logout)
 
 	authRouters := r.Group("")
-	authRouters.Use(middlewares.AuthRequired)
 	{
-		// navbar handler
-		authRouters.GET("/", home.Home)
+		authRouters.Use(middlewares.AuthRequired)
 		authRouters.GET("/home", home.Home)
 		authRouters.GET("/favourite", home.Favourite)
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
 		// setting handler
 		authRouters.GET("/setting", setting.Setting)
+		// navbar handler
+		authRouters.GET("/", home.Home)
 	}
 
 	// this route will accept all the params
-	r.NoRoute(home.Home)
+	r.NoRoute(auth.LoginGet)
 }
