@@ -8,10 +8,8 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/database"
 )
 
-const userkey = "user"
-
 func Signup(c *gin.Context) {
-	user := models.User{Name: "Jinzhu", Age: 1}
+	user := models.User{FirstName: "Matt", LastName: "R"}
 	db := database.Db()
 	db.Create(&user)
 	c.HTML(http.StatusOK, "signup.tmpl", nil)

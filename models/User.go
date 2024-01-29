@@ -1,18 +1,21 @@
 package models
 
 import (
-	"database/sql"
 	"time"
 )
 
 type User struct {
-	ID           uint           // Standard field for the primary key
-	Name         string         // A regular string field
-	Email        *string        // A pointer to a string, allowing for null values
-	Age          uint8          // An unsigned 8-bit integer
-	Birthday     *time.Time     // A pointer to time.Time, can be null
-	MemberNumber sql.NullString // Uses sql.NullString to handle nullable strings
-	ActivatedAt  sql.NullTime   // Uses sql.NullTime for nullable time fields
-	CreatedAt    time.Time      // Automatically managed by GORM for creation time
-	UpdatedAt    time.Time      // Automatically managed by GORM for update time
+	ID              uint      // Standard field for the primary key
+	FirstName       string    // A regular string field
+	LastName        string    // A regular string field
+	DisplayName     string    // public displayname
+	Password        string    // Password is a type of hash
+	EmailVerifyHash string    // Email verification hash
+	IsEmailVerified bool      // Verify the email for first time
+	IsActive        bool      // Active or InActive means temporary disable account
+	IsProfilePublic bool      // Profile is public or private
+	Email           string    // A pointer to a string, allowing for null values
+	ActivatedAt     time.Time // Uses time.Time for nullable time fields
+	CreatedAt       time.Time // Automatically managed by GORM for creation time
+	UpdatedAt       time.Time // Automatically managed by GORM for update time
 }

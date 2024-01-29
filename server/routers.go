@@ -24,7 +24,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore gorm.Store) {
 
 	authRouters := r.Group("")
 	{
-		authRouters.Use(middlewares.AuthRequired)
+		//authRouters.Use(middlewares.AuthRequired)
 		authRouters.GET("/home", home.Home)
 		authRouters.GET("/favourite", home.Favourite)
 		authRouters.GET("/archived", home.Archived)
