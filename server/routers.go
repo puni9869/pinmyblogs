@@ -16,7 +16,8 @@ func RegisterRoutes(r *gin.Engine, sessionStore gorm.Store) {
 	// diagnose url
 	r.GET("/health", home.Health)
 
-	r.GET("/signup", auth.Signup)
+	r.GET("/signup", auth.SignupGet)
+	r.POST("/signup", auth.SignupPost)
 	// auth urls
 	r.GET("/login", auth.LoginGet)
 	r.POST("/login", auth.LoginPost)

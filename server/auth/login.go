@@ -7,6 +7,8 @@ import (
 	"net/http"
 )
 
+const userkey = "user"
+
 func LoginPost(c *gin.Context) {
 	session := sessions.Default(c)
 	username := c.PostForm("email")
