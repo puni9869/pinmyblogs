@@ -1,6 +1,7 @@
 package formbinding
 
 import (
+	"fmt"
 	"reflect"
 	"strings"
 
@@ -78,7 +79,8 @@ func GetInclude(field reflect.StructField) string {
 
 // Validate validates the form
 func Validate(errs binding.Errors, f Form) binding.Errors {
-	var data map[string]any
+	fmt.Printf("Hrre")
+	var data = make(map[string]any)
 	if errs.Len() == 0 {
 		return errs
 	}

@@ -2,7 +2,6 @@ package signup
 
 import (
 	"gitea.com/go-chi/binding"
-	"github.com/puni9869/pinmyblogs/pkg/formbinding"
 	"github.com/puni9869/pinmyblogs/types/forms"
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
@@ -21,7 +20,7 @@ func GetForm(dataStore map[string]any) any {
 
 type SignupService interface {
 	Register()
-	ValidateForm(r *http.Request)
+	ValidateForm(r *http.Request) binding.Errors
 	CheckPassword()
 	CheckEmail()
 	IsActive()
@@ -38,13 +37,16 @@ func (c *signupClient) Register() {
 	c.log.Infoln("Register")
 }
 
-func (c *signupClient) ValidateForm(r *http.Request) {
+func (c *signupClient) ValidateForm(r *http.Request) binding.Errors {
 	// create a new form obj for every request but not use obj directly
 	theObj := new(forms.SignUpForm)
-	var data map[string]any
+	var data = new(map[string]any)
 	binding.Bind(r, theObj)
+	c.log.Infof("%T", theObj)
 	SetForm(data, theObj)
-	formbinding.AssignForm(theObj, data)
+	//formbinding.AssignForm(theObj, data)
+	//var errs binding.Errors
+	return nil
 }
 
 func (c *signupClient) CheckPassword() {
