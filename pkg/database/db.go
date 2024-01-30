@@ -62,7 +62,7 @@ func NewConnection(cfg *config.Database) (*gorm.DB, error) {
 	}
 
 	dbObj = db
-
+	// making an object singleton
 	once.Do(func() {
 		dbObj = db
 	})

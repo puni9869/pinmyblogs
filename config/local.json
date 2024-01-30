@@ -11,7 +11,7 @@
   "database": {
     "type": "postgres",
     "host": "127.0.0.1",
-    "username": "punitinani",
+    "username": "puni9869",
     "password": "",
     "port": "5432",
     "databaseName": "pinmyblogs",
