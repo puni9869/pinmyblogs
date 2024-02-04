@@ -55,9 +55,8 @@ func Logout(c *gin.Context) {
 	session.Delete(userkey)
 	if err := session.Save(); err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
-		return
+		c.Abort()
 	}
 	c.HTML(http.StatusOK, "index.tmpl", nil)
 	c.Abort()
-	return
 }

@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -16,10 +15,7 @@ func AuthRequired(c *gin.Context) {
 		// Redirect to the login page if not authenticated
 		c.Redirect(http.StatusTemporaryRedirect, "/login")
 		c.Abort()
-		return
 	}
 	// Continue down the chain to the handler, etc.
-	fmt.Println(c.HandlerNames())
 	c.Handler()
-	return
 }

@@ -9,6 +9,7 @@ import (
 	"github.com/puni9869/pinmyblogs/server/auth"
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
+	"github.com/puni9869/pinmyblogs/types/forms"
 )
 
 // RegisterRoutes configures the available Web server routes.
@@ -23,7 +24,10 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	r.GET("/health", home.Health)
 
 	r.GET("/signup", auth.SignupGet)
-	r.POST("/signup", auth.SignupPost(signupService))
+	r.POST("/signup",
+		middlewares.BindForm(forms.SignUpForm{}),
+		auth.SignupPost(signupService),
+	)
 	// auth urls
 	r.GET("/login", auth.LoginGet)
 	r.POST("/login", auth.LoginPost)
