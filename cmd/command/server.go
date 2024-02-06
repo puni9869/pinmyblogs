@@ -1,7 +1,6 @@
 package command
 
 import (
-	"github.com/gin-contrib/cors"
 	gormsessions "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/pkg/config"
@@ -66,16 +65,4 @@ func startAction(ctx *cli.Context) error {
 		panic(err)
 	}
 	return nil
-}
-
-func setCors() gin.HandlerFunc {
-	// - No origin allowed by default
-	// - GET,POST, PUT, HEAD methods
-	// - Credentials share disabled
-	// - Preflight requests cached for 12 hours
-	corsConfig := cors.DefaultConfig()
-	//corsConfig.AllowOrigins = []string{"http://google.com"}
-	// config.AllowOrigins = []string{"http://google.com", "http://facebook.com"}
-	//config.AllowAllOrigins = true
-	return cors.New(corsConfig)
 }
