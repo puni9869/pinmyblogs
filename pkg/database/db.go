@@ -70,9 +70,14 @@ func NewConnection(cfg *config.Database) (*gorm.DB, error) {
 }
 
 // RegisterModels configures the available models
-func RegisterModels(db *gorm.DB) *gorm.DB {
-	_ = db.AutoMigrate(&models.User{})
-	return db
+func RegisterModels(db *gorm.DB) {
+	// m is list of all the database models
+	m := []any{
+		&models.User{},
+	}
+	if err := db.AutoMigrate(m...); err != nil {
+		panic(err)
+	}
 }
 
 // Db returns the global database instance

@@ -23,8 +23,13 @@ var Server = cli.Command{
 
 // versionAction prints the current version
 func startAction(ctx *cli.Context) error {
-	log := logger.NewLogger()
 	var err error
+	log := logger.NewLogger()
+	defer func() {
+		if err := recover(); err != nil {
+			log.Error(err)
+		}
+	}()
 	e := os.Getenv(environmentKey)
 	if err = config.LoadConfig(e); err != nil {
 		return err
@@ -39,7 +44,7 @@ func startAction(ctx *cli.Context) error {
 		return err
 	}
 
-	_ = database.RegisterModels(db)
+	database.RegisterModels(db)
 
 	// sessionStore is store in database for session values
 	sessionStore := gormsessions.NewStore(db, true, []byte("secret"))
@@ -53,16 +58,18 @@ func startAction(ctx *cli.Context) error {
 		log.Infof("Web server will listen on port: %s", config.C.AppConfig.DefaultPort)
 	}
 
-	router := gin.Default()
+	r := gin.New()
+	r.Use(gin.Logger(), gin.Recovery())
+
 	// Serve the static content like *.js, *.css, *.icon, *.img
-	router.Static("/statics", "./frontend")
+	r.Static("/statics", "./frontend")
 	// Serve the templates strict to the extension *.tmpl
-	router.LoadHTMLGlob("templates/*/**.tmpl")
+	r.LoadHTMLGlob("templates/*/**.tmpl")
 	// register all the server routes
-	server.RegisterRoutes(router, sessionStore)
-	err = router.Run()
+	server.RegisterRoutes(r, sessionStore)
+	err = r.Run()
 	if err != nil {
-		panic(err)
+		return err
 	}
 	return nil
 }
