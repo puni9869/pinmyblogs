@@ -19,7 +19,6 @@ func LoginPost(c *gin.Context) {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication failed"})
 		return
 	}
-
 	// Save the username in the session
 	session.Set(userkey, username)
 	if err := session.Save(); err != nil {
