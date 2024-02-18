@@ -28,17 +28,13 @@ type signupClient struct {
 func (s *signupClient) Register(c *gin.Context, user models.User) error {
 	ctx := middlewares.GetContext(c)
 	err := s.db.Create(&user).Error
-	if errors.Is(err, gorm.ErrDuplicatedKey) {
+	if err != nil {
 		s.log.WithError(err).Error("failed to create user")
 		ctx["Email_HasError"] = true
-		ctx["Email_Err"] = ErrDuplicateEmail.Error()
+		ctx["Email_Error"] = ErrDuplicateEmail.Error()
 		ctx["Password_HasError"] = false
 		ctx["ConfirmPassword_HasError"] = false
 		return ErrDuplicateEmail
-	}
-	if err != nil {
-		s.log.WithError(err).Error("failed to create user")
-		return err
 	}
 	s.log.Infoln("user is created successfully")
 	return nil

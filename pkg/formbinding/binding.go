@@ -53,7 +53,6 @@ func Errorf(data gin.H, errs validator.ValidationErrors) map[string]any {
 	if len(errs) == 0 {
 		return nil
 	}
-	data["HasError"] = false
 	var f Field = new(FieldErrors)
 	for _, err := range errs {
 		data[err.Field()+"_Error"] = fmt.Sprintf("%s%s", err.Field(), f.Error(err.Tag()))

@@ -43,6 +43,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 		ctx["email"] = email
 		ctx["password"] = password
 		ctx["confirm_password"] = confirmPassword
+
 		// password check
 		if ctx["Email_HasError"] == false || field.IsValid(password) == false {
 			ctx["Password_HasError"] = true
@@ -65,18 +66,10 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 			h.Write([]byte(password))
 			bs := h.Sum(nil)
 
-			user := models.User{
-				FirstName:       "",
-				LastName:        "",
-				DisplayName:     "",
-				Password:        fmt.Sprintf("%x", bs),
-				EmailVerifyHash: "",
-				IsEmailVerified: false,
-				IsActive:        false,
-				IsProfilePublic: false,
-				Email:           email,
-			}
-			if err := signUp.Register(c, user); err != nil {
+			user := models.User{Password: fmt.Sprintf("%x", bs), Email: email}
+
+			if err := signUp.Register(c, user); err == nil {
+				ctx["HasError"] = true
 				log.WithError(err).Error("error in registering user")
 			}
 		}
