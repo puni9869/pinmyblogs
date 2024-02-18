@@ -29,6 +29,7 @@ func GetContext(c *gin.Context) gin.H {
 // BindForm binding a form obj to a handler's context data
 func BindForm[T any](_ T) gin.HandlerFunc {
 	return func(c *gin.Context) {
+		c.Set(ContextKey, make(map[string]any))
 		var theObj = new(T) // create a new form obj for every request but not use obj directly
 		if errs := c.ShouldBindWith(theObj, binding.Form); errs != nil {
 			data := formbinding.Errorf(make(gin.H), errs.(validator.ValidationErrors))

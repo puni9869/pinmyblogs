@@ -1,5 +1,4 @@
 {{template "layout/base" .}}
-{{.}}
 <div class="bg-white h-full">
   <div class="flex min-h-full flex-col justify-center px-6 py-10 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -18,17 +17,16 @@
               autofocus
               autocomplete="email"
               required
+              value="{{.email}}"
               class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 px-3 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
+            <p class="text-xs text-red-600 {{if .Email_HasError}}visible{{else}}hidden{{end}}">{{.Email_Error}}</p>
           </div>
         </div>
 
         <div>
           <div class="flex items-center justify-between">
             <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-            <div class="text-sm">
-              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500 hover:text-underline"></a>
-            </div>
           </div>
           <div class="mt-1">
             <input
@@ -37,9 +35,11 @@
               type="password"
               autocomplete="current-password"
               required
+              value="{{.password}}"
               class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
+           <p class="pt-1 text-xs text-red-600 {{if .Password_HasError}}visible{{else}}hidden{{end}}">{{.Password_Error}}</p>
         </div>
 
         <div>
@@ -52,9 +52,11 @@
               name="confirm_password"
               type="password"
               required
+              value="{{.confirm_password}}"
               class="block w-full rounded-md border-0 py-1.5 px-3 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             />
           </div>
+          <p class="text-xs text-red-600 {{if .ConfirmPassword_HasError}}visible{{else}}hidden{{end}}">{{.ConfirmPassword_Error}}</p>
         </div>
 
         <div>

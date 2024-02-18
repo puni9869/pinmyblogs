@@ -1,9 +1,13 @@
 package auth
 
 import (
+	"crypto/sha256"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/internal/signup"
+	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/formbinding"
+	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
 	"net/http"
@@ -22,29 +26,59 @@ func SignupGet(c *gin.Context) {
 }
 
 // SignupPost is a handler for handling registrations of new user
-// s is signup.SignupService container helper functions
-func SignupPost(s signup.SignupService) gin.HandlerFunc {
+// signUp is signup.Service container helper functions
+func SignupPost(signUp signup.Service) gin.HandlerFunc {
+	log := logger.NewLogger()
 	return func(c *gin.Context) {
-		s := middlewares.GetForm(c).(*forms.SignUpForm)
+		form := middlewares.GetForm(c).(*forms.SignUpForm)
 		ctx := middlewares.GetContext(c)
+		// initialize only once
 		once.Do(func() {
 			field = new(formbinding.FieldErrors)
 		})
-		password := s.Password
-		confirmPassword := s.ConfirmPassword
+		password := form.Password
+		email := form.Email
+		confirmPassword := form.ConfirmPassword
 
-		if field.ValidatePassword(password) {
+		ctx["email"] = email
+		ctx["password"] = password
+		ctx["confirm_password"] = confirmPassword
+		// password check
+		if ctx["Email_HasError"] == false || field.IsValid(password) == false {
 			ctx["Password_HasError"] = true
 			ctx["Password_Error"] = field.Error("alpha_dash_dot")
-			ctx["ConfirmPassword_HasError"] = true
-			ctx["ConfirmPassword_Error"] = field.Error("password_not_match")
+			ctx["ConfirmPassword_HasError"] = false
 		}
 
-		if ctx["Password_HasError"] == false && len(password) != len(confirmPassword) {
+		// password and confirm password checks
+		if (ctx["Password_HasError"] == nil || ctx["Password_HasError"] == false) &&
+			(len(password) != len(confirmPassword) || password != confirmPassword) {
 			ctx["Password_Error"] = ""
 			ctx["Password_HasError"] = true
 			ctx["ConfirmPassword_Error"] = field.Error("password_not_match")
 			ctx["ConfirmPassword_HasError"] = true
+		}
+
+		if ctx["HasError"] == false {
+			// using sha256 hash getting the checksums i.e. one way hash for password
+			h := sha256.New()
+			h.Write([]byte(password))
+			bs := h.Sum(nil)
+
+			user := models.User{
+				FirstName:       "",
+				LastName:        "",
+				DisplayName:     "",
+				Password:        fmt.Sprintf("%x", bs),
+				EmailVerifyHash: "",
+				IsEmailVerified: false,
+				IsActive:        false,
+				IsProfilePublic: false,
+				Email:           email,
+			}
+			if err := signUp.Register(c, user); err != nil {
+				log.WithError(err).Error("error in registering user")
+			}
 		}
 
 		c.HTML(http.StatusOK, "signup.tmpl", ctx)
