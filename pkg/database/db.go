@@ -20,8 +20,8 @@ var (
 	once  sync.Once
 )
 
-// NewLogger returns the SQL logger configuration
-func NewLogger() logger.Interface {
+// newLogger returns the SQL logger configuration
+func newLogger() logger.Interface {
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
@@ -45,13 +45,10 @@ func NewConnection(cfg *config.Database) (*gorm.DB, error) {
 		cfg.Port,
 		cfg.DatabaseName,
 	)
-
 	var dbLogger logger.Interface
-
 	if cfg.LogSql {
-		dbLogger = NewLogger()
+		dbLogger = newLogger()
 	}
-
 	ormConfig := gorm.Config{
 		Logger: dbLogger,
 	}
@@ -60,12 +57,9 @@ func NewConnection(cfg *config.Database) (*gorm.DB, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	dbObj = db
 	// making an object singleton
-	once.Do(func() {
-		dbObj = db
-	})
+	once.Do(func() { dbObj = db })
 	return dbObj, nil
 }
 

@@ -31,9 +31,11 @@ func BindForm[T any](_ T) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := make(map[string]any)
 		data["HasError"] = false
-		c.Set(ContextKey, data)
 		var theObj = new(T) // create a new form obj for every request but not use obj directly
-		if errs := c.ShouldBindWith(theObj, binding.Form); errs != nil {
+		c.Set(ContextKey, data)
+		errs := c.ShouldBindWith(theObj, binding.Form)
+		formbinding.FillContext(theObj, data)
+		if errs != nil {
 			data = formbinding.Errorf(make(gin.H), errs.(validator.ValidationErrors))
 			c.Set(ContextKey, data)
 		}

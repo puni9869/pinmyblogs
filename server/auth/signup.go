@@ -19,7 +19,7 @@ var (
 	once  sync.Once
 )
 
-// SignupGet is renders the signup.templ
+// SignupGet is renders the signup.tmpl
 // c is gin.Context
 func SignupGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "signup.tmpl", nil)
@@ -32,6 +32,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		form := middlewares.GetForm(c).(*forms.SignUpForm)
 		ctx := middlewares.GetContext(c)
+
 		// initialize only once
 		once.Do(func() {
 			field = new(formbinding.FieldErrors)
@@ -39,10 +40,6 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 		password := form.Password
 		email := form.Email
 		confirmPassword := form.ConfirmPassword
-
-		ctx["email"] = email
-		ctx["password"] = password
-		ctx["confirm_password"] = confirmPassword
 
 		// password check
 		if ctx["Email_HasError"] == false || field.IsValid(password) == false {

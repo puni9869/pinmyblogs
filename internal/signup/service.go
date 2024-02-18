@@ -13,11 +13,7 @@ var ErrDuplicateEmail = errors.New("Email already exist")
 
 type Service interface {
 	Register(ctx *gin.Context, user models.User) error
-	CheckPassword()
-	CheckEmail()
-	IsActive()
 	Verify()
-	IsVerified()
 }
 
 type signupClient struct {
@@ -41,23 +37,8 @@ func (s *signupClient) Register(c *gin.Context, user models.User) error {
 	return nil
 }
 
-func (s *signupClient) CheckPassword() {
-	s.log.Infoln("CheckPassword")
-}
-
-func (s *signupClient) CheckEmail() {
-	s.log.Infoln("CheckEmail")
-}
-
-func (s *signupClient) IsActive() {
-	s.log.Infoln("IsActive")
-}
-
 func (s *signupClient) Verify() {
 	s.log.Infoln("Verify")
-}
-
-func (s *signupClient) IsVerified() {
 }
 
 func NewSignupService(db *gorm.DB, logger *logrus.Logger) Service {

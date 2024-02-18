@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
+	"reflect"
 	"regexp"
 )
 
@@ -59,4 +60,27 @@ func Errorf(data gin.H, errs validator.ValidationErrors) map[string]any {
 		data[err.Field()+"_HasError"] = true
 	}
 	return data
+}
+
+// FillContext is fill all the form fields into *gin.Context
+func FillContext(form any, data gin.H) {
+	typ := reflect.TypeOf(form)
+	val := reflect.ValueOf(form)
+	for typ.Kind() == reflect.Ptr {
+		typ = typ.Elem()
+		val = val.Elem()
+	}
+	for i := 0; i < typ.NumField(); i++ {
+		field := typ.Field(i)
+		fieldName := field.Tag.Get("form")
+		// Allow ignored fields in the struct
+		if fieldName == "-" {
+			continue
+		} else if len(fieldName) == 0 {
+			fieldName = field.Name
+		}
+		data[fieldName] = val.Field(i).Interface()
+		data[field.Name+"_Error"] = ""
+		data[field.Name+"_HasError"] = false
+	}
 }

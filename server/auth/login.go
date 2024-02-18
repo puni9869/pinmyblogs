@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -25,7 +24,6 @@ func LoginPost(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to save session"})
 		return
 	}
-	fmt.Println(c.Request.URL.Path)
 	// Redirect to the home route upon successful login
 	c.HTML(http.StatusAccepted, "home.tmpl", nil)
 }
@@ -37,7 +35,6 @@ func LoginGet(c *gin.Context) {
 		c.HTML(http.StatusOK, "login.tmpl", nil)
 		return
 	}
-	fmt.Println("Escape Get")
 	c.HTML(http.StatusAccepted, "home.tmpl", nil)
 }
 
