@@ -12,7 +12,8 @@ test:
 
 .PHONY: lint
 lint:
-	golangci-lint run
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.56.2
+	golangci-lint run ./...
 
 .PHONY: govulncheck
 govulncheck:
