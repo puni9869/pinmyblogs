@@ -27,6 +27,7 @@ type signupClient struct {
 
 func (s *signupClient) Register(c *gin.Context, user models.User) error {
 	ctx := middlewares.GetContext(c)
+
 	err := s.db.Create(&user).Error
 	if err != nil {
 		s.log.WithError(err).Error("failed to create user")
