@@ -22,7 +22,7 @@ var (
 
 // newLogger returns the SQL logger configuration
 func newLogger() logger.Interface {
-	newLogger := logger.New(
+	return logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
 			SlowThreshold:             time.Second, // Threshold for slow SQL queries
@@ -32,7 +32,6 @@ func newLogger() logger.Interface {
 			Colorful:                  false,       // Disable color in logs
 		},
 	)
-	return newLogger
 }
 
 // NewConnection creates a new database connection

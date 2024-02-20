@@ -65,7 +65,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 
 			user := models.User{Password: fmt.Sprintf("%x", bs), Email: email}
 
-			if err := signUp.Register(c, user); err == nil {
+			if err := signUp.Register(c, user); err != nil {
 				ctx["HasError"] = true
 				log.WithError(err).Error("error in registering user")
 			}

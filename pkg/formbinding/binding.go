@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	regexPattern = `^[A-Za-z\d\W_]{6,15}$`
+	passwordRegex = `^[A-Za-z\d\W_]{6,15}$`
 )
 
 type Field interface {
@@ -42,7 +42,7 @@ func (e *FieldErrors) Error(phrase string) string {
 }
 
 func (e *FieldErrors) IsValid(password string) bool {
-	match, err := regexp.MatchString(regexPattern, password)
+	match, err := regexp.MatchString(passwordRegex, password)
 	if err != nil {
 		panic(err)
 	}

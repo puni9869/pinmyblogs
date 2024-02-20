@@ -2,9 +2,9 @@
   "environment": "local",
   "appConfig": {
     "debug": true,
-    "secretKey": "APP_SECRET_KEY",
+    "secretKey": "secret",
     "defaultPort": "8080",
-    "customPort": "",
+    "customPort": "80",
     "useCDN": false,
     "hostname": "localhost"
   },

@@ -6,7 +6,7 @@ import (
 )
 
 type User struct {
-	ID              uuid.UUID `gorm:"unique;type:uuid;default:gen_random_uuid()"` // Standard field for the primary key
+	ID              uuid.UUID `gorm:"primaryKey;unique;type:uuid;default:gen_random_uuid()"` // Standard field for the primary key
 	FirstName       string    // A regular string field
 	LastName        string    // A regular string field
 	DisplayName     string    // public displayname

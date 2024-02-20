@@ -47,7 +47,7 @@ func startAction(ctx *cli.Context) error {
 	database.RegisterModels(db)
 
 	// sessionStore is store in database for session values
-	sessionStore := gormsessions.NewStore(db, true, []byte("secret"))
+	sessionStore := gormsessions.NewStore(db, true, []byte(config.C.AppConfig.SecretKey))
 
 	//CSRF := csrf.Protect([]byte("32-byte-long-auth-key"))
 	// webapp apply debug level
@@ -67,7 +67,7 @@ func startAction(ctx *cli.Context) error {
 	r.LoadHTMLGlob("templates/*/**.tmpl")
 	// register all the server routes
 	server.RegisterRoutes(r, sessionStore)
-	err = r.Run()
+	err = r.Run(":" + config.C.AppConfig.CustomPort)
 	if err != nil {
 		return err
 	}
