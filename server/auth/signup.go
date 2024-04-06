@@ -73,9 +73,10 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 					"id":        user.ID,
 					"createdAt": user.CreatedAt,
 				}).Info("user is registered")
+			} else {
+				ctx["HasError"] = true
+				log.WithError(err).Error("error in registering user")
 			}
-			ctx["HasError"] = true
-			log.WithError(err).Error("error in registering user")
 		}
 		c.HTML(http.StatusOK, "signup.tmpl", ctx)
 	}
