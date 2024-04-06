@@ -8,9 +8,7 @@ import (
 	"regexp"
 )
 
-const (
-	passwordRegex = `^[A-Za-z\d\W_]{6,15}$`
-)
+const passwordRegex = `^[A-Za-z\d\W_]{6,15}$`
 
 type Field interface {
 	Error(phrase string) string

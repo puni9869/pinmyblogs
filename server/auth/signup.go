@@ -42,7 +42,8 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 		confirmPassword := form.ConfirmPassword
 
 		// password check
-		if ctx["Email_HasError"] == false || !field.IsValid(password) {
+		if ctx["Email_HasError"] == false && !field.IsValid(password) {
+			ctx["HasError"] = true
 			ctx["Password_HasError"] = true
 			ctx["Password_Error"] = field.Error("alpha_dash_dot")
 			ctx["ConfirmPassword_HasError"] = false
@@ -51,6 +52,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 		// password and confirm password checks
 		if (ctx["Password_HasError"] == nil || ctx["Password_HasError"] == false) &&
 			(len(password) != len(confirmPassword) || password != confirmPassword) {
+			ctx["HasError"] = true
 			ctx["Password_Error"] = ""
 			ctx["Password_HasError"] = true
 			ctx["ConfirmPassword_Error"] = field.Error("password_not_match")
@@ -64,11 +66,15 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 			bs := h.Sum(nil)
 
 			user := models.User{Password: fmt.Sprintf("%x", bs), Email: email}
-
 			if err := signUp.Register(c, user); err != nil {
 				ctx["HasError"] = true
 				log.WithError(err).Error("error in registering user")
 			}
+			log.WithFields(map[string]any{
+				"user":      user.Email,
+				"id":        user.ID,
+				"createdAt": user.CreatedAt,
+			}).Info("user is registered")
 		}
 
 		c.HTML(http.StatusOK, "signup.tmpl", ctx)
