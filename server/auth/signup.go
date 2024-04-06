@@ -42,7 +42,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 		confirmPassword := form.ConfirmPassword
 
 		// password check
-		if ctx["Email_HasError"] == false || field.IsValid(password) == false {
+		if ctx["Email_HasError"] == false || !field.IsValid(password) {
 			ctx["Password_HasError"] = true
 			ctx["Password_Error"] = field.Error("alpha_dash_dot")
 			ctx["ConfirmPassword_HasError"] = false
