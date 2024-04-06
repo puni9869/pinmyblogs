@@ -66,17 +66,17 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 			bs := h.Sum(nil)
 
 			user := models.User{Password: fmt.Sprintf("%x", bs), Email: email}
-			if err := signUp.Register(c, user); err != nil {
-				ctx["HasError"] = true
-				log.WithError(err).Error("error in registering user")
+			err := signUp.Register(c, user)
+			if err == nil {
+				log.WithFields(map[string]any{
+					"user":      user.Email,
+					"id":        user.ID,
+					"createdAt": user.CreatedAt,
+				}).Info("user is registered")
 			}
-			log.WithFields(map[string]any{
-				"user":      user.Email,
-				"id":        user.ID,
-				"createdAt": user.CreatedAt,
-			}).Info("user is registered")
+			ctx["HasError"] = true
+			log.WithError(err).Error("error in registering user")
 		}
-
 		c.HTML(http.StatusOK, "signup.tmpl", ctx)
 	}
 }

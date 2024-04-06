@@ -28,6 +28,7 @@ func (s *signupClient) Register(c *gin.Context, user models.User) error {
 	if err != nil {
 		s.log.WithError(err).Error("failed to create user")
 		ctx["Email_HasError"] = true
+		ctx["HasError"] = true
 		ctx["Email_Error"] = ErrDuplicateEmail.Error()
 		ctx["Password_HasError"] = false
 		ctx["ConfirmPassword_HasError"] = false
