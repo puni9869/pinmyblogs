@@ -33,18 +33,18 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	r.POST("/login", auth.LoginPost)
 	r.GET("/logout", auth.Logout)
 
-	//authRouters := r.Group("")
-	//{
-	//	//authRouters.Use(middlewares.AuthRequired)
-	//	authRouters.GET("/home", home.Home)
-	//	authRouters.GET("/favourite", home.Favourite)
-	//	authRouters.GET("/archived", home.Archived)
-	//	authRouters.GET("/trash", home.Trash)
-	//	// setting handler
-	//	authRouters.GET("/setting", setting.Setting)
-	//	// navbar handler
-	//	authRouters.GET("/", home.Home)
-	//}
+	authRouters := r.Group("")
+	{
+		authRouters.Use(middlewares.AuthRequired)
+		authRouters.GET("/home", home.Home)
+		//authRouters.GET("/favourite", home.Favourite)
+		//authRouters.GET("/archived", home.Archived)
+		//authRouters.GET("/trash", home.Trash)
+		//// setting handler
+		//authRouters.GET("/setting", setting.Setting)
+		// navbar handler
+		authRouters.GET("/", home.Home)
+	}
 
 	// this route will accept all the params
 	r.NoRoute(auth.LoginGet)

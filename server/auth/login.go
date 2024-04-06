@@ -15,7 +15,7 @@ func LoginPost(c *gin.Context) {
 
 	// Validate form input and check authentication
 	if username != "hello" || password != "itsme" {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Authentication failed"})
+		c.HTML(http.StatusOK, "login.tmpl", nil)
 		return
 	}
 	// Save the username in the session

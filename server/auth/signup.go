@@ -73,6 +73,8 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 					"id":        user.ID,
 					"createdAt": user.CreatedAt,
 				}).Info("user is registered")
+				c.Redirect(http.StatusTemporaryRedirect, "/login")
+				return
 			} else {
 				ctx["HasError"] = true
 				log.WithError(err).Error("error in registering user")
