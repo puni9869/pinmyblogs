@@ -73,6 +73,10 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 					"id":        user.ID,
 					"createdAt": user.CreatedAt,
 				}).Info("user is registered")
+
+				signUp.Verify()
+				signUp.Notify(user)
+
 				c.Redirect(http.StatusTemporaryRedirect, "/login")
 				return
 			} else {
