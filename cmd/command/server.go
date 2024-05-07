@@ -1,6 +1,8 @@
 package command
 
 import (
+	"os"
+
 	gormsessions "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/pkg/config"
@@ -8,7 +10,6 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/server"
 	"github.com/urfave/cli"
-	"os"
 )
 
 var environmentKey = "ENVIRONMENT"
