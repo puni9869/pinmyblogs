@@ -31,9 +31,6 @@ func NewCache[K comparable, T any]() *Cache[K, T] {
 func (c *Cache[K, T]) Set(key K, value T, ttl time.Duration) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	if ttl < 0 {
-
-	}
 	c.data[key] = CacheItem[T]{
 		value:  value,
 		expiry: time.Now().Add(ttl),
