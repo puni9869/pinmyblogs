@@ -2,11 +2,19 @@
   "environment": "local",
   "appConfig": {
     "debug": false,
-    "secretKey": "APP_SECRET_KEY",
+    "secretKey": "$APP_SECRET_KEY",
     "defaultPort": "8080",
     "customPort": "",
     "useCDN": false,
     "hostname": "pinmyblogs.com"
+  },
+  "mailer": {
+    "smtpHost": "",
+    "smtpPort": "",
+    "emailId": "",
+    "bccEmailId": "",
+    "username": "",
+    "password": ""
   },
   "database": {
     "type": "postgres",

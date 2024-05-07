@@ -2,6 +2,7 @@ package signup
 
 import (
 	"errors"
+
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/mailer"

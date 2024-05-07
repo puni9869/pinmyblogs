@@ -8,6 +8,14 @@
     "useCDN": false,
     "hostname": "localhost"
   },
+  "mailer": {
+    "smtpHost": "",
+    "smtpPort": "",
+    "emailId": "",
+    "bccEmailId": "",
+    "username": "",
+    "password": ""
+  },
   "database": {
     "type": "postgres",
     "host": "127.0.0.1",

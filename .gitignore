@@ -23,4 +23,6 @@ tmp/
 # Go workspace file
 go.work
 # Config files for localhost
-config/local.json
+local.json
+prod.json
+

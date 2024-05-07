@@ -2,12 +2,15 @@ package config
 
 import (
 	"errors"
+
 	"github.com/spf13/viper"
 )
 
 var (
 	defaultEnv   = "local"
 	defaultPath  = "./config"
+	LocalEnv     = "local"
+	ProdEnv      = "prod"
 	environments = []string{"local", "prod"}
 )
 
@@ -37,12 +40,22 @@ type Authentication struct {
 	EnableRegistration bool `json:"enableRegistration"`
 }
 
+type Mailer struct {
+	SmtpHost   string `json:"smtpHost"`
+	SmtpPort   int    `json:"smtpPort"`
+	EmailId    string `json:"emailId"`
+	BccEmailId string `json:"bccEmailId"`
+	Username   string `json:"username"`
+	Password   string `json:"password"`
+}
+
 // ConfigProvider ie converted value in go types
 type ConfigProvider struct {
 	EnableSSL      bool           `json:"enableSSL"`
 	Database       Database       `json:"database"`
 	AppConfig      AppConfig      `json:"appConfig"`
 	Authentication Authentication `json:"authentication"`
+	Mailer         Mailer         `json:"mailer"`
 }
 
 var C ConfigProvider
