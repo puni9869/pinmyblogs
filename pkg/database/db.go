@@ -1,16 +1,21 @@
 package database
 
 import (
+	"database/sql"
 	"fmt"
+	"gorm.io/driver/sqlite"
 	"log"
 	"os"
 	"sync"
 	"time"
 
+	sqliteGo "github.com/mattn/go-sqlite3"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
+	uuid "github.com/satori/go.uuid"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+
 	"gorm.io/gorm/logger"
 )
 
@@ -34,16 +39,15 @@ func newLogger() logger.Interface {
 	)
 }
 
-// NewConnection creates a new database connection
-func NewConnection(cfg *config.Database) (*gorm.DB, error) {
+// NewPostgresConnection creates a new database postgres connection
+func NewPostgresConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
 	dsn := fmt.Sprintf("%s://%s:%s@%s:%s/%s",
 		cfg.Type,
 		cfg.Username,
 		cfg.Password,
 		cfg.Host,
 		cfg.Port,
-		cfg.DatabaseName,
-	)
+		cfg.DatabaseName)
 	var dbLogger logger.Interface
 	if cfg.LogSql {
 		dbLogger = newLogger()
@@ -57,6 +61,50 @@ func NewConnection(cfg *config.Database) (*gorm.DB, error) {
 		return nil, err
 	}
 	dbObj = db
+	// making an object singleton
+	once.Do(func() { dbObj = db })
+	return dbObj, nil
+}
+
+// NewSqliteConnection creates a new database sqlite connection
+func NewSqliteConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
+	var dbLogger logger.Interface
+	if cfg.LogSql {
+		dbLogger = newLogger()
+	}
+	ormConfig := gorm.Config{
+		Logger:                                   dbLogger,
+		DisableForeignKeyConstraintWhenMigrating: true,
+	}
+
+	const CustomDriverName = "sqlite3_extended"
+	sql.Register(CustomDriverName,
+		&sqliteGo.SQLiteDriver{
+			ConnectHook: func(conn *sqliteGo.SQLiteConn) error {
+				err := conn.RegisterFunc(
+					"gen_random_uuid",
+					func(arguments ...interface{}) (string, error) {
+						return uuid.NewV4().String(), nil // Return a string value.
+					},
+					true,
+				)
+				return err
+			},
+		},
+	)
+	conn, err := sql.Open(CustomDriverName, cfg.FileName)
+	if err != nil {
+		return nil, err
+	}
+
+	db, err := gorm.Open(sqlite.Dialector{
+		DriverName: CustomDriverName,
+		DSN:        cfg.FileName,
+		Conn:       conn,
+	}, &ormConfig)
+	if err != nil {
+		return nil, err
+	}
 	// making an object singleton
 	once.Do(func() { dbObj = db })
 	return dbObj, nil

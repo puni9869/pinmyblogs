@@ -6,13 +6,16 @@ require (
 	github.com/gin-contrib/sessions v1.0.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/go-playground/validator/v10 v10.19.0
-	github.com/google/uuid v1.6.0
+	github.com/google/uuid v1.4.0
+	github.com/mattn/go-sqlite3 v1.14.16
+	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.18.2
 	github.com/urfave/cli v1.22.14
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gorm.io/driver/postgres v1.5.7
-	gorm.io/gorm v1.25.9
+	gorm.io/driver/sqlite v1.4.4
+	gorm.io/gorm v1.25.10
 )
 
 require (

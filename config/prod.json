@@ -17,11 +17,18 @@
     "password": ""
   },
   "database": {
-    "type": "postgres",
-    "username": "username",
-    "password": "password",
-    "port": "5432",
-    "databaseName": "pinmyblogs"
+    "postgres": {
+      "type": "postgres",
+      "username": "username",
+      "password": "password",
+      "port": "5432",
+      "databaseName": "pinmyblogs"
+    },
+    "sqlite": {
+      "type": "sqlite",
+      "databaseName": "pinmyblogs",
+      "fileName": "data.dat"
+    }
   },
   "enableSsl": false,
   "authentication": {

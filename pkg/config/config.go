@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/spf13/viper"
 )
@@ -24,15 +25,16 @@ type AppConfig struct {
 	Hostname    string `json:"hostname"`
 }
 
-// Database is the "database"
-type Database struct {
-	Type         string `json:"type"`
-	Host         string `json:"host"`
-	Username     string `json:"username"`
-	Password     string `json:"password"`
-	Port         string `json:"port"`
-	DatabaseName string `json:"databaseName"`
-	LogSql       bool   `json:"logSql"`
+// DatabaseObj is the "database"
+type DatabaseObj struct {
+	Type         string `json:"type,omitempty"`
+	Host         string `json:"host,omitempty"`
+	Username     string `json:"username,omitempty"`
+	Password     string `json:"password,omitempty"`
+	Port         string `json:"port,omitempty"`
+	DatabaseName string `json:"databaseName,omitempty"`
+	LogSql       bool   `json:"logSql,omitempty"`
+	FileName     string `json:"fileName,omitempty"`
 }
 
 type Authentication struct {
@@ -51,11 +53,11 @@ type Mailer struct {
 
 // ConfigProvider ie converted value in go types
 type ConfigProvider struct {
-	EnableSSL      bool           `json:"enableSSL"`
-	Database       Database       `json:"database"`
-	AppConfig      AppConfig      `json:"appConfig"`
-	Authentication Authentication `json:"authentication"`
-	Mailer         Mailer         `json:"mailer"`
+	EnableSSL      bool                   `json:"enableSSL"`
+	Database       map[string]DatabaseObj `json:"database"`
+	AppConfig      AppConfig              `json:"appConfig"`
+	Authentication Authentication         `json:"authentication"`
+	Mailer         Mailer                 `json:"mailer"`
 }
 
 var C ConfigProvider
@@ -83,6 +85,7 @@ func LoadConfig(environment string) error {
 		return err
 	}
 	err = viper.Unmarshal(&C)
+	fmt.Println(C)
 	if err != nil {
 		return err
 	}
