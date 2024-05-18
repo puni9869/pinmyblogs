@@ -39,8 +39,8 @@ func startAction(ctx *cli.Context) error {
 	log.Infoln("App config loaded...")
 
 	// initiate the db connection
-	dbConfig := config.C.Database["sqlite"]
-	db, err := database.NewSqliteConnection(&dbConfig)
+	dbConfig := config.C.Database["postgres"]
+	db, err := database.NewPostgresConnection(&dbConfig)
 	if err != nil {
 		log.WithError(err)
 		return err
