@@ -3,6 +3,7 @@ package database
 import (
 	"database/sql"
 	"fmt"
+	"github.com/google/uuid"
 	"gorm.io/driver/sqlite"
 	"log"
 	"os"
@@ -12,7 +13,6 @@ import (
 	sqliteGo "github.com/mattn/go-sqlite3"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
-	uuid "github.com/satori/go.uuid"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 
@@ -84,7 +84,7 @@ func NewSqliteConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
 				err := conn.RegisterFunc(
 					"gen_random_uuid",
 					func(arguments ...interface{}) (string, error) {
-						return uuid.NewV4().String(), nil // Return a string value.
+						return uuid.New().String(), nil // Return a string value.
 					},
 					true,
 				)

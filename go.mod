@@ -8,7 +8,6 @@ require (
 	github.com/go-playground/validator/v10 v10.19.0
 	github.com/google/uuid v1.4.0
 	github.com/mattn/go-sqlite3 v1.14.16
-	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.18.2
 	github.com/urfave/cli v1.22.14
