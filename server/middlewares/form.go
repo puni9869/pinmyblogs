@@ -8,7 +8,7 @@ import (
 )
 
 const (
-	ContextKey = "pinmyblogs"
+	contextKey = "pinmyblogs"
 	formKey    = "__form"
 )
 
@@ -20,7 +20,7 @@ func GetForm(c *gin.Context) any {
 }
 
 func GetContext(c *gin.Context) gin.H {
-	if ctx, ok := c.Get(ContextKey); ok {
+	if ctx, ok := c.Get(contextKey); ok {
 		return ctx.(map[string]any)
 	}
 	return nil
@@ -32,12 +32,12 @@ func BindForm[T any](_ T) gin.HandlerFunc {
 		data := make(map[string]any)
 		data["HasError"] = false
 		var theObj = new(T) // create a new form obj for every request but not use obj directly
-		c.Set(ContextKey, data)
+		c.Set(contextKey, data)
 		errs := c.ShouldBindWith(theObj, binding.Form)
 		formbinding.FillContext(theObj, data)
 		if errs != nil {
 			data = formbinding.Errorf(make(gin.H), errs.(validator.ValidationErrors))
-			c.Set(ContextKey, data)
+			c.Set(contextKey, data)
 		}
 		c.Set(formKey, theObj)
 	}
