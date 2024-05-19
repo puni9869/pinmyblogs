@@ -53,7 +53,6 @@ func LoginPost(c *gin.Context) {
 
 func LoginGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "login.tmpl", nil)
-	return
 	// session := sessions.Default(c)
 	// user := session.Get(userkey)
 	//
