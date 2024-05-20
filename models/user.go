@@ -1,6 +1,7 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -21,4 +22,8 @@ type User struct {
 	CreatedAt       time.Time // Automatically managed by GORM for creation time
 	UpdatedAt       time.Time // Automatically managed by GORM for update time
 	AlternateEmail  string    // Can be used for changing emailid
+}
+
+func (u User) Format(f fmt.State, verb rune) {
+	f.Write([]byte(fmt.Sprintf("Email: %s FirstName: %s Id: %s", u.Email, u.FirstName, u.ID)))
 }
