@@ -37,16 +37,20 @@ func LoginPost(c *gin.Context) {
 	session := sessions.Default(c)
 	currentlyLoggedIn := session.Get(userkey)
 	log.WithField("email", email).Info("login found ", currentlyLoggedIn)
+
 	if currentlyLoggedIn == nil || currentlyLoggedIn != email {
 		session.Set(userkey, email)
 		log.WithField("email", email).Info("setting user", currentlyLoggedIn)
+
 		if err := session.Save(); err != nil {
 			log.WithField("email", email).WithError(result.Error).Error("Unable to save session.")
 			c.HTML(http.StatusInternalServerError, "login.tmpl", gin.H{"HasError": true, "Error": "Something went wrong. We are working on it."})
 			c.Abort()
 		}
+
 		log.WithField("email", email).Info("set user", currentlyLoggedIn)
 	}
+
 	log.WithField("user", user).Info("user currently logged in")
 	// Redirect to the home route upon successful login
 	c.Redirect(http.StatusPermanentRedirect, "/")
