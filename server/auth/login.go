@@ -51,7 +51,6 @@ func LoginPost(c *gin.Context) {
 	// Redirect to the home route upon successful login
 	c.Redirect(http.StatusPermanentRedirect, "/")
 	c.Abort()
-	return
 }
 
 func LoginGet(c *gin.Context) {
