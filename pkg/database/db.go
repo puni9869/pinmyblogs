@@ -3,12 +3,13 @@ package database
 import (
 	"database/sql"
 	"fmt"
-	"github.com/google/uuid"
-	"gorm.io/driver/sqlite"
 	"log"
 	"os"
 	"sync"
 	"time"
+
+	"github.com/google/uuid"
+	"gorm.io/driver/sqlite"
 
 	sqliteGo "github.com/mattn/go-sqlite3"
 	"github.com/puni9869/pinmyblogs/models"
@@ -115,6 +116,7 @@ func RegisterModels(db *gorm.DB) {
 	// m is list of all the database models
 	m := []any{
 		&models.User{},
+		&models.Session{},
 	}
 	if err := db.AutoMigrate(m...); err != nil {
 		panic(err)

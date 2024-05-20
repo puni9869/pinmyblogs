@@ -9,6 +9,7 @@ import (
 	"github.com/puni9869/pinmyblogs/server/auth"
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
+	"github.com/puni9869/pinmyblogs/server/setting"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
 
@@ -31,17 +32,17 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	// auth urls
 	r.GET("/login", auth.LoginGet)
 	r.POST("/login", auth.LoginPost)
-	r.GET("/logout", auth.Logout)
+	r.Any("/logout", auth.Logout)
 
 	authRouters := r.Group("")
 	{
 		authRouters.Use(middlewares.AuthRequired)
-		authRouters.GET("/home", home.Home)
-		//authRouters.GET("/favourite", home.Favourite)
-		//authRouters.GET("/archived", home.Archived)
-		//authRouters.GET("/trash", home.Trash)
+		authRouters.Any("/home", home.Home)
+		authRouters.GET("/favourite", home.Favourite)
+		authRouters.GET("/archived", home.Archived)
+		authRouters.GET("/trash", home.Trash)
 		//// setting handler
-		//authRouters.GET("/setting", setting.Setting)
+		authRouters.Any("/setting", setting.Setting)
 		// navbar handler
 		authRouters.GET("/", home.Home)
 	}

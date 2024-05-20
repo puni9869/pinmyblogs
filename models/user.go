@@ -1,8 +1,9 @@
 package models
 
 import (
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 type User struct {
@@ -19,4 +20,5 @@ type User struct {
 	ActivatedAt     time.Time // Uses time.Time for nullable time fields
 	CreatedAt       time.Time // Automatically managed by GORM for creation time
 	UpdatedAt       time.Time // Automatically managed by GORM for update time
+	AlternateEmail  string    // Can be used for changing emailid
 }
