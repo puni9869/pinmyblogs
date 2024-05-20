@@ -3,6 +3,9 @@ package auth
 import (
 	"crypto/sha256"
 	"fmt"
+	"net/http"
+	"sync"
+
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/internal/signup"
 	"github.com/puni9869/pinmyblogs/models"
@@ -10,8 +13,6 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
-	"net/http"
-	"sync"
 )
 
 var (

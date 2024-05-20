@@ -1,9 +1,11 @@
 package home
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
+
+	"github.com/puni9869/pinmyblogs/pkg/logger"
 )
 
 func Home(c *gin.Context) {

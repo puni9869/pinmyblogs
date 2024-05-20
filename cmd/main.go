@@ -15,10 +15,11 @@ want to support our work, or just want to say hello.
 package main
 
 import (
+	"os"
+
 	"github.com/puni9869/pinmyblogs/cmd/command"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/urfave/cli"
-	"os"
 )
 
 const version = "development"
