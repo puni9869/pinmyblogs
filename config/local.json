@@ -20,7 +20,7 @@
     "postgres": {
       "type": "postgres",
       "host": "127.0.0.1",
-      "username": "puni9869",
+      "username": "punitinani",
       "password": "",
       "port": "5432",
       "databaseName": "pinmyblogs",
