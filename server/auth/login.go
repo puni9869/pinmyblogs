@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"crypto/sha256"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-contrib/sessions"
@@ -31,6 +33,18 @@ func LoginPost(c *gin.Context) {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid email or password. Database error")
 		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password"})
 		c.Abort()
+		return
+	}
+	h := sha256.New()
+	h.Write([]byte(password))
+	bs := h.Sum(nil)
+	pas := fmt.Sprintf("%x", bs)
+	fmt.Println(pas)
+	if fmt.Sprintf("%x", bs) != user.Password {
+		log.WithField("email", email).WithError(result.Error).Error("Invalid password.")
+		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password"})
+		c.Abort()
+		return
 	}
 
 	// Save the username in the session
