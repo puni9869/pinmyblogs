@@ -118,6 +118,7 @@ func RegisterModels(db *gorm.DB) {
 		&models.User{},
 		&models.Session{},
 		&models.Url{},
+		&models.Setting{},
 	}
 	if err := db.AutoMigrate(m...); err != nil {
 		panic(err)
