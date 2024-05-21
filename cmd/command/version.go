@@ -16,7 +16,7 @@ var Version = cli.Command{
 const version = "v1.0"
 
 // versionAction prints the current version
-func versionAction(ctx *cli.Context) error {
+func versionAction(_ *cli.Context) error {
 	fmt.Println(version)
 	return nil
 }

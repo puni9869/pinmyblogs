@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -35,12 +36,11 @@ func LoginPost(c *gin.Context) {
 		c.Abort()
 		return
 	}
+
 	h := sha256.New()
-	h.Write([]byte(password))
 	bs := h.Sum(nil)
-	pas := fmt.Sprintf("%x", bs)
-	fmt.Println(pas)
-	if fmt.Sprintf("%x", bs) != user.Password {
+	pass := fmt.Sprintf("%x", bs)
+	if strings.Compare(pass, user.Password) != 0 {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid password.")
 		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password"})
 		c.Abort()
