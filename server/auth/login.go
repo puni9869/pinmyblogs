@@ -7,6 +7,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
+	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/pkg/utils"
@@ -16,12 +17,23 @@ const userkey = "user"
 
 func LoginPost(c *gin.Context) {
 	log := logger.NewLogger()
-
 	email := c.PostForm("email")
 	password := c.PostForm("password")
 
-	if email == "" || password == "" {
-		log.WithField("email", email).Error("Empty password or email.")
+	if !config.C.Authentication.EnableLogin {
+		log.WithFields(map[string]any{
+			"enableLoginFlag": config.C.Authentication.EnableLogin,
+			"email":           email,
+		}).Error("Login service is globally disabled.")
+		c.HTML(http.StatusForbidden, "login.tmpl",
+			gin.H{"HasError": true, "Error": "Account's login is currently disabled. We are working on it."},
+		)
+		c.Abort()
+		return
+	}
+
+	if email == "" || password == "" || !utils.ValidateEmail(email) {
+		log.WithField("email", email).Error("Empty password or email. Or email address is not valid.")
 		c.HTML(http.StatusBadRequest, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password."})
 		c.Abort()
 	}
