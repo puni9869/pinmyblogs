@@ -1,8 +1,6 @@
 package auth
 
 import (
-	"crypto/sha256"
-	"fmt"
 	"net/http"
 	"sync"
 
@@ -11,6 +9,7 @@ import (
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/formbinding"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
+	"github.com/puni9869/pinmyblogs/pkg/utils"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
@@ -62,11 +61,8 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 
 		if ctx["HasError"] == false {
 			// using sha256 hash getting the checksums i.e. one way hash for password
-			h := sha256.New()
-			h.Write([]byte(password))
-			bs := h.Sum(nil)
-
-			user := models.User{Password: fmt.Sprintf("%x", bs), Email: email}
+			passwordHash := utils.HashifySHA256(password)
+			user := models.User{Password: passwordHash, Email: email}
 			err := signUp.Register(c, user)
 			if err == nil {
 				log.WithFields(map[string]any{

@@ -1,17 +1,15 @@
 package auth
 
 import (
-	"crypto/sha256"
-	"fmt"
 	"net/http"
 	"strings"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
-
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
+	"github.com/puni9869/pinmyblogs/pkg/utils"
 )
 
 const userkey = "user"
@@ -37,10 +35,8 @@ func LoginPost(c *gin.Context) {
 		return
 	}
 
-	h := sha256.New()
-	bs := h.Sum(nil)
-	pass := fmt.Sprintf("%x", bs)
-	if strings.Compare(pass, user.Password) != 0 {
+	passwordHash := utils.HashifySHA256(password)
+	if strings.Compare(passwordHash, user.Password) != 0 {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid password.")
 		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password"})
 		c.Abort()

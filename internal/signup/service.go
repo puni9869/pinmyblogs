@@ -2,6 +2,7 @@ package signup
 
 import (
 	"errors"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
@@ -26,7 +27,9 @@ type signupClient struct {
 
 func (s *signupClient) Register(c *gin.Context, user models.User) error {
 	ctx := middlewares.GetContext(c)
-
+	user.IsActive = true
+	user.IsEmailVerified = true
+	user.ActivatedAt = time.Now()
 	err := s.db.Create(&user).Error
 	if err != nil {
 		s.log.WithError(err).Error("failed to create user")
