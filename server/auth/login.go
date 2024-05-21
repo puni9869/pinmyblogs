@@ -35,6 +35,16 @@ func LoginPost(c *gin.Context) {
 		return
 	}
 
+	if !user.IsActive || !user.IsEmailVerified {
+		log.WithFields(map[string]any{
+			"email":           user.Email,
+			"isActive":        user.IsActive,
+			"isEmailVerified": user.EmailVerifyHash,
+		}).WithError(result.Error).Error("Account is disabled.")
+		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is disabled."})
+		c.Abort()
+		return
+	}
 	passwordHash := utils.HashifySHA256(password)
 	if strings.Compare(passwordHash, user.Password) != 0 {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid password.")
