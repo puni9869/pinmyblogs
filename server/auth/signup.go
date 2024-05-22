@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/internal/signup"
 	"github.com/puni9869/pinmyblogs/models"
+	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/formbinding"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/pkg/utils"
@@ -30,6 +31,18 @@ func SignupGet(c *gin.Context) {
 func SignupPost(signUp signup.Service) gin.HandlerFunc {
 	log := logger.NewLogger()
 	return func(c *gin.Context) {
+		if !config.C.Authentication.EnableRegistration {
+			log.
+				WithField("isEnableRegistration", config.C.Authentication.EnableRegistration).
+				Warn("User registration is disabled globally.")
+
+			c.HTML(http.StatusOK, "signup.tmpl", gin.H{
+				"HasError": true,
+				"Error":    "New account's registration is currently disabled.",
+			})
+			c.Abort()
+			return
+		}
 		form := middlewares.GetForm(c).(*forms.SignUpForm)
 		ctx := middlewares.GetContext(c)
 
