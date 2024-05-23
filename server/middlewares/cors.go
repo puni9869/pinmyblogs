@@ -1,8 +1,9 @@
 package middlewares
 
 import (
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Cors() gin.HandlerFunc {
@@ -16,7 +17,6 @@ func Cors() gin.HandlerFunc {
 		c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type,cache-control")
 
 		if method == "OPTIONS" {
-			//c.AbortWithStatus(http.StatusNoContent)
 			c.AbortWithStatus(http.StatusOK)
 		}
 
