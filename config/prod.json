@@ -33,6 +33,7 @@
   "enableSsl": false,
   "authentication": {
     "enableLogin": true,
-    "enableRegistration": true
+    "enableRegistration": true,
+    "enableForgotPassword": true
   }
 }

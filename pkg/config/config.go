@@ -37,8 +37,9 @@ type DatabaseObj struct {
 }
 
 type Authentication struct {
-	EnableLogin        bool `json:"enableLogin"`
-	EnableRegistration bool `json:"enableRegistration"`
+	EnableLogin          bool `json:"enableLogin"`
+	EnableRegistration   bool `json:"enableRegistration"`
+	EnableForgotPassword bool `json:"enableForgotPassword"`
 }
 
 type Mailer struct {

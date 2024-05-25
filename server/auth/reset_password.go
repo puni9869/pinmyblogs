@@ -5,7 +5,9 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
 	"github.com/puni9869/pinmyblogs/models"
+	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/pkg/mailer"
@@ -19,7 +21,21 @@ func ResetPasswordGet(c *gin.Context) {
 
 func ResetPasswordPost(c *gin.Context) {
 	log := logger.NewLogger()
+	log.
+		WithField("isEnableForgotPassword", config.C.Authentication.EnableForgotPassword).
+		Warn("Forgot Password is disabled globally.")
+	if !config.C.Authentication.EnableForgotPassword {
+		log.
+			WithField("isEnableForgotPassword", config.C.Authentication.EnableForgotPassword).
+			Warn("Forgot Password is disabled globally.")
 
+		c.HTML(http.StatusOK, "reset.tmpl", gin.H{
+			"HasError": true,
+			"Error":    "Reset password is currently disable.",
+		})
+		c.Abort()
+		return
+	}
 	form := middlewares.GetForm(c).(*forms.ResetForm)
 	ctx := middlewares.GetContext(c)
 
