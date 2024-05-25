@@ -2,7 +2,6 @@ package auth
 
 import (
 	"net/http"
-	"sync"
 
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/internal/signup"
@@ -13,11 +12,6 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/utils"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
-)
-
-var (
-	field formbinding.Field
-	once  sync.Once
 )
 
 // SignupGet is renders the signup.tmpl

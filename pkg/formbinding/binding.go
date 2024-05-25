@@ -2,10 +2,11 @@ package formbinding
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/go-playground/validator/v10"
 	"reflect"
 	"regexp"
+
+	"github.com/gin-gonic/gin"
+	"github.com/go-playground/validator/v10"
 )
 
 const passwordRegex = `^[A-Za-z\d\W_]{6,15}$`
@@ -54,7 +55,7 @@ func Errorf(data gin.H, errs validator.ValidationErrors) map[string]any {
 	}
 	var f Field = new(FieldErrors)
 	for _, err := range errs {
-		data[err.Field()+"_Error"] = fmt.Sprintf("%s%s", err.Field(), f.Error(err.Tag()))
+		data[err.Field()+"_Error"] = fmt.Sprintf("%s %s", err.Field(), f.Error(err.Tag()))
 		data[err.Field()+"_HasError"] = true
 	}
 	return data
