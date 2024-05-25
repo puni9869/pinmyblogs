@@ -21,9 +21,7 @@ func ResetPasswordGet(c *gin.Context) {
 
 func ResetPasswordPost(c *gin.Context) {
 	log := logger.NewLogger()
-	log.
-		WithField("isEnableForgotPassword", config.C.Authentication.EnableForgotPassword).
-		Warn("Forgot Password is disabled globally.")
+
 	if !config.C.Authentication.EnableForgotPassword {
 		log.
 			WithField("isEnableForgotPassword", config.C.Authentication.EnableForgotPassword).
