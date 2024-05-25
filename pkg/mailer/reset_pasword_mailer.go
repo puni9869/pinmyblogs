@@ -31,7 +31,6 @@ func (u *ResetPasswordMailer) Send() {
 		return
 	}
 
-	forgotPasswordLink := u.getPasswordResetLink()
 	tmpl := fmt.Sprintf(`<!DOCTYPE>
 	<html>
 	<body>
@@ -45,7 +44,7 @@ func (u *ResetPasswordMailer) Send() {
        pinmyblogs and team
 	</body>
 	</html>
-	`, forgotPasswordLink)
+	`, u.getPasswordResetLink())
 
 	msg := gomail.NewMessage()
 	msg.SetHeader("From", config.C.Mailer.EmailId)
