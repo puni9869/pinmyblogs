@@ -37,13 +37,11 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 			c.Abort()
 			return
 		}
+
+		field := new(formbinding.FieldErrors)
 		form := middlewares.GetForm(c).(*forms.SignUpForm)
 		ctx := middlewares.GetContext(c)
 
-		// initialize only once
-		once.Do(func() {
-			field = new(formbinding.FieldErrors)
-		})
 		password := form.Password
 		email := form.Email
 		confirmPassword := form.ConfirmPassword
