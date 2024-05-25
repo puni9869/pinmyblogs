@@ -5,7 +5,10 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/puni9869/pinmyblogs/models"
+	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
+	"github.com/puni9869/pinmyblogs/pkg/mailer"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
@@ -28,6 +31,30 @@ func ResetPasswordPost(c *gin.Context) {
 		c.HTML(http.StatusBadRequest, "reset.tmpl", gin.H{"Email": email, "HasError": true, "Error": "Email id not found."})
 		return
 	}
+
+	var user *models.User
+	result := database.Db().First(&user, "email = ?", email)
+	if result.Error != nil {
+		log.WithField("email", email).WithError(result.Error).Error("Invalid email or password. Database error")
+		c.HTML(http.StatusBadRequest, "reset.tmpl", gin.H{"Email": email, "HasError": true, "Error": "Email id not found."})
+		c.Abort()
+		return
+	}
+
+	if !user.IsActive || !user.IsEmailVerified {
+		log.WithFields(map[string]any{
+			"email":           user.Email,
+			"isActive":        user.IsActive,
+			"isEmailVerified": user.IsEmailVerified,
+		}).WithError(result.Error).Error("Account is disabled.")
+		c.HTML(http.StatusUnauthorized, "reset.tmpl", gin.H{"HasError": true, "Error": "Account is disabled."})
+		c.Abort()
+		return
+	}
+	log.WithField("email", user.Email).Info("Email account found for password reset.")
+
+	resetMailer := mailer.NewResetPasswordMailer(*user)
+	go resetMailer.Send()
 
 	c.HTML(http.StatusAccepted, "reset_password_sent.tmpl", gin.H{"Email": email})
 }

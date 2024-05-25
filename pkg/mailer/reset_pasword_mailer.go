@@ -3,6 +3,7 @@ package mailer
 import (
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
@@ -10,39 +11,48 @@ import (
 	"gopkg.in/gomail.v2"
 )
 
-type UserRegister struct {
+type ResetPasswordMailer struct {
 	MailerAPI
-	log  *logrus.Logger
-	user models.User
+	log               *logrus.Logger
+	user              models.User
+	resetPasswordHash string
 }
 
-func (u *UserRegister) Send() {
+func (u *ResetPasswordMailer) getPasswordResetLink() string {
+	h, _ := uuid.NewUUID()
+	return fmt.Sprintf("https://pinmyblogs.com/reset/password/%s", h.String())
+}
+
+func (u *ResetPasswordMailer) Send() {
 	if config.GetEnv() == config.LocalEnv {
 		u.log.WithFields(map[string]any{
 			"user": u.user.Email,
-			"id":   u.user.ID,
 			"env":  config.GetEnv(),
-		}).Info("user registration confirmation mail sent")
+		}).Info("reset password mail has been sent")
 		return
 	}
+
+	forgotPasswordLink := u.getPasswordResetLink()
 	tmpl := fmt.Sprintf(`<!DOCTYPE>
 	<html>
 	<body>
-       Hi there, welcome to pinmyblogs.
-	   We have successfully registered the user with email: %s<br/>
+       Hi there, 
+	   <br/>
+	   To reset your Pinmyblogs account password, please click the line below <br/> %s
+
        <br/>
        Regards,
 		<br/>
        pinmyblogs and team
 	</body>
 	</html>
-	`, u.user.Email)
+	`, forgotPasswordLink)
 
 	msg := gomail.NewMessage()
 	msg.SetHeader("From", config.C.Mailer.EmailId)
 	msg.SetHeader("To", u.user.Email)
 	msg.SetHeader("Bcc", config.C.Mailer.BccEmailId)
-	msg.SetHeader("Subject", "Welcome to pinmyblogs.com")
+	msg.SetHeader("Subject", "Reset Password")
 	msg.SetBody("text/html", tmpl)
 
 	m := gomail.NewDialer(
@@ -53,18 +63,17 @@ func (u *UserRegister) Send() {
 	)
 
 	if err := m.DialAndSend(msg); err != nil {
-		u.log.WithError(err).Error("error sending email")
+		u.log.WithError(err).Error("error sending email for reset password")
 		return
 	}
 	u.log.WithFields(map[string]any{
 		"user": u.user.Email,
 		"id":   u.user.ID,
 		"env":  config.GetEnv(),
-	}).Info("user registration confirmation mail sent")
+	}).Info("reset password email has been send")
 }
-
-func NewUserRegisterMailer(user models.User) MailerAPI {
-	return &UserRegister{
+func NewResetPasswordMailer(user models.User) MailerAPI {
+	return &ResetPasswordMailer{
 		log:  logger.NewLogger(),
 		user: user,
 	}
