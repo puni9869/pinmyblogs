@@ -13,9 +13,8 @@ import (
 
 type ResetPasswordMailer struct {
 	MailerAPI
-	log               *logrus.Logger
-	user              models.User
-	resetPasswordHash string
+	log  *logrus.Logger
+	user models.User
 }
 
 func (u *ResetPasswordMailer) getPasswordResetLink() string {
