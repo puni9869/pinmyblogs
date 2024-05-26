@@ -1,6 +1,6 @@
 .PHONY: build
 build:
-	go build ./cmd/main.go
+	go build -ldflags "-w -s" ./cmd/main.go
 
 .PHONY: server
 server:
