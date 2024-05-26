@@ -1,11 +1,12 @@
 package command
 
 import (
+	"os"
+
 	gormsessions "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/server"
-	"os"
 
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
