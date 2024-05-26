@@ -1,12 +1,12 @@
 {
   "environment": "local",
   "appConfig": {
-    "debug": false,
-    "secretKey": "$APP_SECRET_KEY",
+    "debug": true,
+    "secretKey": "secret",
     "defaultPort": "8080",
-    "customPort": "",
+    "customPort": "80",
     "useCDN": false,
-    "hostname": "pinmyblogs.com"
+    "hostname": "localhost"
   },
   "mailer": {
     "smtpHost": "",
@@ -19,10 +19,12 @@
   "database": {
     "postgres": {
       "type": "postgres",
-      "username": "username",
-      "password": "password",
+      "host": "127.0.0.1",
+      "username": "puni9869",
+      "password": "",
       "port": "5432",
-      "databaseName": "pinmyblogs"
+      "databaseName": "pinmyblogs",
+      "logSql": true
     },
     "sqlite": {
       "type": "sqlite",
