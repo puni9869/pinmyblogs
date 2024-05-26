@@ -78,12 +78,16 @@
             <span class="font-bold italic">I authorize the removal of my account, along with all associated data.</span>
             <span class="h-5 w-5">&#128542;</span>
           </p>
-          <p><span class="text-red-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Delete My Account</span></p>
+          <p><span class="text-indogo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Deactivate my account until I login back.</span></p>
+           <div class="mb-2"></div>
+          <p><span class="text-red-400 cursor-pointer hover:underline hover:underline-offset-4 select-none" id="delete-my-account">Delete My Account</span></p>
         </div>
       </div>
       <div class="mb-12"></div>
     </div>
-  </div>
+  </div> 
 </div>
 </div>
+{{template "setting/delete_account_modal" .}}
 {{end}}
+
