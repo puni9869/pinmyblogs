@@ -19,7 +19,7 @@ var environmentKey = "ENVIRONMENT"
 var Server = cli.Command{
 	Name:    "server",
 	Aliases: []string{"up"},
-	Usage:   "Starts the Web server",
+	Usage:   "Starts the web server",
 	Action:  startAction,
 }
 
