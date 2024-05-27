@@ -5,4 +5,5 @@
 ### Create a super user in posgtres:
 
 > CREATE USER <username> WITH SUPERUSER PASSWORD '';
-> CREATE USER puni9869 SUPERUSER
+
+> CREATE USER puni9869 SUPERUSER;
