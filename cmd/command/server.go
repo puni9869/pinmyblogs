@@ -58,7 +58,7 @@ func startAction(ctx *cli.Context) error {
 		gin.SetMode(gin.DebugMode)
 	} else {
 		gin.SetMode(gin.ReleaseMode)
-		log.Infof("Web server will listen on port: %s", config.C.AppConfig.DefaultPort)
+		log.Infof("Web server will listen on port: %s", config.C.AppConfig.CustomPort)
 	}
 
 	r := gin.New()
