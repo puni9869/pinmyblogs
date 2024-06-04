@@ -104,6 +104,10 @@ func GetEnv() string {
 	return defaultEnv
 }
 
+func SetKey(k string, v any) {
+	viper.Set(k, v)
+}
+
 func GetDefaultPath() string {
 	return defaultPath
 }
