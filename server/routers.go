@@ -9,6 +9,7 @@ import (
 	"github.com/puni9869/pinmyblogs/server/auth"
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
+	"github.com/puni9869/pinmyblogs/server/public"
 	"github.com/puni9869/pinmyblogs/server/setting"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
@@ -45,8 +46,16 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/trash", home.Trash)
 		//// setting handler
 		authRouters.Any("/setting", setting.Setting)
-		// navbar handler
-		authRouters.GET("/", home.Home)
+
+		//// navbar handler
+		//authRouters.
+	}
+
+	// public routes
+	publicRouters := r.Group("")
+	{
+		publicRouters.GET("/", public.StartGet)
+		publicRouters.Any("/start", public.StartGet)
 	}
 
 	// this route will accept all the params
