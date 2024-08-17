@@ -42,7 +42,8 @@ func LoginPost(c *gin.Context) {
 	result := database.Db().First(&user, "email = ?", email)
 	if result.Error != nil {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid email or password. Database error")
-		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password"})
+		c.Redirect(http.StatusTemporaryRedirect, "login")
+		log.Info("Here")
 		c.Abort()
 		return
 	}

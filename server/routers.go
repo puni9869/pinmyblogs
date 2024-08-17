@@ -31,8 +31,8 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		auth.SignupPost(signupService),
 	)
 	// auth urls
-	r.GET("/login", auth.LoginGet)
 	r.POST("/login", auth.LoginPost)
+	r.GET("/login", auth.LoginGet)
 	r.Any("/logout", auth.Logout)
 	r.GET("/reset", auth.ResetPasswordGet)
 	r.POST("/reset", middlewares.BindForm(forms.ResetForm{}), auth.ResetPasswordPost)
@@ -44,10 +44,10 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/favourite", home.Favourite)
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
-		//// setting handler
+		// setting handler
 		authRouters.Any("/setting", setting.Setting)
 
-		//// navbar handler
+		// navbar handler
 		//authRouters.
 	}
 
