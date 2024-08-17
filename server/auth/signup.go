@@ -74,7 +74,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 					"user":      user.Email,
 					"id":        user.ID,
 					"createdAt": user.CreatedAt,
-				}).Info("user is registered")
+				}).Info("failed to create the user.")
 
 				signUp.Verify()
 				signUp.Notify(user)

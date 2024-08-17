@@ -1,6 +1,7 @@
 package command
 
 import (
+	"gorm.io/gorm"
 	"os"
 
 	gormsessions "github.com/gin-contrib/sessions/gorm"
@@ -40,8 +41,14 @@ func startAction(ctx *cli.Context) error {
 	log.Infoln("App config loaded...")
 
 	// initiate the db connection
-	dbConfig := config.C.Database["postgres"]
-	db, err := database.NewPostgresConnection(&dbConfig)
+	var db *gorm.DB
+	dbConfig := config.C.Database["sqlite"]
+	if dbConfig.Type == "sqlite" {
+		db, err = database.NewSqliteConnection(&dbConfig)
+	} else if dbConfig.Type == "postgres" {
+		db, err = database.NewPostgresConnection(&dbConfig)
+	}
+
 	if err != nil {
 		log.WithError(err)
 		return err
