@@ -9,7 +9,6 @@ import (
 	"github.com/puni9869/pinmyblogs/server/auth"
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
-	"github.com/puni9869/pinmyblogs/server/public"
 	"github.com/puni9869/pinmyblogs/server/setting"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
@@ -40,6 +39,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	authRouters := r.Group("")
 	{
 		authRouters.Use(middlewares.AuthRequired)
+		authRouters.Any("/", home.Home)
 		authRouters.Any("/home", home.Home)
 		authRouters.GET("/favourite", home.Favourite)
 		authRouters.GET("/archived", home.Archived)
@@ -52,10 +52,10 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	}
 
 	// public routes
-	publicRouters := r.Group("")
+	_ = r.Group("")
 	{
-		publicRouters.GET("/", public.StartGet)
-		publicRouters.Any("/start", public.StartGet)
+		//publicRouters.GET("/", public.StartGet)
+		//publicRouters.Any("/start", public.StartGet)
 	}
 
 	// this route will accept all the params
