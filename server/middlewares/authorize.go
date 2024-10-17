@@ -6,11 +6,11 @@ import (
 	"net/http"
 )
 
-const userkey = "user"
+const Userkey = "user"
 
 func AuthRequired(c *gin.Context) {
 	session := sessions.Default(c)
-	user := session.Get(userkey)
+	user := session.Get(Userkey)
 	if user == nil {
 		// Redirect to the login page if not authenticated
 		c.Redirect(http.StatusTemporaryRedirect, "/login")

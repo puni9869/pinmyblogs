@@ -45,7 +45,12 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
 		// setting handler
-		authRouters.Any("/setting", setting.Setting)
+		settingsRoute := authRouters.Group("/setting")
+		{
+			settingsRoute.GET("", setting.Setting)
+			settingsRoute.DELETE("/deletemyaccount", setting.DeleteMyAccount)
+			settingsRoute.PUT("/disablemyaccount", setting.DisableMyAccount)
+		}
 
 		// navbar handler
 		//authRouters.

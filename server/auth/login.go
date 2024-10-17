@@ -13,7 +13,7 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/utils"
 )
 
-const userkey = "user"
+const Userkey = "user"
 
 func LoginPost(c *gin.Context) {
 	log := logger.NewLogger()
@@ -42,8 +42,7 @@ func LoginPost(c *gin.Context) {
 	result := database.Db().First(&user, "email = ?", email)
 	if result.Error != nil {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid email or password. Database error")
-		c.Redirect(http.StatusTemporaryRedirect, "login")
-		log.Info("Here")
+		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account not found."})
 		c.Abort()
 		return
 	}
@@ -54,7 +53,7 @@ func LoginPost(c *gin.Context) {
 			"isActive":        user.IsActive,
 			"isEmailVerified": user.EmailVerifyHash,
 		}).WithError(result.Error).Error("Account is disabled.")
-		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is disabled."})
+		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is disabled. Please check your email."})
 		c.Abort()
 		return
 	}
@@ -68,11 +67,11 @@ func LoginPost(c *gin.Context) {
 
 	// Save the username in the session
 	session := sessions.Default(c)
-	currentlyLoggedIn := session.Get(userkey)
+	currentlyLoggedIn := session.Get(Userkey)
 	log.WithField("email", email).Info("login found ", currentlyLoggedIn)
 
 	if currentlyLoggedIn == nil || currentlyLoggedIn != email {
-		session.Set(userkey, email)
+		session.Set(Userkey, email)
 		log.WithField("email", email).Info("setting user", currentlyLoggedIn)
 
 		if err := session.Save(); err != nil {
@@ -94,7 +93,7 @@ func LoginGet(c *gin.Context) {
 	log := logger.NewLogger()
 
 	session := sessions.Default(c)
-	currentlyLoggedIn := session.Get(userkey)
+	currentlyLoggedIn := session.Get(Userkey)
 
 	if currentlyLoggedIn == nil || len(currentlyLoggedIn.(string)) == 0 {
 		c.HTML(http.StatusOK, "login.tmpl", nil)
@@ -119,7 +118,7 @@ func Logout(c *gin.Context) {
 	log := logger.NewLogger()
 
 	session := sessions.Default(c)
-	user := session.Get(userkey)
+	user := session.Get(Userkey)
 	if user == nil {
 		log.WithField("user", user).Info("Redirecting to login page. Session not found")
 		c.Redirect(http.StatusTemporaryRedirect, "/login")
@@ -132,7 +131,7 @@ func Logout(c *gin.Context) {
 		log.WithField("session", user).Info("session id found")
 
 		session.Delete(sId)
-		session.Set(userkey, nil)
+		session.Set(Userkey, nil)
 
 		var s *models.Session
 		res := database.Db().Delete(&s, "id = ?", sId)
