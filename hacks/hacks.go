@@ -1,21 +1,45 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"github.com/puni9869/pinmyblogs/pkg/logger"
+	"net"
+	"strings"
+	"time"
+)
 
-type User struct {
-	Id       string
-	Password string
-}
-
-func (u User) Format(f fmt.State, verb rune) {
-	//  Put what you want to show on screen
-	f.Write([]byte(fmt.Sprintf("ID: %s", u.Id)))
-}
-
-// If you don't want to display password when you print User
-// Output: User ID: UUID
+const PORT = "6652"
 
 func main() {
-	user := User{Id: "UUID", Password: "I will not ganna tell you"}
-	fmt.Print("User ", user)
+	log := logger.NewLogger()
+	var err error
+	l, err := net.Listen("tcp", ":"+PORT)
+	if err != nil {
+		log.WithError(err).Error("failed to listen.")
+		return
+	}
+	defer l.Close()
+
+	c, err := l.Accept()
+	if err != nil {
+		log.WithError(err).Error("failed to accept the connection request.")
+		return
+	}
+	for {
+		netData, err := bufio.NewReader(c).ReadString(byte('\n'))
+		if err != nil {
+			log.WithError(err).Error("failed to get data from stream.")
+			return
+		}
+		if strings.TrimSpace(string(netData)) == "STOP" {
+			c.Write([]byte("BYE..."))
+			return
+		}
+
+		log.Infof("-> %s", string(netData))
+		t := time.Now()
+		myTime := t.Format(time.RFC1123Z) + "\n"
+
+		c.Write([]byte(myTime))
+	}
 }
