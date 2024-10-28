@@ -8,6 +8,13 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 )
 
+func AddWeblink(c *gin.Context) {
+	log := logger.NewLogger()
+	webLink := c.Request.PostForm.Get("url")
+	log.Info("Requested to add  " + webLink)
+	c.JSON(http.StatusCreated, gin.H{"Status": "OK", "Message": "Weblink Added." + webLink})
+}
+
 func Home(c *gin.Context) {
 	c.HTML(http.StatusOK, "home.tmpl", nil)
 }

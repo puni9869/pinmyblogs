@@ -44,6 +44,9 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/favourite", home.Favourite)
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
+
+		authRouters.POST("/new", home.AddWeblink)
+
 		// setting handler
 		settingsRoute := authRouters.Group("/setting")
 		{
