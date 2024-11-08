@@ -19,10 +19,44 @@
 
     <!-- Input Box -->
     <input autofocus type="text" id="add-weblink-input-box" placeholder="Enter link" class="w-full p-1 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-
-    <!-- Add Link Button -->
-    <div class="flex justify-end">
-      <button class="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600" id="add-link-btn">Add Link</button>
+    <div class="flex select-none">
+        <div class="colors flex items-center" id="tags">
+          <ul>
+            <li>
+              <label>
+                <input type="radio" name="tag" value="black" id="tag"/>
+                <span class="swatch" style="background-color: #222;"></span>
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="tag" value="yellow" id="tag"/>
+                <span class="swatch" style="background-color: #ffde21;"></span>
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="tag" value="red" id="tag"/>
+                <span class="swatch" style="background-color: #ffa896;"></span>
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="tag" value="blue" id="tag"/>
+                <span class="swatch" style="background-color: #6e8cd5;"></span>
+              </label>
+            </li>
+            <li>
+              <label>
+                <input type="radio" name="tag" value="green" id="tag"/>
+                <span class="swatch" style="background-color: #44c28d;"></span>
+              </label>
+            </li>
+          </ul>
+        </div>
+      <div class="flex flex-1 justify-end">
+        <button class="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600" id="add-link-btn">Add Link</button>
+      </div>
     </div>
   </div>
 </div>

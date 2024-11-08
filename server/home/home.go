@@ -10,9 +10,15 @@ import (
 
 func AddWeblink(c *gin.Context) {
 	log := logger.NewLogger()
-	webLink := c.Request.PostForm.Get("url")
-	log.Info("Requested to add  " + webLink)
-	c.JSON(http.StatusCreated, gin.H{"Status": "OK", "Message": "Weblink Added." + webLink})
+
+	var requestBody struct {
+		Url string `json:"url"`
+		Tag string `json:"tag"`
+	}
+	// Handle the error for url validation
+	_ = c.ShouldBindJSON(&requestBody)
+	log.Info("Requested to add %s in tag: %s ", requestBody.Url, requestBody.Tag)
+	c.JSON(http.StatusCreated, gin.H{"Status": "OK", "Message": "Weblink Added."})
 }
 
 func Home(c *gin.Context) {
