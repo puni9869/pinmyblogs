@@ -91,6 +91,11 @@ async function AddNewLink(webLink, selectedTag) {
 			RefreshPage();
 		}
 	} catch (error) {
+		const errEl = document.getElementById('weblink-err');
+		if (errEl) {
+			errEl.classList.toggle("hidden");
+			errEl.innerText = error.message;
+		}
 		console.error(error.message);
 	}
 }

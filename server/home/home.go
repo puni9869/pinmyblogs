@@ -16,21 +16,23 @@ func AddWeblink(c *gin.Context) {
 	log := logger.NewLogger()
 
 	var requestBody struct {
-		Url string `json:"url"`
-		Tag string `json:"tag"`
+		Url string `json:"url" binding:"required"`
+		Tag string `json:"tag" binding:"required"`
 	}
 	session := sessions.Default(c)
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
 
 	// Handle the error for url validation
-	_ = c.ShouldBind(&requestBody)
+	err := c.ShouldBind(&requestBody)
+	if err != nil {
+		log.WithError(err).Error("Bad request body")
+		c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Message": "Field is required."})
+		return
+	}
 	db := database.Db()
-	url := models.Url{
-		WebLink:   requestBody.Url,
-		IsActive:  true,
-		IsDeleted: false,
-		CreatedBy: currentlyLoggedIn.(string),
-		Tag:       requestBody.Tag,
+	url := models.Url{WebLink: requestBody.Url,
+		IsActive: true, IsDeleted: false,
+		CreatedBy: currentlyLoggedIn.(string), Tag: requestBody.Tag,
 	}
 	db.Save(&url)
 	log.Info("Requested to add %s in tag: %s ", requestBody.Url, requestBody.Tag)
