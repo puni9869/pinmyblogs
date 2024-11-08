@@ -22,7 +22,7 @@ func AddWeblink(c *gin.Context) {
 	session := sessions.Default(c)
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
 
-	// Handle the error for url validation
+	// Handle the error for url validation like form validator
 	err := c.ShouldBind(&requestBody)
 	if err != nil {
 		log.WithError(err).Error("Bad request body")
