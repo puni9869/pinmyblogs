@@ -16,16 +16,17 @@ import (
 func AddWeblink(c *gin.Context) {
 	log := logger.NewLogger()
 	var err error
+
 	session := sessions.Default(c)
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
-	var requestBody forms.WeblinkRequest
-	// Handle the error for url validation like form validator
+	requestBody := middlewares.GetForm(c).(*forms.WeblinkRequest)
 	ctx := middlewares.GetContext(c)
 	if ctx["Tag_HasError"] == true || ctx["Url_HasError"] == true {
 		log.WithError(err).Error("Bad request body")
 		c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Errors": ctx})
 		return
 	}
+
 	db := database.Db()
 	url := models.Url{WebLink: requestBody.Url,
 		IsActive: true, IsDeleted: false,
@@ -33,12 +34,20 @@ func AddWeblink(c *gin.Context) {
 	}
 	db.Save(&url)
 	go spider.ScrapeUrl(&url)
+
 	log.Info("Requested to add %s in tag: %s ", requestBody.Url, requestBody.Tag)
 	c.JSON(http.StatusCreated, gin.H{"Status": "OK", "Message": "Weblink Added."})
 }
 
 func Home(c *gin.Context) {
-	c.HTML(http.StatusOK, "home.tmpl", nil)
+	log := logger.NewLogger()
+	session := sessions.Default(c)
+	currentlyLoggedIn := session.Get(middlewares.Userkey)
+	var urls []models.Url
+	db := database.Db()
+	result := db.Order("updated_at desc").Limit(100).Find(&urls)
+	log.WithField("result", result.RowsAffected).Info("" + currentlyLoggedIn.(string))
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls})
 }
 
 func Favourite(c *gin.Context) {

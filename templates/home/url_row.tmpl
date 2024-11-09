@@ -3,19 +3,19 @@
 <div class="pb-1 pt-2 flex flex-col rounded-sm bg-white shadow px-3 w-full cursor-pointer mb-1">
   <!-- Title -->
   <div class="text-black-500 hover:text-indigo-500">
-    <p class="font-medium text-2xl cursor-pointer">Deploy a Django App Using Gunicorn to App Platform</p>
+    <p class="font-medium text-xl cursor-pointer">{{.WebLink}}</p>
   </div>
   <!-- Link -->
-  <div class="text-gray-500 hover:text-indigo-400">
-    <a class="font-sm text-xs cursor-pointer style-none" href="https://www.instapaper.com/u" target="_blank">https://www.instapaper.com/u</a>
+  <div class="text-gray-500 hover:text-indigo-400 overflow-hidden">
+    <a class="font-sm text-xs cursor-pointer style-none" href="{{.WebLink}}" target="_blank">{{.WebLink}}</a>
   </div>
 
   <!-- Description -->
-  <div class="mb-2 w-3/4 h-10 overflow-hidden">
-    <p class="text-sm text-gray-700 font-light max-w-full overflow-hidden text-ellipsis">
-      The app to App Platform using a Gunicorn HTTP server.Build a Python app using Django and then deploy the app to App Platform using a Gunicorn HTTP server.
-    </p>
-  </div>
+  {{if .Summary}}
+      <div class="mb-2 w-3/4 h-10 overflow-hidden">
+        <p class="text-sm text-gray-700 font-light max-w-full overflow-hidden text-ellipsis"></p>
+      </div>
+  {{end}}
 
   <!-- Icon -->
     {{template "home/url_actions" .}}

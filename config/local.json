@@ -29,7 +29,8 @@
     "sqlite": {
       "type": "sqlite",
       "databaseName": "pinmyblogs",
-      "fileName": "data.dat"
+      "fileName": "data.dat",
+      "logSql": true
     }
   },
   "enableSsl": false,
