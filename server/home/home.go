@@ -45,7 +45,7 @@ func Home(c *gin.Context) {
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
 	var urls []models.Url
 	db := database.Db()
-	result := db.Order("updated_at desc").Limit(100).Find(&urls)
+	result := db.Where(&models.Url{CreatedBy: currentlyLoggedIn.(string), IsActive: true, IsDeleted: false, IsArchived: false}).Order("updated_at desc").Limit(100).Find(&urls)
 	log.WithField("result", result.RowsAffected).Info("" + currentlyLoggedIn.(string))
 	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls})
 }
