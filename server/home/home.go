@@ -45,21 +45,66 @@ func Home(c *gin.Context) {
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
 	var urls []models.Url
 	db := database.Db()
-	result := db.Where(&models.Url{CreatedBy: currentlyLoggedIn.(string), IsActive: true, IsDeleted: false, IsArchived: false}).Order("updated_at desc").Limit(100).Find(&urls)
-	log.WithField("result", result.RowsAffected).Info("" + currentlyLoggedIn.(string))
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls})
+	result := db.Where("created_by =? and  is_active = ? and is_deleted = ?", currentlyLoggedIn.(string), true, false).
+		Order("updated_at desc").
+		Limit(100).
+		Find(&urls)
+	if result.RowsAffected > 0 {
+		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
+	}
+
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
 }
 
 func Favourite(c *gin.Context) {
-	c.HTML(http.StatusOK, "favourite.tmpl", nil)
+	log := logger.NewLogger()
+	session := sessions.Default(c)
+	currentlyLoggedIn := session.Get(middlewares.Userkey)
+	var urls []models.Url
+	db := database.Db()
+	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_fav =? ", currentlyLoggedIn.(string), true, false, true).
+		Order("updated_at desc").
+		Limit(100).
+		Find(&urls)
+	if result.RowsAffected > 0 {
+		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
+	}
+
+	c.HTML(http.StatusOK, "favourite.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
 }
 
 func Archived(c *gin.Context) {
-	c.HTML(http.StatusOK, "archived.tmpl", nil)
+	log := logger.NewLogger()
+	session := sessions.Default(c)
+	currentlyLoggedIn := session.Get(middlewares.Userkey)
+	var urls []models.Url
+	db := database.Db()
+	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_archived =? ", currentlyLoggedIn.(string), true, false, true).
+		Order("updated_at desc").
+		Limit(100).
+		Find(&urls)
+	if result.RowsAffected > 0 {
+		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
+	}
+
+	c.HTML(http.StatusOK, "archived.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
 }
 
 func Trash(c *gin.Context) {
-	c.HTML(http.StatusOK, "trash.tmpl", nil)
+	log := logger.NewLogger()
+	session := sessions.Default(c)
+	currentlyLoggedIn := session.Get(middlewares.Userkey)
+	var urls []models.Url
+	db := database.Db()
+	result := db.Where("created_by =? and  is_active = ? and is_deleted = ?", currentlyLoggedIn.(string), true, true).
+		Order("updated_at desc").
+		Limit(100).
+		Find(&urls)
+	if result.RowsAffected > 0 {
+		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
+	}
+
+	c.HTML(http.StatusOK, "trash.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
 }
 
 func Favicon(c *gin.Context) {

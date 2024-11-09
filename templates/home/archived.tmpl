@@ -5,8 +5,13 @@
     <div class="flex flex-row py-3 px-2 bg-white border-l-2 border-r-2 border-gray-200">
         {{template "layout/nav_bar_opener" .}}
         {{template "widget/search" .}}
+        {{template "widget/add_link" .}}
     </div>
-        {{template "widget/no_data" .}}
+    {{if (gt .Count 0)}}
+      {{template "home/url_container" .}}
+    {{else}}
+      {{template "widget/no_data" .}}
+    {{end}}
   </main>
 </div>
 {{template "footer" .}}
