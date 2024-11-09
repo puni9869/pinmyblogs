@@ -26,7 +26,6 @@ func AddWeblink(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Errors": ctx})
 		return
 	}
-	log.Info(ctx)
 	db := database.Db()
 	url := models.Url{WebLink: requestBody.Url,
 		IsActive: true, IsDeleted: false,
