@@ -45,6 +45,8 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
 
+		authRouters.PUT("/actions", home.Actions)
+
 		authRouters.POST("/new",
 			middlewares.Bind(forms.WeblinkRequest{}),
 			home.AddWeblink,

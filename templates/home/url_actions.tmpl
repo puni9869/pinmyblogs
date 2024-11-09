@@ -1,5 +1,5 @@
 {{define "home/url_actions"}}
-  <div class="flex flex-row align-start items-start select-none gap-x-1">
+  <div class="flex flex-row align-start items-start select-none gap-x-1" id="weblink-actions">
     <span id="move-to-pinned" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-width="2" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
@@ -11,9 +11,11 @@
         />
       </svg>
     </span>
-    <span id="move-to-favourite" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="{{if .IsFav}}black{{else}}none{{end}}" viewBox="0 0 24 24" stroke="currentColor">
+    <span id="move-to-favourite" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer" data-is-fav="{{if .IsFav}}true{{else}}false{{end}}">
+      <svg data-is-fav="{{if .IsFav}}true{{else}}false{{end}}" data-id="{{.ID}}" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="{{if .IsFav}}black{{else}}none{{end}}" viewBox="0 0 24 24" stroke="currentColor">
         <path
+          data-id="{{.ID}}"
+          data-is-fav="{{if .IsFav}}true{{else}}false{{end}}"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="1"
@@ -21,9 +23,11 @@
         />
       </svg>
     </span>
-    <span id="move-to-archive" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="{{if .IsArchived}}black{{else}}none{{end}}" viewBox="0 0 24 24" stroke="currentColor">
+    <span id="move-to-archive" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer" data-is-archived="{{if .IsArchived}}true{{else}}false{{end}}">
+      <svg data-id="{{.ID}}" data-is-archived="{{if .IsArchived}}true{{else}}false{{end}}" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="{{if .IsArchived}}black{{else}}none{{end}}" viewBox="0 0 24 24" stroke="currentColor">
         <path
+          data-id="{{.ID}}"
+          data-is-archived="{{if .IsArchived}}true{{else}}false{{end}}"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="1"
@@ -32,9 +36,11 @@
       </svg>
     </span>
 
-    <span id="move-to-trash" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <span id="move-to-trash" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer" data-is-deleted="{{if .IsDeleted}}true{{else}}false{{end}}">
+      <svg  data-is-deleted="{{if .IsDeleted}}true{{else}}false{{end}}" data-id="{{.ID}}" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="{{if .IsDeleted}}black{{else}}none{{end}}" viewBox="0 0 24 24" stroke="currentColor">
         <path
+          data-id="{{.ID}}"
+          data-is-deleted="{{if .IsDeleted}}true{{else}}false{{end}}"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="1"

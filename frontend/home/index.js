@@ -99,3 +99,46 @@ async function AddNewLink(webLink, selectedTag) {
 		console.error(error.message);
 	}
 }
+
+export function WebLinkActionsInit() {
+	const actions = document.querySelector('#weblink-actions');
+	if (!actions) {
+		return;
+	}
+
+	['#move-to-favourite', '#move-to-archive', '#move-to-trash'].forEach((actionSelector) => {
+		document.querySelectorAll(actionSelector).forEach((elm) => {
+			elm.addEventListener('click', async (e) => {
+				console.info(e.target);
+				await WebLinkActions(e.target.dataset);
+				// RefreshPage();
+			});
+		});
+	});
+}
+
+
+async function WebLinkActions(data) {
+	console.info("Action is called", data);
+	const url = '/actions';
+	try {
+		const headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+
+		const response = await fetch(url, {
+			method: 'PUT',
+			headers: headers,
+			body: JSON.stringify(data)
+		});
+		if (!response.ok) {
+			throw new Error(`Response status: ${response.status}`);
+		}
+		const resp = await response.json();
+		if (resp?.Status === "OK") {
+			console.info(resp?.Message);
+		}
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
