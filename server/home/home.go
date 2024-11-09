@@ -4,6 +4,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/database"
+	"github.com/puni9869/pinmyblogs/pkg/spider"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"net/http"
 
@@ -35,6 +36,7 @@ func AddWeblink(c *gin.Context) {
 		CreatedBy: currentlyLoggedIn.(string), Tag: requestBody.Tag,
 	}
 	db.Save(&url)
+	go spider.ScrapeUrl(&url)
 	log.Info("Requested to add %s in tag: %s ", requestBody.Url, requestBody.Tag)
 	c.JSON(http.StatusCreated, gin.H{"Status": "OK", "Message": "Weblink Added."})
 }
