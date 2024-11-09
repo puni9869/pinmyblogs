@@ -43,10 +43,12 @@ func ScrapeUrl(url *models.Url) {
 	}
 	comment := make(map[string]string)
 	comment["statusCode"] = strconv.Itoa(resp.StatusCode)
-	jsonStr, err := json.Marshal(comment)
 
+	jsonStr, _ := json.Marshal(comment)
 	url.Comment = string(jsonStr)
+
 	db := database.Db()
 	db.Updates(url)
+
 	log.Info("Updating weblink metadata after fetching.", url.WebLink)
 }
