@@ -26,7 +26,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 
 	r.GET("/signup", auth.SignupGet)
 	r.POST("/signup",
-		middlewares.BindForm(forms.SignUpForm{}),
+		middlewares.Bind(forms.SignUpForm{}),
 		auth.SignupPost(signupService),
 	)
 	// auth urls
@@ -34,7 +34,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	r.GET("/login", auth.LoginGet)
 	r.Any("/logout", auth.Logout)
 	r.GET("/reset", auth.ResetPasswordGet)
-	r.POST("/reset", middlewares.BindForm(forms.ResetForm{}), auth.ResetPasswordPost)
+	r.POST("/reset", middlewares.Bind(forms.ResetForm{}), auth.ResetPasswordPost)
 
 	authRouters := r.Group("")
 	{
@@ -45,7 +45,10 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
 
-		authRouters.POST("/new", home.AddWeblink)
+		authRouters.POST("/new",
+			middlewares.Bind(forms.WeblinkRequest{}),
+			home.AddWeblink,
+		)
 
 		// setting handler
 		settingsRoute := authRouters.Group("/setting")
@@ -54,9 +57,6 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 			settingsRoute.DELETE("/deletemyaccount", setting.DeleteMyAccount)
 			settingsRoute.PUT("/disablemyaccount", setting.DisableMyAccount)
 		}
-
-		// navbar handler
-		//authRouters.
 	}
 
 	// public routes

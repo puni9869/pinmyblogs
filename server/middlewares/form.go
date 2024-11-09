@@ -26,14 +26,20 @@ func GetContext(c *gin.Context) gin.H {
 	return nil
 }
 
-// BindForm binding a form obj to a handler's context data
-func BindForm[T any](_ T) gin.HandlerFunc {
+// Bind binding a form obj to a handler's context data
+func Bind[T any](_ T) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		data := make(map[string]any)
 		data["HasError"] = false
 		var theObj = new(T) // create a new form obj for every request but not use obj directly
 		c.Set(contextKey, data)
-		errs := c.ShouldBindWith(theObj, binding.Form)
+		var errs error
+		if c.Request.Header.Get("Content-Type") == binding.MIMEJSON {
+			errs = c.ShouldBindWith(theObj, binding.JSON)
+		} else {
+			errs = c.ShouldBindWith(theObj, binding.Form)
+		}
+
 		formbinding.FillContext(theObj, data)
 		if errs != nil {
 			data = formbinding.Errorf(make(gin.H), errs.(validator.ValidationErrors))

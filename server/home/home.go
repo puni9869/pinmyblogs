@@ -4,32 +4,29 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/database"
+	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/pkg/spider"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
+	"github.com/puni9869/pinmyblogs/types/forms"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
-	"github.com/puni9869/pinmyblogs/pkg/logger"
 )
 
 func AddWeblink(c *gin.Context) {
 	log := logger.NewLogger()
-
-	var requestBody struct {
-		Url string `json:"url" binding:"required"`
-		Tag string `json:"tag" binding:"required"`
-	}
+	var err error
 	session := sessions.Default(c)
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
-
+	var requestBody forms.WeblinkRequest
 	// Handle the error for url validation like form validator
-	err := c.ShouldBind(&requestBody)
-	if err != nil {
+	ctx := middlewares.GetContext(c)
+	if ctx["Tag_HasError"] == true || ctx["Url_HasError"] == true {
 		log.WithError(err).Error("Bad request body")
-		c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Message": "Field is required."})
+		c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Errors": ctx})
 		return
 	}
+	log.Info(ctx)
 	db := database.Db()
 	url := models.Url{WebLink: requestBody.Url,
 		IsActive: true, IsDeleted: false,

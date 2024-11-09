@@ -61,7 +61,7 @@ func Errorf(data gin.H, errs validator.ValidationErrors) map[string]any {
 	return data
 }
 
-// FillContext is fill all the form fields into *gin.Context
+// FillContext is fill all the form/json fields into *gin.Context
 //
 // data[field.Name+"_Error"] = ""
 // data[field.Name+"_HasError"] = false
