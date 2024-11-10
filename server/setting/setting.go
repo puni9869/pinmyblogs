@@ -22,6 +22,7 @@ func Setting(c *gin.Context) {
 	tmplCtx := make(map[string]string)
 	email := currentlyLoggedIn.(string)
 	if currentlyLoggedIn != nil && len(email) > 0 {
+		tmplCtx["ShareDataOverMail"] = fmt.Sprintf("%t", config.C.ShareDataOverMail)
 		tmplCtx["Email"] = currentlyLoggedIn.(string)
 		var user *models.User
 		result := database.Db().First(&user, "email = ?", email)
@@ -33,9 +34,6 @@ func Setting(c *gin.Context) {
 		} else {
 			tmplCtx["DisplayName"] = user.DisplayName
 		}
-	}
-	if !config.C.ShareDataOverMail {
-		tmplCtx["ShareDataOverMail"] = fmt.Sprintf("%t", config.C.ShareDataOverMail)
 	}
 	c.HTML(http.StatusOK, "setting.tmpl", tmplCtx)
 }
