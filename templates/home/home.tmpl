@@ -7,7 +7,7 @@
         {{template "widget/search" .}}
         {{template "widget/add_link" .}}
     </div>
-    {{if (gt .Count 0)}}
+    {{if and .Count (gt .Count 0)}}
       {{template "home/url_container" .}}
     {{else}}
       {{template "widget/no_data" .}}

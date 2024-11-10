@@ -44,6 +44,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/favourite", home.Favourite)
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
+		authRouters.GET("/share/:id", home.Share)
 
 		authRouters.PUT("/actions", home.Actions)
 

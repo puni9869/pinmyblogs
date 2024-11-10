@@ -50,8 +50,9 @@
     </span>
 
     <span id="share" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <svg data-id="{{.ID}}" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
+          data-id="{{.ID}}"
           stroke-linecap="round"
           stroke-linejoin="round"
           stroke-width="1"
@@ -60,4 +61,6 @@
       </svg>
     </span>
   </div>
+
+  <div id="share-content"></div>
 {{end}}

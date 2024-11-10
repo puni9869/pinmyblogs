@@ -46,7 +46,7 @@ func Home(c *gin.Context) {
 	var urls []models.Url
 	db := database.Db()
 	result := db.Where("created_by =? and  is_active = ? and is_deleted = ?", currentlyLoggedIn.(string), true, false).
-		Order("updated_at desc").
+		Order("id desc").
 		Limit(100).
 		Find(&urls)
 	if result.RowsAffected > 0 {
@@ -63,7 +63,7 @@ func Favourite(c *gin.Context) {
 	var urls []models.Url
 	db := database.Db()
 	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_fav =? ", currentlyLoggedIn.(string), true, false, true).
-		Order("updated_at desc").
+		Order("id desc").
 		Limit(100).
 		Find(&urls)
 	if result.RowsAffected > 0 {
@@ -80,7 +80,7 @@ func Archived(c *gin.Context) {
 	var urls []models.Url
 	db := database.Db()
 	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_archived =? ", currentlyLoggedIn.(string), true, false, true).
-		Order("updated_at desc").
+		Order("id desc").
 		Limit(100).
 		Find(&urls)
 	if result.RowsAffected > 0 {
@@ -129,8 +129,7 @@ func Actions(c *gin.Context) {
 	}
 
 	var updates = make(map[string]any)
-	updates["ID"] = requestBody["id"]
-	updates["CreatedBy"] = currentlyLoggedIn.(string)
+
 	if val, ok := requestBody["isFav"]; ok {
 		value, err := strconv.ParseBool(val)
 		if err != nil {
@@ -156,11 +155,28 @@ func Actions(c *gin.Context) {
 		}
 		updates["IsDeleted"] = !value
 	}
-	var url models.Url
+
 	db := database.Db()
-	db.Model(&url).Updates(updates)
+	db.Model(&models.Url{}).Where("id = ? and created_by = ? ", requestBody["id"], currentlyLoggedIn.(string)).Updates(updates)
 
 	c.JSON(http.StatusOK, gin.H{"Status": "OK", "Message": "Weblink updated."})
+}
+
+func Share(c *gin.Context) {
+	log := logger.NewLogger()
+	//var err error
+	session := sessions.Default(c)
+	currentlyLoggedIn := session.Get(middlewares.Userkey)
+	id := c.Param("id")
+	var url *models.Url
+	db := database.Db()
+	result := db.Where("id =? and created_by =? and  is_active = ?", id, currentlyLoggedIn.(string), true).First(&url)
+	if result.RowsAffected != 1 {
+		c.JSON(http.StatusNotFound, map[string]string{"Status": "NOT_OK", "Message": "Not found."})
+		return
+	}
+	log.Info(url)
+	c.HTML(http.StatusOK, "share.tmpl", nil)
 }
 
 func Favicon(c *gin.Context) {

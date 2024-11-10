@@ -109,9 +109,8 @@ export function WebLinkActionsInit() {
 	['#move-to-favourite', '#move-to-archive', '#move-to-trash'].forEach((actionSelector) => {
 		document.querySelectorAll(actionSelector).forEach((elm) => {
 			elm.addEventListener('click', async (e) => {
-				console.info(e.target);
 				await WebLinkActions(e.target.dataset);
-				// RefreshPage();
+				RefreshPage();
 			});
 		});
 	});
@@ -137,6 +136,30 @@ async function WebLinkActions(data) {
 		if (resp?.Status === "OK") {
 			console.info(resp?.Message);
 		}
+	} catch (error) {
+		console.error(error.message);
+	}
+}
+
+export function ShareLinkInit() {
+	document.querySelectorAll('#share').forEach((elm) => {
+		elm.addEventListener('click', async (e) => (await ShareLink(e.target.dataset)));
+	});
+}
+
+async function ShareLink(data) {
+	if (!data?.id) {
+		return;
+	}
+	console.info("ShareLink is called", data);
+	const url = `/share/${data.id}`;
+	try {
+		const response = await fetch(url, {method: 'GET'});
+		if (!response.ok) {
+			throw new Error(`Response status: ${response.status}`);
+		}
+		const resp = await response.text();
+		document.getElementById('share-content').innerHTML = resp;
 	} catch (error) {
 		console.error(error.message);
 	}

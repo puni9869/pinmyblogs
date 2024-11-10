@@ -34,6 +34,7 @@
     }
   },
   "enableSsl": false,
+  "shareDataOverMail": false,
   "authentication": {
     "enableLogin": true,
     "enableRegistration": true,
