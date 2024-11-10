@@ -7,6 +7,7 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"net/http"
+	"slices"
 	"strings"
 
 	"github.com/gin-contrib/sessions"
@@ -66,4 +67,30 @@ func DisableMyAccount(c *gin.Context) {
 	user.IsActive = false
 	database.Db().Save(user)
 	c.JSON(http.StatusOK, map[string]string{"Status": "OK"})
+}
+
+func DownloadMyData(c *gin.Context) {
+	log := logger.NewLogger()
+
+	format := strings.ToLower(c.Param("format"))
+	if !slices.Contains([]string{"csv", "json", "html"}, format) {
+		format = "json"
+	}
+
+	session := sessions.Default(c)
+	currentlyLoggedIn := session.Get(middlewares.Userkey)
+
+	var urls []models.Url
+	db := database.Db()
+	result := db.Where("created_by =? and  is_active = ?", currentlyLoggedIn.(string), true).Find(&urls)
+	if result.Error != nil {
+		log.WithError(result.Error).Error("Error in fetching the data")
+		c.JSON(http.StatusInternalServerError, map[string]string{"Status": "NOT_OK", "Message": "Something went wrong."})
+		return
+	}
+	if result.RowsAffected == 0 {
+		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
+		c.JSON(http.StatusNotFound, map[string]string{"Status": "NOT_OK", "Message": "No Data."})
+	}
+	c.JSON(http.StatusAccepted, urls)
 }

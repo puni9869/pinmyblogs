@@ -57,6 +57,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		settingsRoute := authRouters.Group("/setting")
 		{
 			settingsRoute.GET("", setting.Setting)
+			settingsRoute.GET("downloadmydata/:format{json|csv|html}", setting.DownloadMyData)
 			settingsRoute.DELETE("/deletemyaccount", setting.DeleteMyAccount)
 			settingsRoute.PUT("/disablemyaccount", setting.DisableMyAccount)
 		}
