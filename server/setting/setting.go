@@ -1,7 +1,9 @@
 package setting
 
 import (
+	"fmt"
 	"github.com/puni9869/pinmyblogs/models"
+	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"net/http"
@@ -31,7 +33,9 @@ func Setting(c *gin.Context) {
 		} else {
 			tmplCtx["DisplayName"] = user.DisplayName
 		}
-
+	}
+	if !config.C.ShareDataOverMail {
+		tmplCtx["ShareDataOverMail"] = fmt.Sprintf("%t", config.C.ShareDataOverMail)
 	}
 	c.HTML(http.StatusOK, "setting.tmpl", tmplCtx)
 }

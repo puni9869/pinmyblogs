@@ -63,7 +63,7 @@
           <p><span class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .json</span></p>
           <p><span class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .html</span></p>
           <br />
-          <p><span class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Send me my data over email</span></p>
+          <p><span class="ml-1 select-none {{if eq .ShareDataOverMail "true"}}text-indigo-400 hover:underline hover:underline-offset-4 cursor-pointer {{else}}text-gray-400 cursor-not-allowed{{end}}">Send me my data over email</span></p>
         </div>
       </div>
       <div class="mb-6"></div>

@@ -53,11 +53,12 @@ type Mailer struct {
 
 // ConfigProvider ie converted value in go types
 type ConfigProvider struct {
-	EnableSSL      bool                   `json:"enableSSL"`
-	Database       map[string]DatabaseObj `json:"database"`
-	AppConfig      AppConfig              `json:"appConfig"`
-	Authentication Authentication         `json:"authentication"`
-	Mailer         Mailer                 `json:"mailer"`
+	EnableSSL         bool                   `json:"enableSSL"`
+	ShareDataOverMail bool                   `json:"shareDataOverMail"`
+	Database          map[string]DatabaseObj `json:"database"`
+	AppConfig         AppConfig              `json:"appConfig"`
+	Authentication    Authentication         `json:"authentication"`
+	Mailer            Mailer                 `json:"mailer"`
 }
 
 var C ConfigProvider
