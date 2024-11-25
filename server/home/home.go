@@ -1,6 +1,9 @@
 package home
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
@@ -9,8 +12,6 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/spider"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
-	"net/http"
-	"strconv"
 )
 
 func AddWeblink(c *gin.Context) {
@@ -45,7 +46,7 @@ func Home(c *gin.Context) {
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
 	var urls []models.Url
 	db := database.Db()
-	result := db.Where("created_by =? and  is_active = ? and is_deleted = ?", currentlyLoggedIn.(string), true, false).
+	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_archived = ?", currentlyLoggedIn.(string), true, false, false).
 		Order("id desc").
 		Limit(100).
 		Find(&urls)
