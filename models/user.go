@@ -25,5 +25,5 @@ type User struct {
 }
 
 func (u User) Format(f fmt.State, verb rune) {
-	f.Write([]byte(fmt.Sprintf("Email: %s FirstName: %s Id: %s", u.Email, u.FirstName, u.ID)))
+	_, _ = f.Write([]byte(fmt.Sprintf("Email: %s FirstName: %s Id: %s", u.Email, u.FirstName, u.ID)))
 }

@@ -2,13 +2,14 @@ package setting
 
 import (
 	"fmt"
+	"net/http"
+	"slices"
+	"strings"
+
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
-	"net/http"
-	"slices"
-	"strings"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
@@ -76,7 +77,7 @@ func DownloadMyData(c *gin.Context) {
 	if !slices.Contains([]string{"csv", "json", "html"}, format) {
 		format = "json"
 	}
-
+	log.Infof("generating the data in %s format", format)
 	session := sessions.Default(c)
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
 
