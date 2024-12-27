@@ -36,7 +36,7 @@ func AddWeblink(c *gin.Context) {
 	db.Save(&url)
 	go spider.ScrapeUrl(&url)
 
-	log.Info("Requested to add %s in tag: %s ", requestBody.Url, requestBody.Tag)
+	log.Infof("Requested to add %s in tag: %s ", requestBody.Url, requestBody.Tag)
 	c.JSON(http.StatusCreated, gin.H{"Status": "OK", "Message": "Weblink Added."})
 }
 
