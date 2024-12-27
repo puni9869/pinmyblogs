@@ -1,6 +1,6 @@
 # pinmyblogs
 
-[![Check](https://github.com/puni9869/pinmyblogs/actions/workflows/go.yml/badge.svg)](https://github.com/puni9869/pinmyblogs/actions/workflows/go.yml)
+[![Pipeline](https://github.com/puni9869/pinmyblogs/actions/workflows/go.yml/badge.svg)](https://github.com/puni9869/pinmyblogs/actions/workflows/go.yml)
 
 ### How to start
 1. You need latest Go runtime. https://go.dev
