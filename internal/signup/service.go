@@ -12,6 +12,7 @@ import (
 	"gorm.io/gorm"
 )
 
+//lint:ignore ST1005 ignore this!
 var ErrDuplicateEmail = errors.New("Email already exist")
 
 type Service interface {

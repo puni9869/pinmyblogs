@@ -1,6 +1,6 @@
 module github.com/puni9869/pinmyblogs
 
-go 1.23.4
+go 1.23.10
 
 require (
 	github.com/gin-contrib/sessions v1.0.4
@@ -12,7 +12,6 @@ require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/viper v1.20.1
 	github.com/urfave/cli v1.22.16
-	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394
 	golang.org/x/net v0.38.0
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gorm.io/driver/postgres v1.5.11

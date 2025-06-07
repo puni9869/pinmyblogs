@@ -24,6 +24,6 @@ type User struct {
 	AlternateEmail  string    // Can be used for changing emailid
 }
 
-func (u User) Format(f fmt.State, verb rune) {
+func (u User) Format(f fmt.State, verb rune) { // lint: QF1012 ignore
 	_, _ = f.Write([]byte(fmt.Sprintf("Email: %s FirstName: %s Id: %s", u.Email, u.FirstName, u.ID)))
 }
