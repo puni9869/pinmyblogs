@@ -1,17 +1,18 @@
 package models
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/google/uuid"
-	"golang.org/x/exp/rand"
 	"strings"
 	"testing"
 	"time"
 )
 
 func TestUserModelHidePasswordWhenLogged(t *testing.T) {
-	rnd := rand.New(rand.NewSource(1))
-	uuid.SetRand(rnd)
+	reader := bytes.NewReader([]byte("1111111111111111"))
+	uuid.SetRand(reader)
+	uuid.SetClockSequence(1)
 	u := User{
 		ID:              uuid.New(),
 		FirstName:       "",
@@ -28,7 +29,7 @@ func TestUserModelHidePasswordWhenLogged(t *testing.T) {
 		UpdatedAt:       time.Time{},
 		AlternateEmail:  "",
 	}
-	want := "Email:  FirstName:  Id: 67d10549-3936-4934-b1c7-e42ff60e7c81"
+	want := "Email:  FirstName:  Id: 31313131-3131-4131-b131-313131313131"
 	got := fmt.Sprintf("%v", u)
 	if strings.Compare(got, want) != 0 {
 		t.Errorf("Get() = %s, want %s", got, want)
