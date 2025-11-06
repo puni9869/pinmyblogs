@@ -32,8 +32,7 @@ func ScrapeUrl(url *models.Url) {
 		}).Info("Failed to fetch the url")
 		return
 	}
-	//lint:ignore EXC001
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 	_, err = html.Parse(resp.Body)
 	if err != nil {
 		log.WithFields(map[string]any{

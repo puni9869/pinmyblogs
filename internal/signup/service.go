@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm"
 )
 
-//lint:ignore ST1005 ignore this!
+//nolint:stylecheck // reason: allow capitalized error message
 var ErrDuplicateEmail = errors.New("Email already exist")
 
 type Service interface {
