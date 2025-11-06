@@ -1,7 +1,11 @@
 package command
 
 import (
+	"github.com/puni9869/pinmyblogs"
 	"gorm.io/gorm"
+	"html/template"
+	"io/fs"
+	"net/http"
 	"os"
 
 	gormsessions "github.com/gin-contrib/sessions/gorm"
@@ -72,10 +76,15 @@ func startAction(ctx *cli.Context) error {
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
 
-	// Serve the static content like *.js, *.css, *.icon, *.img
-	r.Static("/statics", "./frontend")
-	// Serve the templates strict to the extension *.tmpl
-	r.LoadHTMLGlob("templates/*/**.tmpl")
+	// --- Serve embedded static files ---
+	staticFS, _ := fs.Sub(pinmyblogs.Files, "frontend")
+	r.StaticFS("/statics", http.FS(staticFS))
+
+	// --- Load embedded templates ---
+	tmplFS, _ := fs.Sub(pinmyblogs.Files, "templates")
+	tmpl := template.Must(template.ParseFS(tmplFS, "**/*.tmpl"))
+	r.SetHTMLTemplate(tmpl)
+
 	// register all the server routes
 	server.RegisterRoutes(r, sessionStore)
 	err = r.Run(":" + config.C.AppConfig.CustomPort)
