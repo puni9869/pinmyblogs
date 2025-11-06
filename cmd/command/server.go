@@ -1,7 +1,6 @@
 package command
 
 import (
-	"github.com/puni9869/pinmyblogs"
 	"gorm.io/gorm"
 	"html/template"
 	"io/fs"
@@ -13,6 +12,7 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/server"
 
+	"github.com/puni9869/pinmyblogs"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/urfave/cli"
@@ -77,11 +77,17 @@ func startAction(ctx *cli.Context) error {
 	r.Use(gin.Logger(), gin.Recovery())
 
 	// --- Serve embedded static files ---
-	staticFS, _ := fs.Sub(pinmyblogs.Files, "frontend")
+	staticFS, err := fs.Sub(pinmyblogs.Files, "frontend")
+	if err != nil {
+		return nil
+	}
 	r.StaticFS("/statics", http.FS(staticFS))
 
 	// --- Load embedded templates ---
-	tmplFS, _ := fs.Sub(pinmyblogs.Files, "templates")
+	tmplFS, err := fs.Sub(pinmyblogs.Files, "templates")
+	if err != nil {
+		return nil
+	}
 	tmpl := template.Must(template.ParseFS(tmplFS, "**/*.tmpl"))
 	r.SetHTMLTemplate(tmpl)
 
