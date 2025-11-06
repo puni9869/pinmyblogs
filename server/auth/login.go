@@ -47,13 +47,26 @@ func LoginPost(c *gin.Context) {
 		return
 	}
 
-	if !user.IsActive || !user.IsEmailVerified {
+	if config.C.Authentication.OpenDisabledAccountByEmailLink {
+		if !user.IsActive {
+			log.WithFields(map[string]any{
+				"email":           user.Email,
+				"isActive":        user.IsActive,
+				"isEmailVerified": user.EmailVerifyHash,
+			}).WithError(result.Error).Error("Account is disabled.")
+			c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is disabled. Please check your email."})
+			c.Abort()
+			return
+		}
+	}
+
+	if !user.IsEmailVerified {
 		log.WithFields(map[string]any{
 			"email":           user.Email,
 			"isActive":        user.IsActive,
 			"isEmailVerified": user.EmailVerifyHash,
-		}).WithError(result.Error).Error("Account is disabled.")
-		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is disabled. Please check your email."})
+		}).WithError(result.Error).Error("Account is not verified.")
+		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is not verified. Please check your email."})
 		c.Abort()
 		return
 	}

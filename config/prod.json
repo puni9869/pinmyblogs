@@ -35,6 +35,7 @@
   "enableSsl": false,
   "authentication": {
     "enableLogin": true,
+    "openDisabledAccountByEmailLink": true,
     "enableRegistration": true,
     "enableForgotPassword": false
   }

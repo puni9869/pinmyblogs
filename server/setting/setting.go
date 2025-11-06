@@ -65,8 +65,10 @@ func DisableMyAccount(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	user.IsActive = false
-	database.Db().Save(user)
+	if config.C.Authentication.OpenDisabledAccountByEmailLink {
+		user.IsActive = false
+		database.Db().Save(user)
+	}
 	c.JSON(http.StatusOK, map[string]string{"Status": "OK"})
 }
 
