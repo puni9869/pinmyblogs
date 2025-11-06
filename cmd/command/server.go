@@ -48,10 +48,13 @@ func startAction(ctx *cli.Context) error {
 	var db *gorm.DB
 	dbConfig := config.C.Database["sqlite"]
 	//lint:ignore QF1003
-	if dbConfig.Type == "sqlite" {
+	switch dbConfig.Type {
+	case "sqlite":
 		db, err = database.NewSqliteConnection(&dbConfig)
-	} else if dbConfig.Type == "postgres" {
+		break
+	case "postgres":
 		db, err = database.NewPostgresConnection(&dbConfig)
+		break
 	}
 
 	if err != nil {
