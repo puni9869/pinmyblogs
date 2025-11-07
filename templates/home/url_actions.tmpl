@@ -1,5 +1,15 @@
 {{define "home/url_actions"}}
-  <div class="flex flex-row align-start items-start select-none gap-x-1" id="weblink-actions">
+<div class="flex items-center justify-between w-full">
+  <!-- Left: Time -->
+  <div class="text-sm text-gray-600 w-32 flex-shrink-0">
+    {{if .CreatedAt}}
+      <span>{{relativeTime .CreatedAt}}</span>
+    {{end}}
+  </div>
+
+  <!-- Right: Action Buttons -->
+  <div class="flex flex-row items-center gap-x-2" id="weblink-actions">
+    <!-- Pin
     <span id="move-to-pinned" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-width="2" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
@@ -11,6 +21,9 @@
         />
       </svg>
     </span>
+    -->
+
+    <!-- Favourite -->
     <span id="move-to-favourite" data-id="{{.ID}}" class="hover:bg-gray-100 rounded p-1 group cursor-pointer" data-is-fav="{{if .IsFav}}true{{else}}false{{end}}">
       <svg data-is-fav="{{if .IsFav}}true{{else}}false{{end}}" data-id="{{.ID}}" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 group-hover:text-indigo-500" fill="{{if .IsFav}}black{{else}}none{{end}}" viewBox="0 0 24 24" stroke="currentColor">
         <path
@@ -48,8 +61,6 @@
         />
       </svg>
     </span>
-
   </div>
-
-  <div id="share-content"></div>
+</div>
 {{end}}

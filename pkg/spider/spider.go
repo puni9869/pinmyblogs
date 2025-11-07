@@ -2,10 +2,10 @@ package spider
 
 import (
 	"encoding/json"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
-	"golang.org/x/net/html"
 	"net/http"
 	"strconv"
 	"time"
@@ -33,7 +33,13 @@ func ScrapeUrl(url *models.Url) {
 		return
 	}
 	defer func() { _ = resp.Body.Close() }()
-	_, err = html.Parse(resp.Body)
+	comment := make(map[string]string)
+	comment["statusCode"] = strconv.Itoa(resp.StatusCode)
+
+	jsonStr, _ := json.Marshal(comment)
+	url.Comment = string(jsonStr)
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
 	if err != nil {
 		log.WithFields(map[string]any{
 			"parseWeblink": "failed",
@@ -41,14 +47,12 @@ func ScrapeUrl(url *models.Url) {
 		}).Info("Failed to fetch the url")
 		return
 	}
-	comment := make(map[string]string)
-	comment["statusCode"] = strconv.Itoa(resp.StatusCode)
-
-	jsonStr, _ := json.Marshal(comment)
-	url.Comment = string(jsonStr)
-
+	url.Title = doc.Find("title").Text()
 	db := database.Db()
-	db.Updates(url)
+	db.Model(&models.Url{}).Where("id = ?", url.ID).Updates(map[string]interface{}{
+		"title":   url.Title,
+		"comment": url.Comment,
+	})
 
 	log.Info("Updating weblink metadata after fetching.", url.WebLink)
 }

@@ -30,11 +30,13 @@ export function NavItemSelected() {
 export function SideNavCollapse() {
 	const sideNav = document.querySelector('#side-navbar');
 	const sideNavOpener = document.querySelector('#nav-bar-open');
-	if (!sideNav || !sideNavOpener) {
+	const topNavBar = document.querySelector('#top-nav-bar');
+	if (!sideNav || !sideNavOpener || !topNavBar) {
 		return;
 	}
 	sideNavOpener.addEventListener('click', (e) => {
 		sideNav.classList.toggle('hidden');
+		topNavBar.classList.toggle('ml-40');
 		sideNavOpener.classList.toggle('text-indigo-500');
 	});
 }

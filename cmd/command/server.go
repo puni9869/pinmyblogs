@@ -90,7 +90,7 @@ func startAction(ctx *cli.Context) error {
 	if err != nil {
 		return nil
 	}
-	var tmpl = template.Must(template.New("").Funcs(template.FuncMap{"relativeTime": utils.FormatRelativeTime}).ParseFS(tmplFS, "**/*.tmpl"))
+	var tmpl = template.Must(template.New("").Funcs(template.FuncMap{"relativeTime": utils.FormatRelativeTime}).Funcs(template.FuncMap{"domainName": utils.DomainName}).ParseFS(tmplFS, "**/*.tmpl"))
 	r.SetHTMLTemplate(tmpl)
 
 	// register all the server routes

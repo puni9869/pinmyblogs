@@ -7,14 +7,14 @@
   <div class="flex items-center gap-2">
     <img src="https://www.google.com/s2/favicons?domain={{.WebLink}}" alt="favicon" class="h-5 w-5">
     <a href="{{.WebLink}}" target="_blank" class="text-indigo-600 hover:underline font-medium text-base truncate">
-      {{.WebLink}}
+        {{or .Title .WebLink}}
     </a>
   </div>
 
   <!-- Tag + Summary -->
-  <div class="flex flex-wrap items-center gap-1 text-sm text-gray-600">
+  <div class="flex flex-wrap items-center gap-1 text-ms text-gray-600">
     {{if .Tag}}
-      <span class="text-{{.Tag}}-600 font-medium hover:underline cursor-pointer">#{{.Tag}}</span>
+      <span class="text-{{.Tag}}-600 font-large hover:underline cursor-pointer">#{{.Tag}}</span>
     {{end}}
     {{if .Summary}}
      <span>|</span>
@@ -23,16 +23,6 @@
   </div>
 
   <!-- Meta Actions -->
-  <div class="text-xs text-gray-400 space-x-2 mt-1">
-   {{if .CreatedAt}}
-      <span>{{relativeTime .CreatedAt}}</span>
-    {{else}}
-      <span>Unknown Date</span>
-    {{end}}|
-    <a href="#" class="hover:underline">View</a>
-    <a href="#" class="hover:underline">Edit</a>
-    <a href="#" class="hover:underline">Archive</a>
-    <a href="#" class="hover:underline">Remove</a>
-  </div>
+  {{template "home/url_actions" .}}
 </div>
 {{end}}

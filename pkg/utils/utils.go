@@ -4,8 +4,17 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"net/mail"
+	"net/url"
 	"time"
 )
+
+func DomainName(link string) string {
+	u, err := url.Parse(link)
+	if err != nil {
+		return ""
+	}
+	return u.Hostname()
+}
 
 // FormatRelativeTime returns a string like "3 hours ago" or "2 days ago"
 func FormatRelativeTime(t time.Time) string {
