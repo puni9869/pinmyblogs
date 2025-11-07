@@ -41,5 +41,5 @@ export function SaveFile(filename, dataObjToWrite, format) {
 
 	const evt = new MouseEvent("click", {view: window, bubbles: true, cancelable: true,});
 	link.dispatchEvent(evt);
-	link.remove()
+	link.remove();
 }

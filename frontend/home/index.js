@@ -1,4 +1,5 @@
 import {CloseModal, RefreshPage} from '../common/index.js';
+import {Copy} from '../common/copy.js';
 
 const navUrl = {
 	'/': 'home',
@@ -24,7 +25,6 @@ export function NavItemSelected() {
 	selector.classList.add('text-indigo-500');
 	selector.querySelector('svg').classList.add('text-indigo-500');
 	console.info('NavBar loaded...', navUrl[window.location.pathname]);
-	console.info('NavBar selected item ', selector);
 }
 
 export function SideNavCollapse() {
@@ -108,6 +108,12 @@ export function WebLinkActionsInit() {
 		return;
 	}
 
+	document.querySelectorAll('#copy-weblink').forEach((elm) => {
+		elm.addEventListener('click', async (e) => {
+			e.target.dataset?.url && await Copy(e.target.dataset.url);
+		});
+	});
+
 	['#move-to-favourite', '#move-to-archive', '#move-to-trash'].forEach((actionSelector) => {
 		document.querySelectorAll(actionSelector).forEach((elm) => {
 			elm.addEventListener('click', async (e) => {
@@ -160,8 +166,7 @@ async function ShareLink(data) {
 		if (!response.ok) {
 			throw new Error(`Response status: ${response.status}`);
 		}
-		const resp = await response.text();
-		document.getElementById('share-content').innerHTML = resp;
+		document.getElementById('share-content').innerHTML = await response.text();
 	} catch (error) {
 		console.error(error.message);
 	}
