@@ -1,7 +1,7 @@
 {
-  "environment": "local",
+  "environment": "prod",
   "appConfig": {
-    "debug": true,
+    "debug": false,
     "secretKey": "secret",
     "defaultPort": "8080",
     "customPort": "80",

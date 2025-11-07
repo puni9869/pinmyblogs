@@ -110,7 +110,13 @@ export function WebLinkActionsInit() {
 
 	document.querySelectorAll('#copy-weblink').forEach((elm) => {
 		elm.addEventListener('click', async (e) => {
-			e.target.dataset?.url && await Copy(e.target.dataset.url);
+			const svg = elm.querySelector('svg');
+			const url = e.target.dataset?.url;
+			if (svg) {
+				svg.setAttribute('fill', 'black');
+				setTimeout(() => svg.setAttribute('fill', 'none'), 700);
+			}
+			url && await Copy(e.target.dataset.url);
 		});
 	});
 
