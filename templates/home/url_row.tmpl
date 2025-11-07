@@ -1,23 +1,38 @@
 {{define "home/url_row"}}
-<!-- Card -->
-<div class="pb-1 pt-2 flex flex-col rounded-sm bg-white shadow px-3 w-full cursor-pointer mb-1">
-  <!-- Title -->
-  <div class="text-black-500 hover:text-indigo-500">
-    <p class="font-medium text-xl cursor-pointer">{{.WebLink}}</p>
-  </div>
-  <!-- Link -->
-  <div class="text-gray-500 hover:text-indigo-400 overflow-hidden">
-    <a class="font-sm text-xs cursor-pointer style-none" href="{{.WebLink}}" target="_blank">{{.WebLink}}</a>
+<div class="w-full bg-white hover:bg-gray-50 transition-colors
+            border border-gray-100 shadow-sm
+            rounded-none p-2 mb-0 flex flex-col gap-0">
+
+  <!-- Top Row: Icon + Title -->
+  <div class="flex items-center gap-2">
+    <img src="https://www.google.com/s2/favicons?domain={{.WebLink}}" alt="favicon" class="h-5 w-5">
+    <a href="{{.WebLink}}" target="_blank" class="text-indigo-600 hover:underline font-medium text-base truncate">
+      {{.WebLink}}
+    </a>
   </div>
 
-  <!-- Description -->
-  {{if .Summary}}
-      <div class="mb-2 w-3/4 h-10 overflow-hidden">
-        <p class="text-sm text-gray-700 font-light max-w-full overflow-hidden text-ellipsis"></p>
-      </div>
-  {{end}}
+  <!-- Tag + Summary -->
+  <div class="flex flex-wrap items-center gap-1 text-sm text-gray-600">
+    {{if .Tag}}
+      <span class="text-{{.Tag}}-600 font-medium hover:underline cursor-pointer">#{{.Tag}}</span>
+    {{end}}
+    {{if .Summary}}
+     <span>|</span>
+      <span class="truncate max-w-full">{{.Summary}}</span>
+    {{end}}
+  </div>
 
-  <!-- Icon -->
-    {{template "home/url_actions" .}}
+  <!-- Meta Actions -->
+  <div class="text-xs text-gray-400 space-x-2 mt-1">
+   {{if .CreatedAt}}
+      <span>{{relativeTime .CreatedAt}}</span>
+    {{else}}
+      <span>Unknown Date</span>
+    {{end}}|
+    <a href="#" class="hover:underline">View</a>
+    <a href="#" class="hover:underline">Edit</a>
+    <a href="#" class="hover:underline">Archive</a>
+    <a href="#" class="hover:underline">Remove</a>
+  </div>
 </div>
 {{end}}

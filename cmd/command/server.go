@@ -1,6 +1,7 @@
 package command
 
 import (
+	"github.com/puni9869/pinmyblogs/pkg/utils"
 	"gorm.io/gorm"
 	"html/template"
 	"io/fs"
@@ -89,7 +90,7 @@ func startAction(ctx *cli.Context) error {
 	if err != nil {
 		return nil
 	}
-	tmpl := template.Must(template.ParseFS(tmplFS, "**/*.tmpl"))
+	var tmpl = template.Must(template.New("").Funcs(template.FuncMap{"relativeTime": utils.FormatRelativeTime}).ParseFS(tmplFS, "**/*.tmpl"))
 	r.SetHTMLTemplate(tmpl)
 
 	// register all the server routes
