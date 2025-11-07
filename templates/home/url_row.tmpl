@@ -16,10 +16,8 @@
     {{if .Tag}}
       <span class="text-{{.Tag}}-600 font-large hover:underline cursor-pointer">#{{.Tag}}</span>
     {{end}}
-    {{if .Summary}}
      <span>|</span>
-      <span class="truncate max-w-full">{{.Summary}}</span>
-    {{end}}
+     <span class="truncate max-w-full">{{or .Summary .WebLink}}</span>
   </div>
 
   <!-- Meta Actions -->
