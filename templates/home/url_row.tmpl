@@ -1,7 +1,7 @@
 {{define "home/url_row"}}
 <div class="w-full bg-white hover:bg-gray-50 transition-colors
             border border-gray-100 shadow-sm
-            rounded-none p-2 mb-0 flex flex-col gap-0">
+            rounded-none p-2 flex flex-col gap-0">
 
   <!-- Top Row: Icon + Title -->
   <div class="flex items-center gap-2">
@@ -14,10 +14,12 @@
   <!-- Tag + Summary -->
   <div class="flex flex-wrap items-center gap-1 text-ms text-gray-600">
     {{if .Tag}}
-      <span class="text-{{.Tag}}-600 font-large hover:underline cursor-pointer">#{{.Tag}}</span>
+      <span class="text-{{.Tag}}-800 text-sm hover:underline cursor-pointer">#{{.Tag}}</span>
     {{end}}
      <span>|</span>
-     <span class="truncate max-w-full">{{or .Summary .WebLink}}</span>
+     <a href="{{.WebLink}}" target="_blank" class="text-indigo-400 hover:underline text-sm text-base truncate">
+         {{or .Summary .WebLink}}
+     </a>
   </div>
 
   <!-- Meta Actions -->
