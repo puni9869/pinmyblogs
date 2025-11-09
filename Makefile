@@ -1,9 +1,11 @@
 BINARY_NAME=main
 MAIN_PATH=./cmd/main.go
+VERSION=$(shell git rev-parse --short HEAD)
+PKG=github.com/puni9869/pinmyblogs/cmd/command
 
 .PHONY: build
 build:
-	go build -ldflags "-w -s" $(MAIN_PATH)
+	go build -ldflags "-w -s -X $(PKG).BuildVersion=$(VERSION)" -o $(BINARY_NAME) $(MAIN_PATH)
 
 .PHONY: server
 server:
@@ -27,9 +29,11 @@ govulncheck:
 vet:
 	go vet ./...
 
+
+# Static Linux binary build (for Ubuntu deployment)
 build-linux:
 	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
 	CC=x86_64-linux-musl-gcc \
 	go build -tags 'osusergo netgo static_build' \
-	-ldflags="-linkmode external -extldflags '-static' -s -w" \
+	-ldflags="-linkmode external -extldflags '-static' -s -w -X $(PKG).BuildVersion=$(VERSION)" \
 	-o $(BINARY_NAME)-linux $(MAIN_PATH)

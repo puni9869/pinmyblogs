@@ -13,10 +13,10 @@ var Version = cli.Command{
 	Action: versionAction,
 }
 
-const version = "v1.0"
+var BuildVersion = "v1.0"
 
 // versionAction prints the current version
 func versionAction(_ *cli.Context) error {
-	fmt.Println(version)
+	fmt.Println(BuildVersion)
 	return nil
 }

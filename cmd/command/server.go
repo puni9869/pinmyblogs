@@ -2,6 +2,7 @@ package command
 
 import (
 	"github.com/puni9869/pinmyblogs/pkg/utils"
+	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"gorm.io/gorm"
 	"html/template"
 	"io/fs"
@@ -77,6 +78,10 @@ func startAction(ctx *cli.Context) error {
 
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
+	if config.GetEnv() != config.LocalEnv {
+
+	}
+	r.Use(middlewares.CacheMiddleware())
 	// --- Load embedded templates ---
 	// Load the template first because they are not thread-safe
 	tmplFS, err := fs.Sub(pinmyblogs.Files, "templates")
@@ -85,7 +90,11 @@ func startAction(ctx *cli.Context) error {
 	}
 	var tmpl = template.Must(template.New("").
 		Funcs(template.FuncMap{"relativeTime": utils.FormatRelativeTime}).
-		Funcs(template.FuncMap{"domainName": utils.DomainName}).ParseFS(tmplFS, "**/*.tmpl"))
+		Funcs(template.FuncMap{"asset": func(file string) string {
+			return "/statics/" + file + "?v=" + BuildVersion
+		}}).
+		Funcs(template.FuncMap{"domainName": utils.DomainName}).
+		ParseFS(tmplFS, "**/*.tmpl"))
 	r.SetHTMLTemplate(tmpl)
 
 	// --- Serve embedded static files ---
