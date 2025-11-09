@@ -69,13 +69,9 @@ func NewPostgresConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
 
 // NewSqliteConnection creates a new database sqlite connection
 func NewSqliteConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
-	var dbLogger logger.Interface
+	ormConfig := gorm.Config{DisableForeignKeyConstraintWhenMigrating: true}
 	if cfg.LogSql {
-		dbLogger = newLogger()
-	}
-	ormConfig := gorm.Config{
-		Logger:                                   dbLogger,
-		DisableForeignKeyConstraintWhenMigrating: true,
+		ormConfig.Logger = newLogger()
 	}
 
 	const CustomDriverName = "sqlite3_extended"
@@ -100,7 +96,7 @@ func NewSqliteConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
 
 	db, err := gorm.Open(sqlite.Dialector{
 		DriverName: CustomDriverName,
-		DSN:        cfg.FileName,
+		DSN:        fmt.Sprintf("%s?_journal_mode=WAL&_synchronous=NORMAL", cfg.FileName),
 		Conn:       conn,
 	}, &ormConfig)
 	if err != nil {

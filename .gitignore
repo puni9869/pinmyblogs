@@ -25,4 +25,4 @@ go.work
 # Config files for localhost
 local.json
 prod.json
-data.dat
+data.dat*

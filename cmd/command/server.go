@@ -77,6 +77,16 @@ func startAction(ctx *cli.Context) error {
 
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
+	// --- Load embedded templates ---
+	// Load the template first because they are not thread-safe
+	tmplFS, err := fs.Sub(pinmyblogs.Files, "templates")
+	if err != nil {
+		return nil
+	}
+	var tmpl = template.Must(template.New("").
+		Funcs(template.FuncMap{"relativeTime": utils.FormatRelativeTime}).
+		Funcs(template.FuncMap{"domainName": utils.DomainName}).ParseFS(tmplFS, "**/*.tmpl"))
+	r.SetHTMLTemplate(tmpl)
 
 	// --- Serve embedded static files ---
 	staticFS, err := fs.Sub(pinmyblogs.Files, "frontend")
@@ -84,14 +94,6 @@ func startAction(ctx *cli.Context) error {
 		return nil
 	}
 	r.StaticFS("/statics", http.FS(staticFS))
-
-	// --- Load embedded templates ---
-	tmplFS, err := fs.Sub(pinmyblogs.Files, "templates")
-	if err != nil {
-		return nil
-	}
-	var tmpl = template.Must(template.New("").Funcs(template.FuncMap{"relativeTime": utils.FormatRelativeTime}).Funcs(template.FuncMap{"domainName": utils.DomainName}).ParseFS(tmplFS, "**/*.tmpl"))
-	r.SetHTMLTemplate(tmpl)
 
 	// register all the server routes
 	server.RegisterRoutes(r, sessionStore)
