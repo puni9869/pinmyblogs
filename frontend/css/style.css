@@ -1,9 +1,10 @@
 body {
     color: black;
+    font-family: 'Lato', normal;
 }
 
 #logo {
-    font-family: 'Montserrat', cursive;
+    font-family: 'Lato', cursive;
     font-size: 1rem;
     font-style: italic;
     font-weight: bolder;
