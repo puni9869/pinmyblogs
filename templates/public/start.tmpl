@@ -1,3 +1,74 @@
-{{template "layout/base" .}}
-{"Status":"OK"}
-{{template "footer" .}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pinmyblogs.com • Save your favorite blog links</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow-sm">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <h1 class="text-2xl font-bold text-indigo-600">pinmyblogs.com</h1>
+
+      <nav class="space-x-6 hidden sm:block">
+        <a href="/signup" class="text-sm text-gray-600 hover:text-indigo-600">Signup</a>
+        <a href="/login" class="text-sm text-gray-600 hover:text-indigo-600">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="max-w-6xl mx-auto px-6 py-20 text-center">
+    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
+      Bookmark & Organize Your Favorite Blogs
+    </h2>
+
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+      pinmyblogs.com helps you store, categorize, and quickly access the blogs you love.
+      Simple, fast, and beautifully organized — your reading list, upgraded.
+    </p>
+
+    <button class="bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-indigo-700">
+      Get Started For Free
+    </button>
+  </section>
+
+  <!-- Features Section -->
+  <section class="bg-white py-16">
+    <div class="max-w-6xl mx-auto px-6 grid gap-10 md:grid-cols-3">
+
+      <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
+        <h3 class="text-xl font-semibold mb-2">Save URLs Quickly</h3>
+        <p class="text-gray-600 text-sm">
+          Add your favorite blog links in seconds — no clutter, no fuss.
+        </p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
+        <h3 class="text-xl font-semibold mb-2">Organize with Tags</h3>
+        <p class="text-gray-600 text-sm">
+          Keep your reading organized using categories, tags, and collections.
+        </p>
+      </div>
+
+      <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
+        <h3 class="text-xl font-semibold mb-2">Fast Search</h3>
+        <p class="text-gray-600 text-sm">
+          Instantly find any saved blog using powerful keyword search.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-6 text-center text-gray-500 text-sm">
+    © 2025 pinmyblogs.com — All Rights Reserved
+  </footer>
+
+</body>
+</html>

@@ -134,7 +134,7 @@ func Logout(c *gin.Context) {
 	user := session.Get(Userkey)
 	if user == nil {
 		log.WithField("user", user).Info("Redirecting to login page. Session not found")
-		c.Redirect(http.StatusTemporaryRedirect, "/login")
+		c.Redirect(http.StatusTemporaryRedirect, "/start")
 		c.Abort()
 	}
 
