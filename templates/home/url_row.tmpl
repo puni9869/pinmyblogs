@@ -1,7 +1,7 @@
 {{define "home/url_row"}}
-<div class="w-full bg-white hover:bg-gray-50 transition-colors
-            border border-gray-100 shadow-sm
-            rounded-none p-2 flex flex-col gap-0">
+<div class="w-[inherit] bg-white hover:bg-gray-50 transition-colors
+                        border border-gray-100 shadow-sm
+                        rounded-none p-2 flex flex-col gap-0">
 
   <!-- Top Row: Icon + Title -->
   <div class="flex items-center gap-2">
@@ -12,12 +12,12 @@
   </div>
 
   <!-- Tag + Summary -->
-  <div class="flex flex-wrap items-center gap-1 text-ms text-gray-600">
+  <div class="flex items-center gap-1 text-ms text-gray-600 truncate">
     {{if .Tag}}
       <span class="text-{{.Tag}}-800 text-sm hover:underline cursor-pointer">#{{.Tag}}</span>
     {{end}}
      <span>|</span>
-     <a href="{{.WebLink}}" target="_blank" class="text-indigo-400 hover:underline text-sm text-base truncate">
+     <a href="{{.WebLink}}" target="_blank" class="text-indigo-400 hover:underline text-base truncate w-100">
          {{or .Summary .WebLink}}
      </a>
   </div>
