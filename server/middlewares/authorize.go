@@ -4,6 +4,7 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strings"
 )
 
 const Userkey = "user"
@@ -13,6 +14,11 @@ func AuthRequired(c *gin.Context) {
 	user := session.Get(Userkey)
 	if user == nil {
 		// Redirect to the login page if not authenticated
+		contentType := c.GetHeader("Content-Type")
+		if strings.EqualFold(contentType, "application/json") {
+			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"Status": "NOT_OK", "Errors": "NOT_AUTHENTICATED"})
+
+		}
 		c.Redirect(http.StatusTemporaryRedirect, "/login")
 		c.Abort()
 	}
