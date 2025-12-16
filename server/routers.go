@@ -9,6 +9,7 @@ import (
 	"github.com/puni9869/pinmyblogs/server/auth"
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
+	"github.com/puni9869/pinmyblogs/server/public"
 	"github.com/puni9869/pinmyblogs/server/setting"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
@@ -23,6 +24,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	r.Use(middlewares.Session(sessionStore))
 	// diagnose url
 	r.GET("/health", home.Health)
+	r.GET("/favicon.ico", public.FavIcon)
 
 	r.GET("/signup", auth.SignupGet)
 	r.POST("/signup",

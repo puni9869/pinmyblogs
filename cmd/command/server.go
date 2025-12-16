@@ -104,6 +104,10 @@ func startAction(ctx *cli.Context) error {
 	}
 	r.StaticFS("/statics", http.FS(staticFS))
 
+	// ____ Serve the icons
+	iconsFS, _ := fs.Sub(pinmyblogs.Files, "frontend/icons")
+	r.StaticFS("/icons", http.FS(iconsFS))
+
 	// register all the server routes
 	server.RegisterRoutes(r, sessionStore)
 	err = r.Run(":" + config.C.AppConfig.CustomPort)
