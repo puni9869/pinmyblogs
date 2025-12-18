@@ -1,12 +1,22 @@
 {{define "widget/add_link"}}
-
-<!-- Add Link Button -->
-<div class="relative h-auto group">
-  <div class="flex items-center px-2 py-1 text-gray-700 select-none
-              hover:cursor-pointer hover:text-indigo-500">
-    <p id="add-weblink" class="text-sm sm:text-base">Add Link</p>
+<div class="relative group w-full sm:w-auto">
+  <div
+    class="
+      flex
+      items-center
+      justify-center sm:justify-start
+      px-2 py-2
+      text-gray-700
+      hover:cursor-pointer
+      hover:text-indigo-500
+    "
+  >
+    <p id="add-weblink" class="text-sm sm:text-base">
+      Add Link
+    </p>
   </div>
 </div>
+{{end}}
 
 <!-- Modal Background -->
 <div id="add-weblink-modal"
@@ -67,4 +77,3 @@
     </div>
   </div>
 </div>
-{{end}}
