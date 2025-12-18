@@ -2,8 +2,8 @@
    pinmyblogs.com - Service Worker (MV3)
    ========================================================= */
 
-const LOGIN_URL = "http://127.0.0.1/login";
-const SAVE_URL = "http://127.0.0.1/new";
+const LOGIN_URL = "https://pinmyblogs.com/login";
+const SAVE_URL = "https://pinmyblogs.com/new";
 
 /**
  * Get active tab
