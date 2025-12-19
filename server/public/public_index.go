@@ -3,9 +3,10 @@ package public
 import (
 	"crypto/sha256"
 	"fmt"
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs"
-	"net/http"
 )
 
 var (
@@ -15,6 +16,10 @@ var (
 
 func StartGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "start.tmpl", nil)
+}
+
+func PrivacyPolicyGet(c *gin.Context) {
+	c.HTML(http.StatusOK, "privacy_policy.tmpl", nil)
 }
 
 func FavIcon(c *gin.Context) {
