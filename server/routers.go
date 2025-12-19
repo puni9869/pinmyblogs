@@ -25,6 +25,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	// diagnose url
 	r.GET("/health", home.Health)
 	r.GET("/policies", public.PrivacyPolicyGet)
+	r.GET("/support", public.SupportGet)
 	r.GET("/favicon.ico", public.FavIcon)
 
 	r.GET("/signup", auth.SignupGet)

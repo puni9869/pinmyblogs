@@ -22,6 +22,10 @@ func PrivacyPolicyGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "privacy_policy.tmpl", nil)
 }
 
+func SupportGet(c *gin.Context) {
+	c.HTML(http.StatusOK, "support.tmpl", nil)
+}
+
 func FavIcon(c *gin.Context) {
 	if len(favicon) > 0 {
 		c.Data(http.StatusOK, "image/x-icon", favicon)
