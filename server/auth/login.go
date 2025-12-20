@@ -160,5 +160,5 @@ func Logout(c *gin.Context) {
 			c.Abort()
 		}
 	}
-	c.Redirect(http.StatusTemporaryRedirect, "/login")
+	c.Redirect(http.StatusTemporaryRedirect, "/start")
 }
