@@ -62,9 +62,10 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		publicRouters.GET("/health", home.Health)
 		publicRouters.GET("/policies", public.PrivacyPolicyGet)
 		publicRouters.GET("/support", public.SupportGet)
-		publicRouters.GET("/favicon.ico", public.FavIcon)
 		publicRouters.GET("/start", public.StartGet)
+		publicRouters.POST("/start", middlewares.Bind(forms.JoinWaitList{}), public.StartPost)
+		publicRouters.GET("/favicon.ico", public.FavIcon)
 	}
 	// this route will accept all the params
-	r.NoRoute(public.StartGet)
+	r.NoRoute(public.Route404)
 }

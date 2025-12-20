@@ -37,7 +37,11 @@
              whitespace-nowrap
            "
          >
-           join waitlist
+            {{if .email}}
+              waitlist joined
+            {{else}}
+              join waitlist
+            {{end}}
          </span>
        </header>
         <!-- Copy -->
@@ -46,32 +50,33 @@
           No clutter. No algorithms.
           Just the content you care about.
         </p>
-        <!-- Form -->
-        <form class="flex flex-col sm:flex-row gap-3 justify-center" aria-label="Join waitlist">
-          <input
-            type="email"
-            required
-            placeholder="you@example.com"
-            class="
-            w-full px-4 py-3
-            rounded-lg text-white-900
-            focus:outline-none ring-2 ring-white/70
-            "
-            />
-          <button
-            type="submit"
-            class="
-            px-6 py-3
-            rounded-lg
-            bg-white text-blue-600
-            font-semibold
-            hover:bg-blue-50
-            transition
-            "
-            >
-          Join
-          </button>
-        </form>
+        {{if not .email}}
+            <!-- Form -->
+            <form method="post" action="/start" class="flex flex-col sm:flex-row gap-3 justify-center" aria-label="Join waitlist">
+              <input
+                name="email"
+                type="email"
+                value=""
+                required
+                placeholder="you@example.com"
+                class="
+                w-full px-4 py-3
+                rounded-lg text-white-900
+                focus:outline-none ring-2
+                "
+                />
+              <button
+                type="submit"
+                class="
+                px-6 py-3
+                rounded-lg
+                bg-white text-blue-600
+                font-semibold
+                hover:bg-blue-50
+                transition
+                "> Join </button>
+            </form>
+        {{end}}
       </article>
     </section>
   </main>
