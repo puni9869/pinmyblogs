@@ -22,11 +22,6 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 
 	//r.Use(middlewares.Cors())
 	r.Use(middlewares.Session(sessionStore))
-	// diagnose url
-	r.GET("/health", home.Health)
-	r.GET("/policies", public.PrivacyPolicyGet)
-	r.GET("/support", public.SupportGet)
-	r.GET("/favicon.ico", public.FavIcon)
 
 	r.GET("/signup", auth.SignupGet)
 	r.POST("/signup",
@@ -49,13 +44,8 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
 		authRouters.GET("/share/:id", home.Share)
-
 		authRouters.PUT("/actions", home.Actions)
-
-		authRouters.POST("/new",
-			middlewares.Bind(forms.WeblinkRequest{}),
-			home.AddWeblink,
-		)
+		authRouters.POST("/new", middlewares.Bind(forms.WeblinkRequest{}), home.AddWeblink)
 
 		// setting handler
 		settingsRoute := authRouters.Group("/setting")
@@ -66,14 +56,15 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 			settingsRoute.PUT("/disablemyaccount", setting.DisableMyAccount)
 		}
 	}
-
 	// public routes
-	_ = r.Group("")
+	publicRouters := r.Group("")
 	{
-		//publicRouters.GET("/", public.StartGet)
-		//publicRouters.Any("/start", public.StartGet)
+		publicRouters.GET("/health", home.Health)
+		publicRouters.GET("/policies", public.PrivacyPolicyGet)
+		publicRouters.GET("/support", public.SupportGet)
+		publicRouters.GET("/favicon.ico", public.FavIcon)
+		publicRouters.GET("/start", public.StartGet)
 	}
-
 	// this route will accept all the params
-	r.NoRoute(auth.LoginGet)
+	r.NoRoute(public.StartGet)
 }

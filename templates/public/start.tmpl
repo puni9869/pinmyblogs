@@ -1,74 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pinmyblogs.com • Save your favorite blog links</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body class="bg-gray-50 text-gray-800">
-
-  <!-- Navbar -->
-  <header class="bg-white shadow-sm">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <h1 class="text-2xl font-bold text-indigo-600">pinmyblogs.com</h1>
-
-      <nav class="space-x-6 hidden sm:block">
-        <a href="/signup" class="text-sm text-gray-600 hover:text-indigo-600">Signup</a>
-        <a href="/login" class="text-sm text-gray-600 hover:text-indigo-600">Login</a>
-      </nav>
-    </div>
+{{template "layout/base" .}}
+<body class="bg-[#2167DE] min-h-screen flex flex-col px-6 py-7 lg:px-8">
+  <!-- Logo -->
+  <header class="flex justify-center">
+    <a href="/" class="block">
+    <img
+      class="mx-auto h-12 sm:h-16 md:h-20 w-auto"
+      src="statics/icons/favicon.svg"
+      alt="PinMyBlogs"
+      >
+    </a>
   </header>
-
-  <!-- Hero Section -->
-  <section class="max-w-6xl mx-auto px-6 py-20 text-center">
-    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">
-      Bookmark & Organize Your Favorite Blogs
-    </h2>
-
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
-      pinmyblogs.com helps you store, categorize, and quickly access the blogs you love.
-      Simple, fast, and beautifully organized — your reading list, upgraded.
-    </p>
-
-    <button class="bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-indigo-700">
-      Get Started For Free
-    </button>
-  </section>
-
-  <!-- Features Section -->
-  <section class="bg-white py-16">
-    <div class="max-w-6xl mx-auto px-6 grid gap-10 md:grid-cols-3">
-
-      <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
-        <h3 class="text-xl font-semibold mb-2">Save URLs Quickly</h3>
-        <p class="text-gray-600 text-sm">
-          Add your favorite blog links in seconds — no clutter, no fuss.
+  <!-- Main -->
+  <main class="flex-1 flex items-center justify-center px-3 sm:px-6">
+    <section class="w-full max-w-sm sm:max-w-md md:max-w-lg">
+      <!-- SEO H1 -->
+      <h1 class="sr-only">
+        PinMyBlogs – Save and Organize Your Favorite Blogs
+      </h1>
+      <article
+        class=" group
+                               border border-white/20
+                               rounded-2xl
+                               p-6 sm:p-8 md:p-8
+                               text-white text-center
+                               hover:border-white "
+        >
+        <!-- Header -->
+       <header class="flex flex-col items-center mb-6">
+         <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif font-bold underline underline-offset-4 mb-3">
+           PinMyBlogs
+         </h2>
+         <span
+           class="
+             inline-flex w-fit
+             items-center justify-center
+             px-3 py-1
+             text-xs sm:text-sm
+             rounded-full
+             bg-white
+             text-blue-600
+             font-semibold
+             whitespace-nowrap
+           "
+         >
+           join waitlist
+         </span>
+       </header>
+        <!-- Copy -->
+        <p class="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 font-serif mb-8">
+          Save and organize your favorite blogs in one place.
+          No clutter. No algorithms.
+          Just the content you care about.
         </p>
-      </div>
-
-      <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
-        <h3 class="text-xl font-semibold mb-2">Organize with Tags</h3>
-        <p class="text-gray-600 text-sm">
-          Keep your reading organized using categories, tags, and collections.
-        </p>
-      </div>
-
-      <div class="bg-gray-50 p-6 rounded-xl shadow-sm hover:shadow-md transition">
-        <h3 class="text-xl font-semibold mb-2">Fast Search</h3>
-        <p class="text-gray-600 text-sm">
-          Instantly find any saved blog using powerful keyword search.
-        </p>
-      </div>
-
-    </div>
-  </section>
-
+        <!-- Form -->
+        <form class="flex flex-col sm:flex-row gap-3 justify-center" aria-label="Join waitlist">
+          <input
+            type="email"
+            required
+            placeholder="you@example.com"
+            class="
+            w-full px-4 py-3
+            rounded-lg text-white-900
+            focus:outline-none ring-2 ring-white/70
+            "
+            />
+          <button
+            type="submit"
+            class="
+            px-6 py-3
+            rounded-lg
+            bg-white text-blue-600
+            font-semibold
+            hover:bg-blue-50
+            transition
+            "
+            >
+          Join
+          </button>
+        </form>
+      </article>
+    </section>
+  </main>
   <!-- Footer -->
-  <footer class="py-6 text-center text-gray-500 text-sm">
-    © 2025 pinmyblogs.com — All Rights Reserved
+  <footer class="text-center text-white/70 text-xs sm:text-sm py-8 sm:py-10 px-4">
+    © 2017-2025 pinmyblogs.com | Built with focus, not feeds.
   </footer>
-
 </body>
-</html>
