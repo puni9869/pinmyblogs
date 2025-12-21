@@ -25,5 +25,6 @@ type User struct {
 }
 
 func (u User) Format(f fmt.State, verb rune) {
+	// lint: QF1012 ignore
 	_, _ = f.Write([]byte(fmt.Sprintf("Email: %s FirstName: %s Id: %s", u.Email, u.FirstName, u.ID))) // lint: QF1012 ignore
 }
