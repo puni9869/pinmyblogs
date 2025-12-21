@@ -115,6 +115,7 @@ func RegisterModels(db *gorm.DB) {
 		&models.Session{},
 		&models.Url{},
 		&models.Setting{},
+		&models.JoinWaitList{},
 	}
 	if err := db.AutoMigrate(m...); err != nil {
 		panic(err)

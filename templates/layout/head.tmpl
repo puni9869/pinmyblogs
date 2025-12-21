@@ -1,11 +1,53 @@
 {{define "head"}}
+  <!-- Basic -->
   <meta charset="UTF-8" />
-  <title>pinmyblogs.com</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="" />
-  <link rel="icon" href="statics/icons/favicon.svg">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-  <script src='{{asset "js/tailwindcss.js"}}'></script>
-  <link href='{{asset "css/style.css"}}' rel="stylesheet" type="text/css">
-  </head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary SEO -->
+  <title>PinMyBlogs – Save & Organize Your Favorite Blogs | Coming Soon</title>
+  <meta name="description" content="PinMyBlogs helps you save, organize, and rediscover your favorite blogs in one place. Join the waitlist and be the first to try it." />
+  <link rel="canonical" href="https://pinmyblogs.com/" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Favicons -->
+  <link prefetch rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link prefetch rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link prefetch rel="icon" href="/icons/favicon.ico">
+  <link prefetch rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Lato:400,700&display=swap"
+    rel="stylesheet"
+    type="text/css"
+  >
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="PinMyBlogs – Save & Organize Blogs" />
+  <meta property="og:description" content="Never lose a great blog again. Join the PinMyBlogs waitlist." />
+  <meta property="og:url" content="https://pinmyblogs.com/" />
+  <meta property="og:site_name" content="PinMyBlogs" />
+  <meta property="og:image" content="https://pinmyblogs.com/og-image.png" />
+
+  <!-- Twitter Card (recommended) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="PinMyBlogs – Save & Organize Blogs" />
+  <meta name="twitter:description" content="Pin, organize, and rediscover your favorite blogs. Join the waitlist." />
+  <meta name="twitter:image" content="https://pinmyblogs.com/og-image.png" />
+
+  <!-- Styles -->
+  <script prefetch src='{{asset "js/tailwindcss.js"}}'></script>
+  <link prefetch  href='{{asset "css/style.css"}}' rel="stylesheet" type="text/css">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "PinMyBlogs",
+    "url": "https://pinmyblogs.com/",
+    "description": "Save, organize, and rediscover your favorite blogs in one place."
+  }
+  </script>
 {{end}}

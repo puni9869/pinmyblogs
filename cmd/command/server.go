@@ -78,9 +78,6 @@ func startAction(ctx *cli.Context) error {
 
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
-	if config.GetEnv() != config.LocalEnv {
-
-	}
 	r.Use(middlewares.CacheMiddleware())
 	// --- Load embedded templates ---
 	// Load the template first because they are not thread-safe
@@ -103,6 +100,10 @@ func startAction(ctx *cli.Context) error {
 		return nil
 	}
 	r.StaticFS("/statics", http.FS(staticFS))
+
+	// ____ Serve the icons
+	iconsFS, _ := fs.Sub(pinmyblogs.Files, "frontend/icons")
+	r.StaticFS("/icons", http.FS(iconsFS))
 
 	// register all the server routes
 	server.RegisterRoutes(r, sessionStore)

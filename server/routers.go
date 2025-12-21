@@ -9,6 +9,7 @@ import (
 	"github.com/puni9869/pinmyblogs/server/auth"
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
+	"github.com/puni9869/pinmyblogs/server/public"
 	"github.com/puni9869/pinmyblogs/server/setting"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
@@ -21,8 +22,6 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 
 	//r.Use(middlewares.Cors())
 	r.Use(middlewares.Session(sessionStore))
-	// diagnose url
-	r.GET("/health", home.Health)
 
 	r.GET("/signup", auth.SignupGet)
 	r.POST("/signup",
@@ -45,31 +44,28 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
 		authRouters.GET("/share/:id", home.Share)
-
 		authRouters.PUT("/actions", home.Actions)
-
-		authRouters.POST("/new",
-			middlewares.Bind(forms.WeblinkRequest{}),
-			home.AddWeblink,
-		)
+		authRouters.POST("/new", middlewares.Bind(forms.WeblinkRequest{}), home.AddWeblink)
 
 		// setting handler
 		settingsRoute := authRouters.Group("/setting")
 		{
 			settingsRoute.GET("", setting.Setting)
-			settingsRoute.GET("downloadmydata/:format{json|csv|html}", setting.DownloadMyData)
-			settingsRoute.DELETE("/deletemyaccount", setting.DeleteMyAccount)
-			settingsRoute.PUT("/disablemyaccount", setting.DisableMyAccount)
+			settingsRoute.GET("/download-my-data/:format{json|csv|html}", setting.DownloadMyData)
+			settingsRoute.DELETE("/delete-my-account", setting.DeleteMyAccount)
+			settingsRoute.PUT("/disable-my-account", setting.DisableMyAccount)
 		}
 	}
-
 	// public routes
-	_ = r.Group("")
+	publicRouters := r.Group("")
 	{
-		//publicRouters.GET("/", public.StartGet)
-		//publicRouters.Any("/start", public.StartGet)
+		publicRouters.GET("/health", home.Health)
+		publicRouters.GET("/policies", public.PrivacyPolicyGet)
+		publicRouters.GET("/support", public.SupportGet)
+		publicRouters.GET("/start", public.StartGet)
+		publicRouters.POST("/start", middlewares.Bind(forms.JoinWaitList{}), public.StartPost)
+		publicRouters.GET("/favicon.ico", public.FavIcon)
 	}
-
 	// this route will accept all the params
-	r.NoRoute(auth.LoginGet)
+	r.NoRoute(public.Route404)
 }
