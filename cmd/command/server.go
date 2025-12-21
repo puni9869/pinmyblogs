@@ -60,8 +60,7 @@ func startAction(ctx *cli.Context) error {
 	}
 
 	if err != nil {
-		log.WithError(err).Error("error in setting database")
-		return fmt.Errorf("error in setting database %w", err)
+		return err
 	}
 
 	database.RegisterModels(db)

@@ -20,6 +20,11 @@ lint:
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 	golangci-lint run ./...
 
+.PHONY: format
+format:
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	golangci-lint run ./... --fix
+
 .PHONY: govulncheck
 govulncheck:
 	go install golang.org/x/vuln/cmd/govulncheck@latest

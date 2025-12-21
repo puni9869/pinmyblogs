@@ -59,7 +59,7 @@ func NewPostgresConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
 
 	db, err := gorm.Open(postgres.Open(dsn), &ormConfig)
 	if err != nil {
-		return nil, fmt.Errorf("open database connection: %w", err)
+		return nil, err
 	}
 	dbObj = db
 	// making an object singleton
@@ -85,13 +85,13 @@ func NewSqliteConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
 					},
 					true,
 				)
-				return fmt.Errorf("open database connection: %w", err)
+				return err
 			},
 		},
 	)
 	conn, err := sql.Open(CustomDriverName, cfg.FileName)
 	if err != nil {
-		return nil, fmt.Errorf("sql open failed: %w", err)
+		return nil, err
 	}
 
 	db, err := gorm.Open(sqlite.Dialector{
@@ -100,7 +100,7 @@ func NewSqliteConnection(cfg *config.DatabaseObj) (*gorm.DB, error) {
 		Conn:       conn,
 	}, &ormConfig)
 	if err != nil {
-		return nil, fmt.Errorf("open database connection: %w", err)
+		return nil, err
 	}
 	// making an object singleton
 	once.Do(func() { dbObj = db })
