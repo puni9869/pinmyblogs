@@ -27,5 +27,5 @@ local.json
 prod.json
 data.dat*
 .DS_Store/*
-
+config
 *.zip
