@@ -12,7 +12,7 @@ export function DeleteAccountModelInit() {
 }
 
 async function DisableAccount() {
-	const url = '/setting/disablemyaccount';
+	const url = '/setting/disable-my-account';
 	try {
 		const response = await fetch(url, {method: 'PUT'});
 		if (!response.ok) {
@@ -49,7 +49,7 @@ export function DownloadMyData() {
 			if (!e.target.dataset?.format.length) {
 				return
 			}
-			const url = `/setting/downloadmydata/${e.target.dataset?.format}`;
+			const url = `/setting/download-my-data/${e.target.dataset?.format}`;
 			try {
 				const headers = new Headers();
 				headers.append('Content-Type', 'application/json');
