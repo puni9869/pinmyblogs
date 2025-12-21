@@ -48,7 +48,7 @@ func StartPost(c *gin.Context) {
 		return
 	}
 	log.Infof("%s has joined the wait list", email)
-	c.HTML(http.StatusAccepted, "start.tmpl", ctx)
+	c.HTML(http.StatusAccepted, "join_wait_list_pinmyblogs.tmpl", ctx)
 }
 
 func PrivacyPolicyGet(c *gin.Context) {
