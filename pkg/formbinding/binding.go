@@ -9,6 +9,7 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
+// #nosec G101
 const passwordRegex = `^[A-Za-z\d\W_]{6,15}$`
 
 type Field interface {

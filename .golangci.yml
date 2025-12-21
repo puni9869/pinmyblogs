@@ -1,0 +1,82 @@
+run:
+  timeout: 5m
+  tests: true
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
+linters:
+  disable-all: true
+  enable:
+    # Core correctness
+    - govet
+    - errcheck
+    - staticcheck
+    - ineffassign
+    - typecheck
+
+    # Code quality
+    - unused
+
+    # Style & formatting
+    - gofmt
+    - goimports
+    - whitespace
+
+    # Error handling
+    - errorlint
+    - wrapcheck
+
+    # Security
+    - gosec
+
+linters-settings:
+  revive:
+    rules:
+      - name: var-naming
+      - name: line-length-limit
+        arguments: [ 120 ]
+      - name: unexported-return
+      - name: blank-imports
+      - name: error-strings
+      - name: error-naming
+
+  gosec:
+    excludes:
+      - G104
+      - G307
+
+  errorlint:
+    errorf: true
+    asserts: true
+    comparison: true
+
+issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
+
+  exclude-dirs:
+    - vendor
+    - node_modules
+    - dist
+
+  exclude-files:
+    - ".*\\.gen\\.go"
+    - ".*_mock\\.go"
+
+  exclude-rules:
+    # Ignore some linters in tests
+    - path: _test\.go
+      linters:
+        - errcheck
+        - gosec
+
+    # Generated files
+    - path: .*\.gen\.go
+      linters:
+        - revive
+
+severity:
+  default-severity: error

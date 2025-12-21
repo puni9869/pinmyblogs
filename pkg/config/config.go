@@ -2,6 +2,7 @@ package config
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/spf13/viper"
 )
@@ -84,11 +85,11 @@ func LoadConfig(environment string) error {
 	// load from the config directory
 	viper.AddConfigPath(GetDefaultPath())
 	if err = viper.ReadInConfig(); err != nil {
-		return err
+		return fmt.Errorf("error in setting env variables: %w", err)
 	}
 	err = viper.Unmarshal(&C)
 	if err != nil {
-		return err
+		return fmt.Errorf("error in unmarshal variables: %w", err)
 	}
 	defaultEnv = environment
 	return nil

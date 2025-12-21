@@ -1,13 +1,15 @@
 package command
 
 import (
-	"github.com/puni9869/pinmyblogs/pkg/utils"
-	"github.com/puni9869/pinmyblogs/server/middlewares"
-	"gorm.io/gorm"
+	"fmt"
 	"html/template"
 	"io/fs"
 	"net/http"
 	"os"
+
+	"github.com/puni9869/pinmyblogs/pkg/utils"
+	"github.com/puni9869/pinmyblogs/server/middlewares"
+	"gorm.io/gorm"
 
 	gormsessions "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
@@ -41,7 +43,7 @@ func startAction(ctx *cli.Context) error {
 	}()
 	e := os.Getenv(environmentKey)
 	if err = config.LoadConfig(e); err != nil {
-		return err
+		return fmt.Errorf("load config: %w", err)
 	}
 	log.Infof("Loading environment... %s", config.GetEnv())
 	log.Infoln("App config loaded...")
@@ -58,8 +60,8 @@ func startAction(ctx *cli.Context) error {
 	}
 
 	if err != nil {
-		log.WithError(err)
-		return err
+		log.WithError(err).Error("error in setting database")
+		return fmt.Errorf("error in setting database %w", err)
 	}
 
 	database.RegisterModels(db)
@@ -109,7 +111,7 @@ func startAction(ctx *cli.Context) error {
 	server.RegisterRoutes(r, sessionStore)
 	err = r.Run(":" + config.C.AppConfig.CustomPort)
 	if err != nil {
-		return err
+		return fmt.Errorf("server init failed: %w", err)
 	}
 	return nil
 }

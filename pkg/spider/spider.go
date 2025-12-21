@@ -2,13 +2,14 @@ package spider
 
 import (
 	"encoding/json"
+	"net/http"
+	"strconv"
+	"time"
+
 	"github.com/PuerkitoBio/goquery"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
-	"net/http"
-	"strconv"
-	"time"
 )
 
 func ScrapeUrl(url *models.Url) {

@@ -42,6 +42,7 @@ func Bind[T any](_ T) gin.HandlerFunc {
 
 		formbinding.FillContext(theObj, data)
 		if errs != nil {
+			//nolint:errorlint // errs is guaranteed to be validator.ValidationErrors here
 			data = formbinding.Errorf(make(gin.H), errs.(validator.ValidationErrors))
 			c.Set(contextKey, data)
 		}

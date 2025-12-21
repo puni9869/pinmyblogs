@@ -3,10 +3,11 @@ package models
 import (
 	"bytes"
 	"fmt"
-	"github.com/google/uuid"
 	"strings"
 	"testing"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 func TestUserModelHidePasswordWhenLogged(t *testing.T) {

@@ -2,8 +2,9 @@ package models
 
 import (
 	"database/sql"
-	"gorm.io/gorm"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type DeletedAt sql.NullTime

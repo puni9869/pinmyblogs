@@ -1,9 +1,10 @@
 package middlewares
 
 import (
-	"github.com/gin-gonic/gin"
 	"path"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 )
 
 // CacheMiddleware adds cache headers to static file responses
