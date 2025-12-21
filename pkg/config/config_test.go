@@ -167,8 +167,9 @@ func TestConfigProviderStruct(t *testing.T) {
 		Authentication: Authentication{},
 		Mailer:         Mailer{},
 	}
-	want := "config.ConfigProvider{EnableSSL:false, ShareDataOverMail:false, Database:map[string]config.DatabaseObj(nil), AppConfig:config.AppConfig{Debug:false, SecretKey:\"\", DefaultPort:\"\", CustomPort:\"\", UseCDN:false, Hostname:\"\"}, Authentication:config.Authentication{EnableLogin:false, EnableRegistration:false, EnableForgotPassword:false}, Mailer:config.Mailer{SmtpHost:\"\", SmtpPort:0, EmailId:\"\", BccEmailId:\"\", Username:\"\", Password:\"\"}}"
+	want := "config.ConfigProvider{EnableSSL:false, ShareDataOverMail:false, Database:map[string]config.DatabaseObj(nil), AppConfig:config.AppConfig{Debug:false, SecretKey:\"\", DefaultPort:\"\", CustomPort:\"\", UseCDN:false, Hostname:\"\"}, Authentication:config.Authentication{EnableLogin:false, OpenDisabledAccountByEmailLink:false, EnableRegistration:false, EnableForgotPassword:false}, Mailer:config.Mailer{SmtpHost:\"\", SmtpPort:0, EmailId:\"\", BccEmailId:\"\", Username:\"\", Password:\"\"}}"
 	got := fmt.Sprintf("%#v", c)
+	fmt.Println(got)
 	if strings.Compare(want, got) != 0 {
 		t.Errorf("GetString() = %s, want %s", got, want)
 	}
