@@ -60,7 +60,7 @@ func startAction(ctx *cli.Context) error {
 	}
 
 	if err != nil {
-		return err
+		return err //nolint:wrapcheck
 	}
 
 	database.RegisterModels(db)
