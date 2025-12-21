@@ -87,12 +87,8 @@ func FavIcon(c *gin.Context) {
 }
 
 func Route404(c *gin.Context) {
-	c.Header("Cache-Control", "public, max-age=31536000, immutable")
-	c.Header("ETag", faviconETag)
-	c.HTML(http.StatusNotFound, "error/404.tmpl", nil)
+	c.HTML(http.StatusNotFound, "404.tmpl", nil)
 }
 func Route5xx(c *gin.Context) {
-	c.Header("Cache-Control", "public, max-age=31536000, immutable")
-	c.Header("ETag", faviconETag)
-	c.HTML(http.StatusInternalServerError, "error/500.tmpl", nil)
+	c.HTML(http.StatusInternalServerError, "500.tmpl", nil)
 }

@@ -17,6 +17,7 @@ jobs:
         uses: golangci/golangci-lint-action@latest
         with:
           version: v2.1
+          config: .golangci.yml
       - name: test
         run: make test
 
