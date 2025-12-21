@@ -1,13 +1,11 @@
-{{define "layout/base"}}
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      {{template "head" .}}
-    </head>
+{{ define "layout/base" }}
+<!DOCTYPE html>
+<html lang="en">
+    <head>{{ template "head" . }}</head>
     <body>
-   {{if false}}
-      {{/* to make html structure "likely" complete to prevent IDE warnings */}}
-    </body>
-   </html>
-   {{end}}
-{{end}}
+        {{ if false }}
+    {{/* to make html structure "likely" complete to prevent IDE warnings */}}
+</body>
+</html>
+{{ end }}
+{{ end }}
