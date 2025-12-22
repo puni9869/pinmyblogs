@@ -14,7 +14,7 @@
     {{ if .Tag }}
     <span class="text-{{.Tag}}-800 text-sm hover:underline cursor-pointer">#{{.Tag}}</span>
     {{ end }}
-    <span>|</span>
+    <span class="text-black-300">•</span>
     <a href="{{.WebLink}}"
        target="_blank"
        class="text-indigo-400 hover:underline text-base truncate w-100">{{ or .Summary .WebLink }}</a>

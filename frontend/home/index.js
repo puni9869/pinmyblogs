@@ -23,7 +23,9 @@ export function NavItemSelected() {
     return;
   }
   selector.classList.add('text-indigo-500');
+  selector.classList.add('bg-indigo-50');
   selector.querySelector('svg').classList.add('text-indigo-500');
+
   console.info('NavBar loaded...', navUrl[window.location.pathname]);
 }
 
@@ -66,6 +68,7 @@ export function AddNewWebLinkInit() {
       tags.forEach((tag) => {
         tag.addEventListener('change', (e) => {
           selectedTag = e.target.value;
+          console.log(selectedTag);
         });
       });
     }
@@ -88,6 +91,7 @@ async function AddNewLink(webLink, selectedTag) {
   try {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
+    console.log(selectedTag);
 
     const response = await fetch(url, {
       method: 'POST',
@@ -100,7 +104,7 @@ async function AddNewLink(webLink, selectedTag) {
     const resp = await response.json();
     if (resp?.Status === "OK") {
       console.info(resp?.Message);
-      RefreshPage();
+      // RefreshPage();
     }
   } catch (error) {
     const errEl = document.getElementById('weblink-err');
