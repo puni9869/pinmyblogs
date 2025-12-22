@@ -1,24 +1,25 @@
 {{ define "widget/nav" }}
 <aside class="sidebar w-40 transform bg-white p-2 fixed top-0 left-0 h-screen shadow-md"
        id="side-navbar">
-    <!-- Responsive Logo -->
-    <div class="flex items-center justify-center my-1 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
-      <a href="/" class="w-full">
-        <svg viewBox="0 0 220 60" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
-          <defs>
-            <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#6366F1" />
-              <stop offset="100%" stop-color="#4F46E5" />
-            </linearGradient>
-          </defs>
-          <!-- Use textLength to scale text to fit SVG width -->
-          <text x="6" y="40" font-family="'Pacifico', cursive" font-size="35" fill="url(#gradient)" textLength="200" lengthAdjust="spacingAndGlyphs">
-            pinmyblogs.com
-          </text>
-        </svg>
-      </a>
-    </div>
-
+  <!-- Responsive Logo -->
+  <div class="flex items-center justify-center my-1 w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+    <a href="/" class="w-full">
+      <svg viewBox="0 0 220 60"
+           xmlns="http://www.w3.org/2000/svg"
+           class="w-full h-auto">
+        <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#6366F1" />
+        <stop offset="100%" stop-color="#4F46E5" />
+        </linearGradient>
+        </defs>
+        <!-- Use textLength to scale text to fit SVG width -->
+        <text x="6" y="40" font-family="'Pacifico', cursive" font-size="35" fill="url(#gradient)" textLength="200" lengthAdjust="spacingAndGlyphs">
+        pinmyblogs.com
+        </text>
+      </svg>
+    </a>
+  </div>
   <!-- Navigation Links -->
   <div class="flex flex-col space-y-1">
     <a data-home
@@ -34,7 +35,6 @@
       </svg>
       Home
     </a>
-
     <a data-favourite
        href="/favourite"
        class="flex items-center px-3 py-2 text-gray-700 rounded-md text-md hover:bg-indigo-50 hover:text-indigo-600 transition">
@@ -48,7 +48,6 @@
       </svg>
       Favourite
     </a>
-
     <a data-archived
        href="/archived"
        class="flex items-center px-3 py-2 text-gray-700 rounded-md text-md hover:bg-indigo-50 hover:text-indigo-600 transition">
@@ -62,7 +61,6 @@
       </svg>
       Archived
     </a>
-
     <a data-trash
        href="/trash"
        class="flex items-center px-3 py-2 text-gray-700 rounded-md text-md hover:bg-indigo-50 hover:text-indigo-600 transition">
@@ -76,7 +74,6 @@
       </svg>
       Trash
     </a>
-
     <a data-setting
        href="/setting"
        class="flex items-center px-3 py-2 text-gray-700 rounded-md text-md hover:bg-indigo-50 hover:text-indigo-600 transition">
@@ -91,7 +88,6 @@
       </svg>
       Setting
     </a>
-
     <a data-logout
        href="/logout"
        class="flex items-center px-3 py-2 text-gray-700 rounded-md text-md hover:bg-indigo-50 hover:text-indigo-600 transition">

@@ -4,7 +4,6 @@
   <header class="flex justify-center mb-6">
     {{ template "widget/icon" . }}
   </header>
-
   <!-- Main -->
   <main class="flex-1 flex items-center justify-center px-3 sm:px-6">
     <section class="w-full max-w-sm sm:max-w-md md:max-w-lg">
@@ -12,7 +11,6 @@
       <h1 class="sr-only">
         PinMyBlogs – Save and Organize Your Favorite Blogs
       </h1>
-
       <article class="group border border-white/20 rounded-3xl p-6 sm:p-8 md:p-10 text-white text-center backdrop-blur-md hover:border-white transition-all duration-300 shadow-lg">
         <!-- Header -->
         <header class="flex flex-col items-center mb-6">
@@ -22,18 +20,16 @@
           <span class="inline-flex w-fit items-center justify-center px-4 py-1.5 text-xs sm:text-sm rounded-full bg-white text-blue-600 font-semibold whitespace-nowrap shadow-md">
             {{ if .email }}
             Waitlist joined
-            {{ else }}
+          {{ else }}
             Join waitlist
             {{ end }}
           </span>
         </header>
-
         <!-- Copy -->
         <p class="text-base sm:text-lg md:text-xl leading-relaxed text-white/90 font-serif mb-8 drop-shadow-sm">
           Save and organize your favorite blogs in one place.
           Simple, fast, and elegant weblink bookmark manager.
         </p>
-
         {{ if not .email }}
         <!-- Form -->
         <form method="post"
@@ -54,6 +50,5 @@
       </article>
     </section>
   </main>
-
   {{ template "widget/public_footer" . }}
 </body>
