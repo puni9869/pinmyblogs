@@ -1,76 +1,83 @@
 <div class="relative h-auto group visible">
-    <div class="flex items-center px-2 py-1 text-gray-700 select-none hover:cursor-pointer hover:text-indigo-500">
-        <p id="add-weblink" class="text-sm sm:text-base">Add Link</p>
-    </div>
+  <div class="flex items-center px-2 py-1 text-gray-700 select-none hover:cursor-pointer hover:text-indigo-500">
+    <p id="add-weblink" class="text-sm sm:text-base">
+      Add Link
+    </p>
+  </div>
 </div>
 <!-- Modal Background -->
 <div id="add-weblink-modal"
      class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-start pt-10 sm:pt-16 hidden">
-    <!-- Modal Content -->
-    <div class="bg-white w-full max-w-md mx-4 sm:mx-6 md:mx-8 lg:mx-12 p-5 sm:p-7 md:p-8 rounded-lg shadow-lg relative">
-        <!-- Close Button -->
-        <button id="close-modal"
-                class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="h-5 w-5"
-                 fill="none"
-                 viewBox="0 0 24 24"
-                 stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+  <!-- Modal Content -->
+  <div class="bg-white w-full max-w-md mx-4 sm:mx-6 md:mx-8 lg:mx-12 p-5 sm:p-7 md:p-8 rounded-lg shadow-lg relative">
+    <!-- Close Button -->
+    <button id="close-modal"
+            class="absolute top-3 right-3 text-gray-500 hover:text-gray-800">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-5 w-5"
+           fill="none"
+           viewBox="0 0 24 24"
+           stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <h2 class="text-base sm:text-lg font-bold mb-4">
+      Add Link
+    </h2>
+    <!-- Input Box -->
+    <input autocomplete="on"
+           required
+           autofocus
+           type="text"
+           id="add-weblink-input-box"
+           placeholder="Enter link"
+           class="w-full p-2 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+    <p id="weblink-err" class="text-sm text-red-600 mb-2 hidden">
+    </p>
+    <!-- Tags + Button Row -->
+    <div class="flex items-center gap-4">
+      <!-- Color Tags -->
+      <div class="colors flex items-center" id="tags">
+        <ul class="flex gap-2">
+          <li>
+            <label>
+              <input type="radio" name="tag" value="black" />
+              <span class="swatch" style="background:#222;"></span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="tag" value="yellow" />
+              <span class="swatch" style="background:#ffde21;"></span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="tag" value="red" />
+              <span class="swatch" style="background:#ffa896;"></span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="tag" value="blue" />
+              <span class="swatch" style="background:#6e8cd5;"></span>
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="tag" value="green" />
+              <span class="swatch" style="background:#44c28d;"></span>
+            </label>
+          </li>
+        </ul>
+      </div>
+      <!-- Add Button -->
+      <div class="flex flex-1 justify-end">
+        <button id="add-link-btn"
+                class="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600">
+          Add Link
         </button>
-        <h2 class="text-base sm:text-lg font-bold mb-4">Add Link</h2>
-        <!-- Input Box -->
-        <input autocomplete="on"
-               required
-               autofocus
-               type="text"
-               id="add-weblink-input-box"
-               placeholder="Enter link"
-               class="w-full p-2 border rounded mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-        <p id="weblink-err" class="text-sm text-red-600 mb-2 hidden"></p>
-        <!-- Tags + Button Row -->
-        <div class="flex items-center gap-4">
-            <!-- Color Tags -->
-            <div class="colors flex items-center" id="tags">
-                <ul class="flex gap-2">
-                    <li>
-                        <label>
-                            <input type="radio" name="tag" value="black">
-                            <span class="swatch" style="background:#222;"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" name="tag" value="yellow">
-                            <span class="swatch" style="background:#ffde21;"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" name="tag" value="red">
-                            <span class="swatch" style="background:#ffa896;"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" name="tag" value="blue">
-                            <span class="swatch" style="background:#6e8cd5;"></span>
-                        </label>
-                    </li>
-                    <li>
-                        <label>
-                            <input type="radio" name="tag" value="green">
-                            <span class="swatch" style="background:#44c28d;"></span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-            <!-- Add Button -->
-            <div class="flex flex-1 justify-end">
-                <button id="add-link-btn"
-                        class="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600">Add Link</button>
-            </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>

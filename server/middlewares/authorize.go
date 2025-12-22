@@ -19,7 +19,7 @@ func AuthRequired(c *gin.Context) {
 		if strings.EqualFold(contentType, "application/json") {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"Status": "NOT_OK", "Errors": "NOT_AUTHENTICATED"})
 		}
-		c.Redirect(http.StatusTemporaryRedirect, "/login")
+		c.Redirect(http.StatusTemporaryRedirect, "/start")
 		c.Abort()
 	}
 	// Continue down the chain to the handler, etc.

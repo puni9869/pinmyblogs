@@ -90,7 +90,7 @@ func Route404(c *gin.Context) {
 	c.HTML(http.StatusNotFound, "404.tmpl", nil)
 }
 
-func Route5xx(c *gin.Context) {
+func Route500(c *gin.Context) {
 	c.HTML(http.StatusInternalServerError, "500.tmpl", nil)
 }
 

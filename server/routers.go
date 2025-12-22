@@ -66,6 +66,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		publicRouters.GET("/start", public.JoinWaitListGet)
 		publicRouters.POST("/start", middlewares.Bind(forms.JoinWaitList{}), public.JoinWaitListPost)
 		publicRouters.GET("/favicon.ico", public.FavIcon)
+		publicRouters.GET("/500", public.Route500)
 	}
 	// this route will accept all the params
 	r.NoRoute(public.Route404)
