@@ -71,7 +71,7 @@ func Favourite(c *gin.Context) {
 		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
 	}
 
-	c.HTML(http.StatusOK, "favourite.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
 }
 
 func Archived(c *gin.Context) {
@@ -88,7 +88,7 @@ func Archived(c *gin.Context) {
 		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
 	}
 
-	c.HTML(http.StatusOK, "archived.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
 }
 
 func Trash(c *gin.Context) {
@@ -105,7 +105,7 @@ func Trash(c *gin.Context) {
 		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
 	}
 
-	c.HTML(http.StatusOK, "trash.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
 }
 
 func Actions(c *gin.Context) {
@@ -178,18 +178,4 @@ func Share(c *gin.Context) {
 	}
 	log.Info(url)
 	c.HTML(http.StatusOK, "share.tmpl", nil)
-}
-
-func Favicon(c *gin.Context) {
-	c.String(http.StatusOK, "OK")
-}
-
-func Health(c *gin.Context) {
-	c.JSON(http.StatusOK, map[string]string{"status": "OK"})
-}
-func OK(c *gin.Context) {
-	log := logger.NewLogger()
-	p := c.Request.URL
-	log.Infof("%#v", p)
-	c.String(http.StatusOK, "OK")
 }

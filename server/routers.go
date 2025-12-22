@@ -22,18 +22,19 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 
 	//r.Use(middlewares.Cors())
 	r.Use(middlewares.Session(sessionStore))
-
-	r.GET("/signup", auth.SignupGet)
-	r.POST("/signup",
-		middlewares.Bind(forms.SignUpForm{}),
-		auth.SignupPost(signupService),
-	)
-	// auth urls
-	r.POST("/login", auth.LoginPost)
-	r.GET("/login", auth.LoginGet)
-	r.Any("/logout", auth.Logout)
-	r.GET("/reset", auth.ResetPasswordGet)
-	r.POST("/reset", middlewares.Bind(forms.ResetForm{}), auth.ResetPasswordPost)
+	loginRoutes := r.Group("")
+	{
+		loginRoutes.GET("/signup", auth.SignupGet)
+		loginRoutes.POST("/signup",
+			middlewares.Bind(forms.SignUpForm{}),
+			auth.SignupPost(signupService),
+		)
+		loginRoutes.POST("/login", auth.LoginPost)
+		loginRoutes.GET("/login", auth.LoginGet)
+		loginRoutes.Any("/logout", auth.Logout)
+		loginRoutes.GET("/reset", auth.ResetPasswordGet)
+		loginRoutes.POST("/reset", middlewares.Bind(forms.ResetForm{}), auth.ResetPasswordPost)
+	}
 
 	authRouters := r.Group("")
 	{
@@ -59,11 +60,11 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	// public routes
 	publicRouters := r.Group("")
 	{
-		publicRouters.GET("/health", home.Health)
+		publicRouters.GET("/health", public.Health)
 		publicRouters.GET("/policies", public.PrivacyPolicyGet)
 		publicRouters.GET("/support", public.SupportGet)
-		publicRouters.GET("/start", public.StartGet)
-		publicRouters.POST("/start", middlewares.Bind(forms.JoinWaitList{}), public.StartPost)
+		publicRouters.GET("/start", public.JoinWaitListGet)
+		publicRouters.POST("/start", middlewares.Bind(forms.JoinWaitList{}), public.JoinWaitListPost)
 		publicRouters.GET("/favicon.ico", public.FavIcon)
 	}
 	// this route will accept all the params

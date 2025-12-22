@@ -20,10 +20,10 @@ var (
 	faviconETag string
 )
 
-func StartGet(c *gin.Context) {
-	c.HTML(http.StatusOK, "start.tmpl", nil)
+func JoinWaitListGet(c *gin.Context) {
+	c.HTML(http.StatusOK, "join_wait_list_pinmyblogs.tmpl", nil)
 }
-func StartPost(c *gin.Context) {
+func JoinWaitListPost(c *gin.Context) {
 	log := logger.NewLogger()
 	form := middlewares.GetForm(c).(*forms.JoinWaitList)
 	email := form.Email
@@ -92,4 +92,8 @@ func Route404(c *gin.Context) {
 
 func Route5xx(c *gin.Context) {
 	c.HTML(http.StatusInternalServerError, "500.tmpl", nil)
+}
+
+func Health(c *gin.Context) {
+	c.JSON(http.StatusOK, map[string]string{"status": "OK"})
 }

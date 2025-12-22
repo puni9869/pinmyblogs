@@ -1,4 +1,4 @@
-{{ define "home/url_container" }}
+{{ define "widget/url_container" }}
 <div class="flex h-auto justify-center mx-1">
     <div class="flex flex-col md:w-12/12 sm:w-12/12  lg:w-6/12 bg-white">
         <div class="border-t-2 border-gray-200"></div>
@@ -15,7 +15,7 @@
         <!-- component url_row -->
         <div class="bg-gray-200 h-fit flex flex-col items-start w-full">
             {{ range .Urls }}
-            {{ template "home/url_row" . }}
+            {{ template "widget/url_row" . }}
             {{ end }}
         </div>
     </div>
