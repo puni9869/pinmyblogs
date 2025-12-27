@@ -19,7 +19,7 @@ type ResetPasswordMailer struct {
 
 func (u *ResetPasswordMailer) getPasswordResetLink() string {
 	h, _ := uuid.NewUUID()
-	return fmt.Sprintf("https://pinmyblogs.com/reset/password/%s", h.String())
+	return fmt.Sprintf("https://pinmyblogs.com/reset-password/%s", h.String())
 }
 
 func (u *ResetPasswordMailer) Send() {

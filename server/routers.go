@@ -32,8 +32,8 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		loginRoutes.POST("/login", auth.LoginPost)
 		loginRoutes.GET("/login", auth.LoginGet)
 		loginRoutes.Any("/logout", auth.Logout)
-		loginRoutes.GET("/reset", auth.ResetPasswordGet)
-		loginRoutes.POST("/reset", middlewares.Bind(forms.ResetForm{}), auth.ResetPasswordPost)
+		loginRoutes.GET("/reset-password", auth.ResetPasswordGet)
+		loginRoutes.POST("/reset-password", middlewares.Bind(forms.ResetForm{}), auth.ResetPasswordPost)
 	}
 
 	authRouters := r.Group("")
