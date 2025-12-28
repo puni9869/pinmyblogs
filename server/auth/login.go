@@ -122,7 +122,7 @@ func LoginGet(c *gin.Context) {
 		return
 	}
 	log.WithField("email", currentlyLoggedIn).Info("loggedIn user")
-	c.HTML(http.StatusOK, "home.tmpl", nil)
+	c.Redirect(http.StatusPermanentRedirect, "/")
 	c.Abort()
 }
 
