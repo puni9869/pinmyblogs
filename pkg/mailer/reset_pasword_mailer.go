@@ -19,6 +19,9 @@ type ResetPasswordMailer struct {
 
 func (u *ResetPasswordMailer) getPasswordResetLink() string {
 	h, _ := uuid.NewUUID()
+	if config.GetEnv() == config.LocalEnv {
+		return fmt.Sprintf("http://localhost/reset-password/%s", h.String())
+	}
 	return fmt.Sprintf("https://pinmyblogs.com/reset-password/%s", h.String())
 }
 

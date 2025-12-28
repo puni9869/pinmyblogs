@@ -63,7 +63,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		publicRouters.GET("/health", public.Health)
 		publicRouters.GET("/policies", public.PrivacyPolicyGet)
 		publicRouters.GET("/support", public.SupportGet)
-		publicRouters.GET("/start", public.JoinWaitListGet)
+		publicRouters.GET("/start", public.LandingPageGet)
 		publicRouters.POST("/start", middlewares.Bind(forms.JoinWaitList{}), public.JoinWaitListPost)
 		publicRouters.GET("/favicon.ico", public.FavIcon)
 		publicRouters.GET("/500", public.Route500)

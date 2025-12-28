@@ -23,6 +23,11 @@ var (
 func JoinWaitListGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "join_wait_list_pinmyblogs.tmpl", nil)
 }
+
+func LandingPageGet(c *gin.Context) {
+	c.HTML(http.StatusOK, "landing_page.tmpl", nil)
+}
+
 func JoinWaitListPost(c *gin.Context) {
 	log := logger.NewLogger()
 	form := middlewares.GetForm(c).(*forms.JoinWaitList)

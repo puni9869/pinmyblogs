@@ -1,0 +1,59 @@
+{{template "layout/base" .}}
+<body class="bg-white-900 text-white font-sans flex flex-col min-h-screen">
+  <!-- Headline Section -->
+  <section class="text-center px-2 md:px-0 py-4 md:py-24 flex-1">
+    <div class="flex justify-center flex-col item-center w-fit max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto h-20 w-auto">
+      {{template "widget/pinmyblogs_name" .}}
+    </div>
+    <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight yellow">
+      save · <span class="text-blue-500">organize · </span> publish
+    </h1>
+    <p class="mt-3 text-lg md:text-xl text-[var(--subtext)] max-w-xl mx-auto">
+      your personal bookmark manager — for blogs, ideas, and everything in between.
+    </p>
+    <div id="cta-wrapper"
+         class="mt-6 flex flex-col items-center gap-6 opacity-100 translate-y-2 transition-all duration-500">
+      <!-- Signup + Signin -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/signup"
+           class="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm sm:text-base font-semibold text-white bg-indigo-500 hover:bg-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
+          Signup for free
+        </a>
+        <a href="/login"
+           class="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm sm:text-base font-medium text-indigo-600 border border-indigo-200 hover:bg-indigo-50 transition">
+          Sign in
+        </a>
+      </div>
+      <!-- Chrome CTA (Top) -->
+      <div id="chrome-cta" class="flex flex-col items-center gap-2">
+        <a href="https://chromewebstore.google.com/detail/pinmyblogscom/kbaljigapbggohllflnnklhclnbheaaj"
+           target="_blank"
+           class="inline-flex items-center gap-3 rounded-full px-7 py-3 text-sm sm:text-base font-medium bg-[color:#1e1e1f1a] text-black-900 hover:bg-yellow-200 transition shadow-sm hover:scale-[1.03] active:scale-[0.98]">
+          <img src='{{asset "icons/chrome.svg"}}' alt="Chrome" class="h-5 w-5" />
+          <span>Add chrome extension</span>
+        </a>
+        <p class="text-sm text-gray-500">
+          save links instantly while browsing
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 bg-white mt-auto">
+    <div class="max-w-4xl mx-auto px-0 py-3">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <!-- Left -->
+        <p class="text-sm text-gray-500">
+          © 2017-2025 <span class="font-medium text-gray-900">pinmyblogs.com</span>. All rights reserved.
+        </p>
+        <!-- Right -->
+        <nav class="flex items-center gap-6 text-sm">
+          <a href="/policies"
+             class="text-gray-500 hover:text-gray-900 transition hover:underline"> /privacy </a>
+          <a href="/support"
+             class="text-gray-500 hover:text-gray-900 transition hover:underline"> /support </a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</body>

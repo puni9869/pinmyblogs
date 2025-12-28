@@ -3,7 +3,9 @@
   <div class="w-full max-w-md bg-white rounded-3xl shadow-xl p-8 sm:p-10">
     <!-- Logo/Icon -->
     <div class="flex flex-col items-center">
-      {{ template "widget/icon" . }}
+      <div class="flex justify-center flex-col item-center w-fit max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto h-20 w-auto">
+        {{template "widget/pinmyblogs_name" .}}
+      </div>
       <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
         Reset your password
       </h2>
