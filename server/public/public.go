@@ -102,3 +102,13 @@ func Route500(c *gin.Context) {
 func Health(c *gin.Context) {
 	c.JSON(http.StatusOK, map[string]string{"status": "OK"})
 }
+
+func ServiceWorker(c *gin.Context) {
+	c.Header("Cache-Control", "public, max-age=31536000, immutable")
+	c.Header("ETag", faviconETag)
+	c.File("frontend/service-worker.js")
+}
+
+func OfflinePage(c *gin.Context) {
+	c.HTML(http.StatusOK, "offline_page.tmpl", nil)
+}

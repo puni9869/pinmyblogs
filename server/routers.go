@@ -60,6 +60,10 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	// public routes
 	publicRouters := r.Group("")
 	{
+		// Register the service worker at the root level
+		publicRouters.GET("/service-worker.js", public.ServiceWorker)
+		publicRouters.GET("/offline.html", public.OfflinePage)
+
 		publicRouters.GET("/health", public.Health)
 		publicRouters.GET("/policies", public.PrivacyPolicyGet)
 		publicRouters.GET("/support", public.SupportGet)

@@ -12,3 +12,19 @@ document.addEventListener('DOMContentLoaded', function () {
 	DownloadMyData();
 	console.info('App is loaded');
 }, false);
+
+
+if ("serviceWorker" in navigator) {
+	window.addEventListener("load", () => {
+			navigator.serviceWorker.register("/service-worker.js");
+	});
+}
+
+window.addEventListener("online", async () => {
+	if (navigator.serviceWorker.controller) {
+		navigator.serviceWorker.controller.postMessage("ONLINE");
+	} else {
+		location.reload();
+	}
+});
+
