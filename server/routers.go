@@ -33,6 +33,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		loginRoutes.GET("/login", auth.LoginGet)
 		loginRoutes.Any("/logout", auth.Logout)
 		loginRoutes.GET("/reset-password", auth.ResetPasswordGet)
+		loginRoutes.Any("/reset-password/sent", auth.ResetPasswordSentGet)
 		loginRoutes.POST("/reset-password", middlewares.Bind(forms.ResetForm{}), auth.ResetPasswordPost)
 	}
 

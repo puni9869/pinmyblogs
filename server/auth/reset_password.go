@@ -69,6 +69,17 @@ func ResetPasswordPost(c *gin.Context) {
 
 	resetMailer := mailer.NewResetPasswordMailer(*user)
 	go resetMailer.Send()
+	c.Redirect(http.StatusTemporaryRedirect, "/reset-password/sent?email="+email)
+}
 
-	c.HTML(http.StatusAccepted, "reset_password_sent.tmpl", gin.H{"Email": email})
+func ResetPasswordSentGet(c *gin.Context) {
+	log := logger.NewLogger()
+	email := c.Query("email")
+	if len(email) == 0 {
+		log.WithField("email", email).Warn("wrong email in ResetPasswordSentGet")
+		c.Redirect(http.StatusPermanentRedirect, "/reset-password")
+		c.Abort()
+	}
+
+	c.HTML(http.StatusOK, "reset_password_sent.tmpl", gin.H{"Email": email})
 }
