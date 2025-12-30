@@ -2,11 +2,14 @@ const CACHE_NAME = "pinmyblogs-v1";
 const OFFLINE_URL = "/offline.html";
 
 /* Install */
-self.addEventListener("install", (event) => {
+self.addEventListener("install", async (event) => {
 	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => cache.add(OFFLINE_URL))
+		caches.open(CACHE_NAME).then((cache) =>
+			cache.addAll([OFFLINE_URL]).catch(() => {
+			})
+		)
 	);
-	self.skipWaiting();
+	await self.skipWaiting();
 });
 
 /* Activate */
@@ -14,24 +17,14 @@ self.addEventListener("activate", (event) => {
 	event.waitUntil(self.clients.claim());
 });
 
-/* Fetch handling */
+/* Fetch */
 self.addEventListener("fetch", (event) => {
+	if (event.request.mode !== "navigate") return;
+
 	event.respondWith(
-		fetch(event.request).catch(() => {
-			if (event.request.mode === "navigate") {
-				return caches.match(OFFLINE_URL);
-			}
+		fetch(event.request).catch(async () => {
+			const cached = await caches.match(OFFLINE_URL);
+			return cached || new Response("Offline", {status: 503});
 		})
 	);
-});
-
-/* Reload page when internet comes back */
-self.addEventListener("message", (event) => {
-	if (event.data === "ONLINE") {
-		self.clients.matchAll({type: "window"}).then((clients) => {
-			clients.forEach((client) => {
-				client.navigate(client.url);
-			});
-		});
-	}
 });
