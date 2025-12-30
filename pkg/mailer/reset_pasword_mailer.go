@@ -31,7 +31,7 @@ func (u *ResetPasswordMailer) Send() {
 			"user": u.user.Email,
 			"env":  config.GetEnv(),
 		}).Info("reset password mail has been sent")
-		return
+		//return
 	}
 
 	tmpl := fmt.Sprintf(`<!DOCTYPE>

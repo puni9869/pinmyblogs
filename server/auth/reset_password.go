@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -40,7 +39,6 @@ func ResetPasswordPost(c *gin.Context) {
 	email := form.Email
 
 	if ctx["Email_HasError"] == true {
-		fmt.Print("Here")
 		log.WithField("email", email).Error("email id not found.")
 		c.HTML(http.StatusBadRequest, "reset.tmpl", gin.H{"Email": email, "HasError": true, "Error": "Email id not found."})
 		return
@@ -89,15 +87,19 @@ func ResetPasswordSetGet(c *gin.Context) {
 
 	hash := c.Param("hash")
 	log.Info(hash)
-	c.HTML(http.StatusOK, "reset_password_set.tmpl", gin.H{"Email": hash})
+	c.HTML(http.StatusOK, "reset_password_set.tmpl", gin.H{"hash": hash})
 }
 
 func ResetPasswordSetPost(c *gin.Context) {
 	log := logger.NewLogger()
 	f := middlewares.GetForm(c).(*forms.ResetPasswordForm)
-	hash := f.Hash
-	password := f.Password
-	cnfPassword := f.ConfirmPassword
-	log.Info(hash)
-	c.HTML(http.StatusOK, "reset_password_sent.tmpl", gin.H{"hash": hash, "password": password, "confirm_password": cnfPassword})
+	log.Info(f)
+	//ctx := middlewares.GetContext(c)
+	//log.Info(ctx["HasError"])
+	//
+	//hash := f.Hash
+	//password := f.Password
+	//cnfPassword := f.ConfirmPassword
+	//log.Info(hash)
+	c.HTML(http.StatusOK, "reset_password_sent.tmpl", nil)
 }
