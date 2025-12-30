@@ -83,3 +83,21 @@ func ResetPasswordSentGet(c *gin.Context) {
 
 	c.HTML(http.StatusOK, "reset_password_sent.tmpl", gin.H{"Email": email})
 }
+
+func ResetPasswordSetGet(c *gin.Context) {
+	log := logger.NewLogger()
+
+	hash := c.Param("hash")
+	log.Info(hash)
+	c.HTML(http.StatusOK, "reset_password_set.tmpl", gin.H{"Email": hash})
+}
+
+func ResetPasswordSetPost(c *gin.Context) {
+	log := logger.NewLogger()
+	f := middlewares.GetForm(c).(*forms.ResetPasswordForm)
+	hash := f.Hash
+	password := f.Password
+	cnfPassword := f.ConfirmPassword
+	log.Info(hash)
+	c.HTML(http.StatusOK, "reset_password_sent.tmpl", gin.H{"hash": hash, "password": password, "confirm_password": cnfPassword})
+}
