@@ -3,7 +3,6 @@ package mailer
 import (
 	"fmt"
 
-	"github.com/google/uuid"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
@@ -13,16 +12,16 @@ import (
 
 type ResetPasswordMailer struct {
 	MailerAPI
-	log  *logrus.Logger
-	user models.User
+	log               *logrus.Logger
+	user              models.User
+	passwordResetHash string
 }
 
 func (u *ResetPasswordMailer) getPasswordResetLink() string {
-	h, _ := uuid.NewUUID()
 	if config.GetEnv() == config.LocalEnv {
-		return fmt.Sprintf("http://localhost/reset-password/%s", h.String())
+		return fmt.Sprintf("http://localhost/reset-password/%s", u.user.PasswordResetHash)
 	}
-	return fmt.Sprintf("https://pinmyblogs.com/reset-password/%s", h.String())
+	return fmt.Sprintf("https://pinmyblogs.com/reset-password/%s", u.user.PasswordResetHash)
 }
 
 func (u *ResetPasswordMailer) Send() {
@@ -74,8 +73,5 @@ func (u *ResetPasswordMailer) Send() {
 	}).Info("reset password email has been send")
 }
 func NewResetPasswordMailer(user models.User) MailerAPI {
-	return &ResetPasswordMailer{
-		log:  logger.NewLogger(),
-		user: user,
-	}
+	return &ResetPasswordMailer{log: logger.NewLogger(), user: user}
 }

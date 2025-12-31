@@ -21,7 +21,6 @@ type FieldErrors map[string]string
 
 var errs = map[string]string{
 	"required":           `Cannot be empty`,
-	"hash":               `hash is not good`,
 	"alpha_dash":         `Must contain only alphanumeric, dash ('-') and underscore ('_') characters.`,
 	"alpha_dash_dot":     `Mandate 1 letter, 1 digit, 7-15 characters, with 6 non-digits`,
 	"size":               `must be size %s.`,
