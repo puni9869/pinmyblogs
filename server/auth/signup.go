@@ -66,7 +66,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 
 		if ctx["HasError"] == false {
 			// using sha256 hash getting the checksums i.e. one way hash for password
-			passwordHash := utils.HashifySHA256(password)
+			passwordHash := utils.HashifyBCrypt(password)
 			user := models.User{Password: passwordHash, Email: email}
 			err := signUp.Register(c, user)
 			if err == nil {

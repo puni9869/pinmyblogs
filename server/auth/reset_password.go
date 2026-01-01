@@ -171,11 +171,8 @@ func ResetPasswordSetPost(c *gin.Context) {
 		return
 	}
 
-	// Hash password (only after validation passes)
-	newPasswdHash := utils.HashifySHA256(password)
-
 	// Prevent reusing old password
-	if newPasswdHash == user.Password {
+	if err := utils.CompareBCrypt(user.Password, password); err == nil {
 		errMsg := "You cannot use old password."
 		ctx["HasError"] = true
 		ctx["Error"] = errMsg
@@ -187,6 +184,7 @@ func ResetPasswordSetPost(c *gin.Context) {
 		return
 	}
 
+	newPasswdHash := utils.HashifyBCrypt(password)
 	// Update password and clear reset hash
 	if err := database.Db().
 		Model(&models.User{}).

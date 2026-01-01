@@ -3,6 +3,7 @@ package utils
 import (
 	"crypto/sha256"
 	"fmt"
+	"golang.org/x/crypto/bcrypt"
 	"net/mail"
 	"net/url"
 	"time"
@@ -44,6 +45,19 @@ func HashifySHA256(text string) string {
 	h.Write([]byte(text))
 	bs := h.Sum(nil)
 	return fmt.Sprintf("%x", bs)
+}
+
+// HashifyBCrypt will convert any text into SHA256 hash
+func HashifyBCrypt(text string) string {
+	h, _ := bcrypt.GenerateFromPassword([]byte(text), bcrypt.DefaultCost)
+	return string(h)
+}
+
+func CompareBCrypt(hashed string, plainText string) error {
+	return bcrypt.CompareHashAndPassword(
+		[]byte(hashed),    // stored hash
+		[]byte(plainText), // user input
+	)
 }
 
 // ValidateEmail will validate the email is in correct format or not
