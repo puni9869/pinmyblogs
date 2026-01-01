@@ -39,10 +39,18 @@ func CacheMiddleware() gin.HandlerFunc {
 //   - This middleware should be registered early in the Gin middleware chain
 func CSP() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header(
-			"Content-Security-Policy",
-			"default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'",
+		c.Header("Content-Security-Policy",
+			"default-src 'self'; "+
+				"script-src 'self'; "+
+				"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "+
+				"font-src 'self' https://fonts.gstatic.com; "+
+				"img-src 'self' data:; "+
+				"connect-src 'self'; "+
+				"object-src 'none'; "+
+				"base-uri 'self'; "+
+				"frame-ancestors 'none'",
 		)
+
 		c.Next()
 	}
 }
@@ -75,7 +83,22 @@ func SecurityHeaders() gin.HandlerFunc {
 		c.Header("X-Content-Type-Options", "nosniff")
 		c.Header("X-Frame-Options", "DENY")
 		c.Header("Referrer-Policy", "strict-origin-when-cross-origin")
-		c.Header("X-XSS-Protection", "0") // deprecated but explicitly disabled
+		c.Header("X-XSS-Protection", "0")
+
+		// HTTPS only
+		c.Header(
+			"Strict-Transport-Security",
+			"max-age=63072000; includeSubDomains; preload",
+		)
+
+		// Modern security headers
+		c.Header(
+			"Permissions-Policy",
+			"geolocation=(), microphone=(), camera=(), payment=()",
+		)
+		c.Header("Cross-Origin-Opener-Policy", "same-origin")
+		c.Header("Cross-Origin-Resource-Policy", "same-origin")
+
 		c.Next()
 	}
 }
