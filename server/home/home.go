@@ -48,7 +48,6 @@ func Home(c *gin.Context) {
 	db := database.Db()
 	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_archived = ?", currentlyLoggedIn.(string), true, false, false).
 		Order("id desc").
-		Limit(100).
 		Find(&urls)
 	if result.RowsAffected > 0 {
 		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
