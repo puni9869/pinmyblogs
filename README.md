@@ -1,13 +1,17 @@
-# 📌 pinmyblogs
+# 📌 pinmyblogs — Open-Source Blog Bookmarking & Read-Later App (Go)
 
-Save blogs, organize them, and read later — distraction free.
+**pinmyblogs** is an open-source **blog bookmarking**, **read-later**, and **content organization** application built
+with **Go (Golang)**.
 
-pinmyblogs is a lightweight bookmarking and blog-saving service built with **Go**, designed to be fast, simple, and
-developer-friendly.
+Save blog links, extract metadata, organize reading lists, and revisit content distraction-free — fast, secure, and
+self-hosted.
+
+> Ideal for developers, writers, and knowledge workers who want a simple, privacy-friendly alternative to hosted
+> bookmark tools.
 
 ---
 
-## 📊 Project Status
+## 📊 Project Status & Badges
 
 [![Check](https://github.com/puni9869/pinmyblogs/actions/workflows/go.yml/badge.svg)](https://github.com/puni9869/pinmyblogs/actions/workflows/go.yml)
 ![Go Version](https://img.shields.io/github/go-mod/go-version/puni9869/pinmyblogs)
@@ -16,36 +20,60 @@ developer-friendly.
 
 ---
 
+## 🔍 What is pinmyblogs?
+
+**pinmyblogs** is a lightweight **self-hosted bookmark manager** focused on:
+
+- Saving blog URLs
+- Extracting page metadata (title, favicon, etc.)
+- Organizing blogs for later reading
+- Running reliably in local or production environments
+
+It is built with **performance, simplicity, and security** in mind.
+
+---
+
 ## ✨ Features
 
-- 🔖 Save blog URLs for later reading
-- 🗂️ Organize and manage bookmarks
-- 🧩 Simple and extensible architecture
-- 🕷️ Metadata scraping (title, favicon, etc.)
+- 🔖 Save blog & article URLs
+- 🗂️ Organize reading lists
+- 🕷️ Automatic metadata scraping
+- ⚡ High-performance Go backend
+- 🧩 Clean, extensible architecture
+- 🏠 Self-hosted & privacy-friendly
 
 ---
 
 ## 🧱 Tech Stack
 
-- **Backend:** Go (Gin)
+- **Language:** Go (Golang)
+- **Web Framework:** Gin
 - **Database:** PostgreSQL or SQLite
-- **Frontend:** HTML templates + Tailwind CSS + Javascript
-- **Build Tools:** Make + Air
+- **Frontend:** HTML templates + Tailwind CSS
+- **Build Tooling:**  + Air (hot reload)
 
 ---
 
-## 🗄️ Database
+## 🗄️ Database Support
 
-pinmyblogs supports both **PostgreSQL** and **SQLite**.
+pinmyblogs supports **multiple SQL databases**:
 
-- **PostgreSQL** is recommended for production due to its robustness,
-  concurrency support, and reliability.
-- **SQLite** can be used for local development or lightweight testing.
+### ✅ PostgreSQL (Recommended for Production)
 
-### Supported Databases
+- High concurrency
+- Strong data integrity
+- Crash-safe & scalable
 
-- PostgreSQL (production)
-- SQLite (development/testing)
+### ✅ SQLite (Development & Testing)
+
+- Zero-config
+- File-based
+- Best for local usage
+
+```text
+Production  → PostgreSQL
+Development → SQLite
+````
 
 ---
 
@@ -53,61 +81,48 @@ pinmyblogs supports both **PostgreSQL** and **SQLite**.
 
 ### 🧰 Prerequisites
 
-- Go (latest stable version)
-- PostgreSQL (for production)
-- SQLite (optional, for local dev)
-- Make (optional but recommended)
+* Go (latest stable version)
+* PostgreSQL (optional, for production)
+* SQLite (optional, for development)
+* Make (recommended)
 
 ---
 
-### 📥 Clone the Repository
+### 📥 Installation
 
 ```bash
 git clone https://github.com/puni9869/pinmyblogs.git
 cd pinmyblogs
-````
+```
 
 ---
 
-### ⚙️ Environment Setup
-
-Set environment for local development:
-
-```bash
-export ENVIRONMENT=local
-```
+### ⚙️ Environment Configuration
 
 ### ▶️ Run the Application
-
-With hot reload:
 
 ```bash
 make server
 ```
 
-This uses **Air**, so changes are reflected instantly during development.
+Uses **Air** for automatic reload on code changes.
 
 ---
 
-## 🧪 Testing & Quality
+## 🧪 Testing & Quality Checks
 
-Run unit tests:
+Run tests:
 
 ```bash
 make test
 ```
 
-Run linters:
+Lint & static analysis:
 
 ```bash
 make lint
-```
-
-Security checks:
-
-```bash
-make govulncheck
 make vet
+make govulncheck
 ```
 
 ---
@@ -117,48 +132,47 @@ make vet
 ```
 .
 ├── cmd/                 # Application entrypoints
-├── frontend/            # Static frontend assets
 ├── handlers/            # HTTP handlers
-├── middleware/          # Security, CSP, headers
+├── middleware/          # CSP & security headers
 ├── models/              # Database models
 ├── pkg/                 # Shared packages (scraping, utils)
 ├── templates/           # HTML templates
-├── types/               # Shared types & forms
-└── Makefile             # Build & dev commands
+├── frontend/            # Static assets
+├── types/               # Forms & shared types
+└── Makefile             # Dev & build commands
 ```
 
 ---
 
 ## 🔐 Security
 
-pinmyblogs uses:
+pinmyblogs includes production-grade security defaults:
 
 * Strict Content Security Policy (CSP)
 * Secure HTTP headers
 * Clickjacking protection
-* MIME sniffing prevention
+* MIME-type sniffing prevention
 
-External resources are minimized for better security.
+Designed to be safe by default.
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! 🎉
+Contributions are welcome!
 
 1. Fork the repository
 2. Create a feature branch
-3. Commit your changes
-4. Open a pull request
+3. Add tests where applicable
+4. Submit a pull request
 
-Please include tests and follow existing code style.
+See issues for ideas and improvements.
 
 ---
 
-## 🐛 Issues & Feedback
+## 🐛 Issues & Feature Requests
 
-* Found a bug? → Open an issue
-* Have an idea? → Feature requests are welcome
+Found a bug or have a feature idea?
 
 👉 [https://github.com/puni9869/pinmyblogs/issues](https://github.com/puni9869/pinmyblogs/issues)
 
@@ -171,11 +185,13 @@ See the [LICENSE](LICENSE) file for details.
 
 ---
 
-## ❤️ Acknowledgements
+## ⭐ Why pinmyblogs?
 
-Built with love using Go, Js and Tailwind-css and open-source tools.
+* Open-source
+* Self-hosted
+* Developer-friendly
+* Privacy-focused
+* Written in Go
 
----
+If you find this project useful, please ⭐ star the repository — it helps others discover it!
 
-⭐ If you find this project useful, please consider starring the repo!
----
