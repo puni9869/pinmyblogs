@@ -86,11 +86,11 @@ func startAction(ctx *cli.Context) error {
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
 
-	if config.GetEnv() != config.ProdEnv {
+	if config.GetEnv() == config.ProdEnv {
 		r.Use(middlewares.CSP())
 		r.Use(middlewares.SecurityHeaders())
-		r.Use(middlewares.CacheMiddleware())
 	}
+	r.Use(middlewares.CacheMiddleware())
 
 	// --- Load embedded templates ---
 	// Load the template first because they are not thread-safe
