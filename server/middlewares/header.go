@@ -45,7 +45,7 @@ func CSP() gin.HandlerFunc {
 				"script-src 'self'; "+
 				"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "+
 				"font-src 'self' https://fonts.gstatic.com; "+
-				"img-src 'self' data: https://www.google.com https://t1.gstatic.com; "+
+				"img-src 'self' data: https://www.google.com https://*.gstatic.com; "+
 				"connect-src 'self'; "+
 				"object-src 'none'; "+
 				"base-uri 'self'; "+
