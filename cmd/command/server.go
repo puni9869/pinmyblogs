@@ -37,8 +37,9 @@ func startAction(ctx *cli.Context) error {
 	var err error
 	log := logger.NewLogger()
 	defer func() {
-		if err := recover(); err != nil {
-			log.Error(err)
+		if r := recover(); r != nil {
+			log.Errorf("panic during startup: %v", r)
+			panic(r) // or os.Exit(1)
 		}
 	}()
 	e := os.Getenv(environmentKey)
@@ -50,20 +51,25 @@ func startAction(ctx *cli.Context) error {
 
 	// initiate the db connection
 	var db *gorm.DB
-	dbConfig := config.C.Database["sqlite"]
 
+	dbType := config.C.AppConfig.DataBaseType
+	dbConfig := config.C.Database[dbType]
 	switch dbConfig.Type {
 	case "sqlite":
 		db, err = database.NewSqliteConnection(&dbConfig)
 	case "postgres":
 		db, err = database.NewPostgresConnection(&dbConfig)
-	}
+	default:
+		return fmt.Errorf("unsupported database type: %s", dbType)
 
+	}
 	if err != nil {
 		return err //nolint:wrapcheck
 	}
-
+	log.Infoln("App database loaded...")
+	log.Infoln("App database migrations begin...")
 	database.RegisterModels(db)
+	log.Infoln("App database migrations end...")
 
 	// sessionStore is store in database for session values
 	sessionStore := gormsessions.NewStore(db, true, []byte(config.C.AppConfig.SecretKey))
@@ -79,12 +85,18 @@ func startAction(ctx *cli.Context) error {
 
 	r := gin.New()
 	r.Use(gin.Logger(), gin.Recovery())
-	r.Use(middlewares.CacheMiddleware())
+
+	if config.GetEnv() != config.ProdEnv {
+		r.Use(middlewares.CSP())
+		r.Use(middlewares.SecurityHeaders())
+		r.Use(middlewares.CacheMiddleware())
+	}
+
 	// --- Load embedded templates ---
 	// Load the template first because they are not thread-safe
 	tmplFS, err := fs.Sub(pinmyblogs.Files, "templates")
 	if err != nil {
-		return nil
+		return fmt.Errorf("load templates fs: %w", err)
 	}
 	var tmpl = template.Must(template.New("").
 		Funcs(template.FuncMap{"relativeTime": utils.FormatRelativeTime}).
@@ -98,12 +110,15 @@ func startAction(ctx *cli.Context) error {
 	// --- Serve embedded static files ---
 	staticFS, err := fs.Sub(pinmyblogs.Files, "frontend")
 	if err != nil {
-		return nil
+		return fmt.Errorf("load frontend fs: %w", err)
 	}
 	r.StaticFS("/statics", http.FS(staticFS))
 
 	// ____ Serve the icons
-	iconsFS, _ := fs.Sub(pinmyblogs.Files, "frontend/icons")
+	iconsFS, err := fs.Sub(pinmyblogs.Files, "frontend/icons")
+	if err != nil {
+		return fmt.Errorf("load frontend/icons fs: %w", err)
+	}
 	r.StaticFS("/icons", http.FS(iconsFS))
 
 	// register all the server routes

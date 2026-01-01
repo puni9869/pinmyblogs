@@ -17,12 +17,13 @@ var (
 
 // AppConfig is the "appConfig"
 type AppConfig struct {
-	Debug       bool   `json:"debug"`
-	SecretKey   string `json:"secretKey"`
-	DefaultPort string `json:"defaultPort"`
-	CustomPort  string `json:"customPort"`
-	UseCDN      bool   `json:"useCDN"`
-	Hostname    string `json:"hostname"`
+	Debug        bool   `json:"debug"`
+	SecretKey    string `json:"secretKey"`
+	DefaultPort  string `json:"defaultPort"`
+	CustomPort   string `json:"customPort"`
+	UseCDN       bool   `json:"useCDN"`
+	Hostname     string `json:"hostname"`
+	DataBaseType string `json:"dataBaseType"`
 }
 
 // DatabaseObj is the "database"

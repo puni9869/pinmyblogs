@@ -21,7 +21,7 @@ func Setting(c *gin.Context) {
 	log := logger.NewLogger()
 	session := sessions.Default(c)
 	currentlyLoggedIn := session.Get(middlewares.Userkey)
-	tmplCtx := make(map[string]string)
+	tmplCtx := make(map[string]any)
 	email := currentlyLoggedIn.(string)
 	if currentlyLoggedIn != nil && len(email) > 0 {
 		tmplCtx["ShareDataOverMail"] = fmt.Sprintf("%t", config.C.ShareDataOverMail)
@@ -36,6 +36,7 @@ func Setting(c *gin.Context) {
 		} else {
 			tmplCtx["DisplayName"] = user.DisplayName
 		}
+		tmplCtx["IsProfilePublic"] = user.IsProfilePublic
 	}
 	c.HTML(http.StatusOK, "setting.tmpl", tmplCtx)
 }
@@ -70,6 +71,40 @@ func DisableMyAccount(c *gin.Context) {
 		database.Db().Save(user)
 	}
 	c.JSON(http.StatusOK, map[string]string{"Status": "OK"})
+}
+
+func ProfileAction(c *gin.Context) {
+	profileAction := c.Param("action")
+	if !slices.Contains([]string{"public", "private"}, profileAction) {
+		profileAction = "private"
+	}
+	log := logger.NewLogger()
+	session := sessions.Default(c)
+	currentlyLoggedIn := session.Get(middlewares.Userkey)
+	email, ok := currentlyLoggedIn.(string)
+
+	if !ok || currentlyLoggedIn == nil || email == "" {
+		c.Redirect(http.StatusPermanentRedirect, "/login")
+		return
+	}
+
+	var user *models.User
+	result := database.Db().First(&user, "email = ?", email)
+	if result.Error != nil {
+		log.WithField("email", email).WithError(result.Error).Error("record not found")
+	}
+	log.Info(profileAction)
+	log.Println("params:", c.Params)
+	isPublic := profileAction == "public"
+	log.Info(isPublic)
+	user.IsProfilePublic = isPublic
+	if err := database.Db().Save(user).Error; err != nil {
+		log.WithField("profileAction", profileAction).
+			WithError(err).
+			Error("failed to update profile visibility")
+	}
+
+	c.Redirect(http.StatusFound, "/setting")
 }
 
 func DownloadMyData(c *gin.Context) {

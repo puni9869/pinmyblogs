@@ -54,8 +54,14 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		// setting handler
 		settingsRoute := authRouters.Group("/setting")
 		{
+			// Base renderer route
 			settingsRoute.GET("", setting.Setting)
-			settingsRoute.GET("/download-my-data/:format{json|csv|html}", setting.DownloadMyData)
+
+			// Profile routes
+			settingsRoute.GET("/profile/:action", setting.ProfileAction)
+
+			// Data routes
+			settingsRoute.GET("/download-my-data/:format", setting.DownloadMyData)
 			settingsRoute.DELETE("/delete-my-account", setting.DeleteMyAccount)
 			settingsRoute.PUT("/disable-my-account", setting.DisableMyAccount)
 		}
