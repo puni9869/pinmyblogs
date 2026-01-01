@@ -39,14 +39,16 @@ func CacheMiddleware() gin.HandlerFunc {
 //   - This middleware should be registered early in the Gin middleware chain
 func CSP() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header("Content-Security-Policy",
+		c.Header(
+			"Content-Security-Policy",
 			"default-src 'self'; "+
 				"script-src 'self'; "+
 				"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "+
 				"font-src 'self' https://fonts.gstatic.com; "+
-				"img-src 'self' data: https://www.google.com; "+
+				"img-src 'self' data: https://www.google.com https://t1.gstatic.com; "+
 				"connect-src 'self'; "+
 				"object-src 'none'; "+
+				"base-uri 'self'; "+
 				"frame-ancestors 'none'",
 		)
 		c.Next()
