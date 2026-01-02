@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/puni9869/pinmyblogs/pkg/utils"
-	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"gorm.io/gorm"
 
 	gormsessions "github.com/gin-contrib/sessions/gorm"
@@ -84,13 +83,6 @@ func startAction(ctx *cli.Context) error {
 	}
 
 	r := gin.New()
-	r.Use(gin.Logger(), gin.Recovery())
-
-	if config.GetEnv() == config.ProdEnv {
-		r.Use(middlewares.CSP())
-		r.Use(middlewares.SecurityHeaders())
-	}
-	r.Use(middlewares.CacheMiddleware())
 
 	// --- Load embedded templates ---
 	// Load the template first because they are not thread-safe

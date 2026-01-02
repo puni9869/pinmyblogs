@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"path"
+	"slices"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -37,20 +38,23 @@ func CacheMiddleware() gin.HandlerFunc {
 //   - 'unsafe-inline' is intentionally allowed for styles but NOT for scripts
 //   - For higher security, consider replacing inline styles with hashes or nonces
 //   - This middleware should be registered early in the Gin middleware chain
-func CSP() gin.HandlerFunc {
+func CSP(exemptedRoutes []string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header(
-			"Content-Security-Policy",
-			"default-src 'self'; "+
-				"script-src 'self'; "+
-				"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "+
-				"font-src 'self' https://fonts.gstatic.com; "+
-				"img-src 'self' data: https://www.google.com https://*.gstatic.com; "+
-				"connect-src 'self'; "+
-				"object-src 'none'; "+
-				"base-uri 'self'; "+
-				"frame-ancestors 'none'",
-		)
+		p := strings.ToLower(c.Request.URL.Path)
+		if !slices.Contains(exemptedRoutes, p) {
+			c.Header(
+				"Content-Security-Policy",
+				"default-src 'self'; "+
+					"script-src 'self'; "+
+					"style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "+
+					"font-src 'self' https://fonts.gstatic.com; "+
+					"img-src 'self' data: https://www.google.com https://*.gstatic.com; "+
+					"connect-src 'self'; "+
+					"object-src 'none'; "+
+					"base-uri 'self'; "+
+					"frame-ancestors 'none'",
+			)
+		}
 		c.Next()
 	}
 }
@@ -78,27 +82,29 @@ func CSP() gin.HandlerFunc {
 // Note:
 //   - This middleware should be applied globally.
 //   - Works best when combined with a strong Content Security Policy (CSP).
-func SecurityHeaders() gin.HandlerFunc {
+func SecurityHeaders(exemptedRoutes []string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		c.Header("X-Content-Type-Options", "nosniff")
-		c.Header("X-Frame-Options", "DENY")
-		c.Header("Referrer-Policy", "strict-origin-when-cross-origin")
-		c.Header("X-XSS-Protection", "0")
+		p := strings.ToLower(c.Request.URL.Path)
+		if !slices.Contains(exemptedRoutes, p) {
+			c.Header("X-Content-Type-Options", "nosniff")
+			c.Header("X-Frame-Options", "DENY")
+			c.Header("Referrer-Policy", "strict-origin-when-cross-origin")
+			c.Header("X-XSS-Protection", "0")
 
-		// HTTPS only
-		c.Header(
-			"Strict-Transport-Security",
-			"max-age=63072000; includeSubDomains; preload",
-		)
+			// HTTPS only
+			c.Header(
+				"Strict-Transport-Security",
+				"max-age=63072000; includeSubDomains; preload",
+			)
 
-		// Modern security headers
-		c.Header(
-			"Permissions-Policy",
-			"geolocation=(), microphone=(), camera=(), payment=()",
-		)
-		c.Header("Cross-Origin-Opener-Policy", "same-origin")
-		c.Header("Cross-Origin-Resource-Policy", "same-origin")
-
+			// Modern security headers
+			c.Header(
+				"Permissions-Policy",
+				"geolocation=(), microphone=(), camera=(), payment=()",
+			)
+			c.Header("Cross-Origin-Opener-Policy", "same-origin")
+			c.Header("Cross-Origin-Resource-Policy", "same-origin")
+		}
 		c.Next()
 	}
 }

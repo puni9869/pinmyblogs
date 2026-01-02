@@ -4,6 +4,7 @@ import (
 	session "github.com/gin-contrib/sessions/gorm"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/internal/signup"
+	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/server/auth"
@@ -14,14 +15,26 @@ import (
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
 
+var exemptedRoutes = []string{"/start2"}
+
 // RegisterRoutes configures the available Web server routes.
 func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	log := logger.NewLogger()
+
+	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
+	r.Use(middlewares.CacheMiddleware())
+
+	if config.GetEnv() == config.ProdEnv {
+		r.Use(middlewares.CSP(exemptedRoutes))
+		r.Use(middlewares.SecurityHeaders(exemptedRoutes))
+	}
+	r.Use(middlewares.Session(sessionStore))
+
 	db := database.Db()
 	signupService := signup.NewSignupService(db, log)
 
 	//r.Use(middlewares.Cors())
-	r.Use(middlewares.Session(sessionStore))
 	loginRoutes := r.Group("")
 	{
 		loginRoutes.GET("/signup", auth.SignupGet)
