@@ -2,6 +2,7 @@ package command
 
 import (
 	"fmt"
+	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"html/template"
 	"io/fs"
 	"net/http"
@@ -84,6 +85,15 @@ func startAction(ctx *cli.Context) error {
 
 	r := gin.New()
 
+	r.Use(gin.Logger())
+	r.Use(gin.Recovery())
+	r.Use(middlewares.CacheMiddleware())
+
+	exemptedRoutes := []string{"/start2"}
+	if config.GetEnv() == config.ProdEnv {
+		r.Use(middlewares.CSP(exemptedRoutes))
+		r.Use(middlewares.SecurityHeaders(exemptedRoutes))
+	}
 	// --- Load embedded templates ---
 	// Load the template first because they are not thread-safe
 	tmplFS, err := fs.Sub(pinmyblogs.Files, "templates")
