@@ -89,6 +89,9 @@ func startAction(ctx *cli.Context) error {
 	r.Use(gin.Recovery())
 	r.Use(middlewares.CacheMiddleware())
 
+	// TODO: remove this after the start2 in the prod.
+	// This is new mindset of bookmarks,
+	// Motivation is to keep it simple and dumb
 	exemptedRoutes := []string{"/start2"}
 	if config.GetEnv() == config.ProdEnv {
 		r.Use(middlewares.CSP(exemptedRoutes))
