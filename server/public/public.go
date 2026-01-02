@@ -28,6 +28,10 @@ func LandingPageGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "landing_page.tmpl", nil)
 }
 
+func LandingPage2Get(c *gin.Context) {
+	c.HTML(http.StatusOK, "landing_page_2.tmpl", nil)
+}
+
 func JoinWaitListPost(c *gin.Context) {
 	log := logger.NewLogger()
 	form := middlewares.GetForm(c).(*forms.JoinWaitList)

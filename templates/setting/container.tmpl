@@ -30,12 +30,15 @@
           <p class="mb-3 text-md">
             Your current email-id is
             <span class="border-b-2 px-2 text-md border-gray-500 text-black text-md font-bold">{{ .Email }}</span>
-
           </p>
           <p class="select-none">
             Your current password is <span class="px-2 border-b-2 border-gray-500 border-bottom text-gray-500">••••••••</span>.
-            <span id='change-password' class="ml-2 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Change Password</span> or
-            <a href="/reset-password" target="_blank" rel="noopener noreferrer" class="text-indigo-400 cursor-pointer select-none hover:underline hover:underline-offset-4">Forget Password</a>
+            <span id='change-password'
+                  class="ml-2 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Change Password</span> or
+            <a href="/reset-password"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="text-indigo-400 cursor-pointer select-none hover:underline hover:underline-offset-4">Forget Password</a>
           </p>
         </div>
       </div>
@@ -46,86 +49,86 @@
           Profile
         </p>
         <div class="mt-4">
-         <p class="select-none">
-                    Your handler is <span class="text-black font-bold border-b-2 border-gray-500"><a href="https://pinmyblogs.com/{{.DisplayName}}">https://pinmyblogs.com/{{.DisplayName}}</a></span>
+          <p class="select-none">
+            Your handler is <span class="text-black font-bold border-b-2 border-gray-500"><a href="https://pinmyblogs.com/{{.DisplayName}}">https://pinmyblogs.com/{{.DisplayName}}</a></span>
           </p>
           <p class="mb-3 text-md mt-2">
             Your display name is
             <span class="border-b-2 px-2 text-md border-gray-500 border-bottom text-black text-md font-bold">{{.DisplayName}}</span>.
             <span class="text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Change Display Name</span>
           </p>
-
           <p class="text-md select-none mt-2">
             Your profile is <span class="text-black-500 font-bold underline underline-offset-4 px-2"> {{ if eq .IsProfilePublic true}}public{{ else }}private{{ end }}</span>.
-             <a class="text-indigo-400 cursor-pointer select-none hover:underline hover:underline-offset-4" href="/setting/profile/{{ if eq .IsProfilePublic true }}private{{ else }}public{{ end }}">
-                Make {{ if eq .IsProfilePublic true }}Private{{ else }}Public{{ end }}
-             </a>
-          </p>
-        </div>
-      </div>
-      <div class="mb-6">
-      </div>
-      <div class="leading-relaxed text-pretty" id="download-setting">
-        <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">
-          Download
+          <a class="text-indigo-400 cursor-pointer select-none hover:underline hover:underline-offset-4"
+             href="/setting/profile/{{ if eq .IsProfilePublic true }}private{{ else }}public{{ end }}">
+          Make {{ if eq .IsProfilePublic true }}Private{{ else }}Public{{ end }}
+          </a>
         </p>
-        <div class="mt-4">
-          <p class="mb-3 text-md">
-            <span>You can download your data in the formats we have listed below.</span>
-          </p>
-          <p>
-            <span id="download"
-                  data-format="csv"
-                  class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .csv</span>
-          </p>
-          <p>
-            <span id="download"
-                  data-format="json"
-                  class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .json</span>
-          </p>
-          <p>
-            <span id="download"
-                  data-format="csv"
-                  class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .html</span>
-          </p>
-          <br />
-          <p>
-            <span class="ml-1 select-none {{ if eq .ShareDataOverMail "true" }}text-indigo-400 hover:underline hover:underline-offset-4 cursor-pointer {{ else }}text-gray-400 cursor-not-allowed{{ end }}">Send me my data over email</span>
-          </p>
-        </div>
-      </div>
-      <div class="mb-6">
-      </div>
-      <div class="leading-relaxed text-pretty" id="delete-account-setting">
-        <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">
-          Delete Account
-        </p>
-        <div class="mt-4">
-          <p class="mb-3 text-md w-[inherit]">
-            <span>I have no interest in utilizing</span>
-            <a class="pl-1 italic text-indigo-400 hover:underline hover:underline-offset-4 cursor-pointer"
-               href="https://pinmyblogs.com"
-               target="_blank">pinmyblogs.com</a>.
-            <span>I am aware that this action will result in the complete deletion of all my data and</span>
-            <span class="font-bold italic">I authorize the removal of my account, along with all associated data.</span>
-            <span class="h-5 w-5">&#128542;</span>
-          </p>
-          <p>
-            <span class="text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none"
-                  id="disable-my-account">Deactivate my account until I login back.</span>
-          </p>
-          <div class="mb-2">
-          </div>
-          <p>
-            <span class="text-red-400 cursor-pointer hover:underline hover:underline-offset-4 select-none"
-                  id="delete-my-account">Delete My Account</span>
-          </p>
-        </div>
-      </div>
-      <div class="mb-12">
       </div>
     </div>
+    <div class="mb-6">
+    </div>
+    <div class="leading-relaxed text-pretty" id="download-setting">
+      <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">
+        Download
+      </p>
+      <div class="mt-4">
+        <p class="mb-3 text-md">
+          <span>You can download your data in the formats we have listed below.</span>
+        </p>
+        <p>
+          <span id="download"
+                data-format="csv"
+                class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .csv</span>
+        </p>
+        <p>
+          <span id="download"
+                data-format="json"
+                class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .json</span>
+        </p>
+        <p>
+          <span id="download"
+                data-format="csv"
+                class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .html</span>
+        </p>
+        <br />
+        <p>
+          <span class="ml-1 select-none {{ if eq .ShareDataOverMail "true" }}text-indigo-400 hover:underline hover:underline-offset-4 cursor-pointer {{ else }}text-gray-400 cursor-not-allowed{{ end }}">Send me my data over email</span>
+        </p>
+      </div>
+    </div>
+    <div class="mb-6">
+    </div>
+    <div class="leading-relaxed text-pretty" id="delete-account-setting">
+      <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">
+        Delete Account
+      </p>
+      <div class="mt-4">
+        <p class="mb-3 text-md w-[inherit]">
+          <span>I have no interest in utilizing</span>
+          <a class="pl-1 italic text-indigo-400 hover:underline hover:underline-offset-4 cursor-pointer"
+             href="https://pinmyblogs.com"
+             target="_blank">pinmyblogs.com</a>.
+          <span>I am aware that this action will result in the complete deletion of all my data and</span>
+          <span class="font-bold italic">I authorize the removal of my account, along with all associated data.</span>
+          <span class="h-5 w-5">&#128542;</span>
+        </p>
+        <p>
+          <span class="text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none"
+                id="disable-my-account">Deactivate my account until I login back.</span>
+        </p>
+        <div class="mb-2">
+        </div>
+        <p>
+          <span class="text-red-400 cursor-pointer hover:underline hover:underline-offset-4 select-none"
+                id="delete-my-account">Delete My Account</span>
+        </p>
+      </div>
+    </div>
+    <div class="mb-12">
+    </div>
   </div>
+</div>
 </div>
 </div>
 {{ template "setting/delete_account_modal" . }}

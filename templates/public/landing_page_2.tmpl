@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pinmyblogs — save. organize. publish.</title>
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-feature-settings: "ss01";
+      }
+    </style>
+  </head>
+  <body class="bg-white text-black">
+    <!-- ================= NAV ================= -->
+    <header class="border-b-2 border-black">
+      <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+        </div>
+        <nav class="flex items-center gap-4 text-sm font-medium">
+          <!-- GitHub -->
+          <a href="https://github.com/pinmyblogs"
+             target="_blank"
+             rel="noopener noreferrer"
+             class=" inline-flex items-center gap-2 px-4 py-2 border-2 border-black rounded-lg hover:bg-gray-100 ">
+            <svg class="w-4 h-4"
+                 viewBox="0 0 24 24"
+                 fill="currentColor"
+                 aria-hidden="true">
+              <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.42 7.86 10.95.57.1.78-.25.78-.55v-2.02c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.95.1-.75.4-1.25.73-1.54-2.56-.3-5.26-1.28-5.26-5.7 0-1.26.45-2.3 1.19-3.11-.12-.3-.52-1.52.11-3.17 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.65.24 2.87.12 3.17.74.81 1.18 1.85 1.18 3.11 0 4.43-2.7 5.4-5.28 5.69.42.36.78 1.08.78 2.18v3.23c0 .31.2.66.79.55A11.52 11.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
+            </svg>
+            <span>GitHub</span>
+          </a>
+          <!-- Add to Chrome (Primary CTA) -->
+          <a href="https://chromewebstore.google.com/detail/pinmyblogscom/kbaljigapbggohllflnnklhclnbheaaj"
+             target="_blank"
+             rel="noopener noreferrer"
+             class=" inline-flex items-center gap-2 px-4 py-2 border-2 border-black rounded-lg bg-yellow-200 hover:bg-yellow-300 active:translate-y-[1px] ">
+            <img src="/statics/icons/chrome.svg?v=9c189fa"
+                 alt="Chrome"
+                 class="h-4 w-4" />
+            <span>Add to Chrome</span>
+          </a>
+          <!-- Login -->
+          <a href="/login"
+             class=" px-4 py-2 border-2 border-black rounded-lg hover:bg-gray-100 ">
+            Log in
+          </a>
+        </nav>
+      </div>
+    </header>
+    <!-- ================= HERO ================= -->
+    <section class="max-w-6xl mx-auto px-6 pt-20 pb-10">
+      <p class="mt-6 text-lg max-w-2xl text-gray-700">
+        pinmyblogs is your personal bookmark manager —
+        a quiet workspace for writers and thinkers to collect ideas, bookmark inspiration, and publish when ready.
+      </p>
+      <div class="mt-10 flex gap-4 select-none">
+        <a href="/signup"
+           class="px-6 py-3 bg-pink-500 border-2 border-black rounded-lg text-base font-medium hover:bg-pink-600 cursor">
+          Sign up
+        </a>
+        <a href="/login"
+           class=" px-6 py-3 border-2 border-black rounded-lg text-base font-medium hover:bg-gray-100 cursor">
+          Log in
+        </a>
+      </div>
+    </section>
+    <!-- ================= FEATURES ================= -->
+    <section class="max-w-6xl mx-auto px-6 py-2">
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="border-2 border-black rounded-xl p-6">
+          <h3 class="font-semibold text-lg">
+            📌 Save ideas
+          </h3>
+          <p class="mt-3 text-gray-700">
+            Bookmark articles, notes, and thoughts into one calm space.
+          </p>
+        </div>
+        <div class="border-2 border-black rounded-xl p-6">
+          <h3 class="font-semibold text-lg">
+            🗂 Organize clearly
+          </h3>
+          <p class="mt-3 text-gray-700">
+            Tags, lists, and timelines help ideas grow naturally.
+          </p>
+        </div>
+        <div class="border-2 border-black rounded-xl p-6">
+          <h3 class="font-semibold text-lg">
+            ✍️ Publish confidently
+          </h3>
+          <p class="mt-3 text-gray-700">
+            Share posts publicly or keep them private until ready.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- ================= FOOTER ================= -->
+    <footer class="fixed bottom-0 left-0 w-full border-t-2 border-black bg-white z-50">
+      <div class="max-w-6xl mx-auto px-6 py-3 flex justify-between text-sm items-center">
+        <p>
+          © 2026 PinMyBlogs
+        </p>
+        <div class="flex gap-6 items-center">
+          <a href="/privacy" class="hover:underline">Privacy</a>
+          <a href="/support" class="hover:underline">Support</a>
+          <!-- GitHub -->
+          <a href="https://github.com/pinmyblogs"
+             target="_blank"
+             rel="noopener noreferrer"
+             class="hover:underline flex items-center gap-2">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.1 3.29 9.42 7.86 10.95.57.1.78-.25.78-.55v-2.02c-3.2.7-3.88-1.54-3.88-1.54-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.95.1-.75.4-1.25.73-1.54-2.56-.3-5.26-1.28-5.26-5.7 0-1.26.45-2.3 1.19-3.11-.12-.3-.52-1.52.11-3.17 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.65.24 2.87.12 3.17.74.81 1.18 1.85 1.18 3.11 0 4.43-2.7 5.4-5.28 5.69.42.36.78 1.08.78 2.18v3.23c0 .31.2.66.79.55A11.52 11.52 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z" />
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
