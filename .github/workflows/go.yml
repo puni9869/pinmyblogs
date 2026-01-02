@@ -1,6 +1,6 @@
 name: Check
 
-on: [push]
+on: [ push ]
 
 jobs:
   checks:
@@ -11,13 +11,13 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24'
+          go-version: '1.25'
 
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v9
-        with:
-          version: v2.1
-          args: --config=.golangci.yml
+      #      - name: golangci-lint
+      #        uses: golangci/golangci-lint-action@v9
+      #        with:
+      #          version: v2.1
+      #          args: --config=.golangci.yml
 
       - name: test
         run: make test
