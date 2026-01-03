@@ -1,135 +1,120 @@
 {{ define "setting/container" }}
-<div class="flex h-full justify-center mx-1">
-  <div class="flex flex-col md:w-12/12 sm:w-12/12  lg:w-6/12 bg-white">
-    <div class="border-t-2 border-gray-200">
+<div class="flex justify-center px-4 sm:px-6">
+  <div class="w-full max-w-3xl py-10 space-y-10">
+
+    <!-- Header -->
+    <div class="flex items-center gap-3">
+      <svg xmlns="http://www.w3.org/2000/svg"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="currentColor"
+           stroke-width="1.7"
+           class="h-6 w-6 text-indigo-500">
+        <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281a1.125 1.125 0 0 0 .644.87l.22.127c.325.196.72.257 1.076.124l1.216-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.004.827a1.125 1.125 0 0 0-.43.992v.255c-.007.378.138.75.43.991l1.004.827a1.125 1.125 0 0 1 .26 1.43l-1.296 2.247a1.125 1.125 0 0 1-1.37.49l-1.216-.456a1.125 1.125 0 0 0-1.076.124l-.22.128a1.125 1.125 0 0 0-.644.869l-.213 1.281a1.125 1.125 0 0 1-1.11.94h-2.594a1.125 1.125 0 0 1-1.11-.94l-.213-1.281a1.125 1.125 0 0 0-.644-.87l-.22-.127a1.125 1.125 0 0 0-1.076-.124l-1.216.456a1.125 1.125 0 0 1-1.37-.49l-1.296-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827a1.125 1.125 0 0 0 .43-.991v-.255a1.125 1.125 0 0 0-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.296-2.247a1.125 1.125 0 0 1 1.37-.49l1.216.456a1.125 1.125 0 0 0 1.076-.124l.22-.127a1.125 1.125 0 0 0 .644-.87l.213-1.28Z" />
+      </svg>
+      <h1 class="text-2xl font-semibold text-gray-900">
+        Settings
+      </h1>
     </div>
-    <div class="flex flex-row px-3 py-2 group">
-      <div class="flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg"
-             fill="none"
-             viewBox="0 0 24 24"
-             stroke-width="1.7"
-             stroke="currentColor"
-             class="h-6 w-6 text-indigo-400 mr-1 group-hover:text-indigo-600">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z" />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        </svg>
-        <label class="text-gray-700 text-md select-none">
-          Setting
-        </label>
-      </div>
-    </div>
-    <div class="border-t-2 border-gray-200">
-    </div>
-    <div class="h-fit px-4 py-2 flex flex-col items-start justify-start">
-      <div class="leading-relaxed text-pretty" id="account-setting">
-        <p class="mt-2 border-b-4 border-gray-500 text-2xl w-fit select-none">
-          Account
+
+    <!-- ACCOUNT -->
+    <section class="rounded-xl border border-gray-200 bg-white p-6">
+      <h2 class="text-lg font-medium text-gray-900">Account</h2>
+      <p class="mt-1 text-sm text-gray-500">
+        Manage your email and password.
+      </p>
+
+      <div class="mt-5 space-y-3 text-sm">
+        <p>
+          Email:
+          <span class="font-medium text-gray-900 ml-1">{{ .Email }}</span>
         </p>
-        <div class="mt-4">
-          <p class="mb-3 text-md">
-            Your current email-id is
-            <span class="border-b-2 px-2 text-md border-gray-500 text-black text-md font-bold">{{ .Email }}</span>
-          </p>
-          <p class="select-none">
-            Your current password is <span class="px-2 border-b-2 border-gray-500 border-bottom text-gray-500">••••••••</span>.
-            <span id='change-password'
-                  class="ml-2 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Change Password</span> or
-            <a href="/reset-password"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="text-indigo-400 cursor-pointer select-none hover:underline hover:underline-offset-4">Forget Password</a>
-          </p>
-        </div>
-      </div>
-      <div class="mb-6">
-      </div>
-      <div class="leading-relaxed text-pretty" id="profile-setting">
-        <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">
-          Profile
-        </p>
-        <div class="mt-4">
-          <p class="select-none">
-            Your handler is <span class="text-black font-bold border-b-2 border-gray-500"><a href="https://pinmyblogs.com/{{.DisplayName}}">https://pinmyblogs.com/{{.DisplayName}}</a></span>
-          </p>
-          <p class="mb-3 text-md mt-2">
-            Your display name is
-            <span class="border-b-2 px-2 text-md border-gray-500 border-bottom text-black text-md font-bold">{{.DisplayName}}</span>.
-            <span class="text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Change Display Name</span>
-          </p>
-          <p class="text-md select-none mt-2">
-            Your profile is <span class="text-black-500 font-bold underline underline-offset-4 px-2"> {{ if eq .IsProfilePublic true}}public{{ else }}private{{ end }}</span>.
-          <a class="text-indigo-400 cursor-pointer select-none hover:underline hover:underline-offset-4"
-             href="/setting/profile/{{ if eq .IsProfilePublic true }}private{{ else }}public{{ end }}">
-          Make {{ if eq .IsProfilePublic true }}Private{{ else }}Public{{ end }}
+
+        <p>
+          Password:
+          <span class="ml-1 text-gray-400">••••••••</span>
+          <span id="change-password"
+                class="ml-3 text-indigo-600 hover:underline cursor-pointer">
+            Change
+          </span>
+          ·
+          <a href="/reset-password"
+             class="text-indigo-600 hover:underline">
+            Reset
           </a>
         </p>
       </div>
-    </div>
-    <div class="mb-6">
-    </div>
-    <div class="leading-relaxed text-pretty" id="download-setting">
-      <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">
-        Download
-      </p>
-      <div class="mt-4">
-        <p class="mb-3 text-md">
-          <span>You can download your data in the formats we have listed below.</span>
-        </p>
+    </section>
+
+    <!-- PROFILE -->
+    <section class="rounded-xl border border-gray-200 bg-white p-6">
+      <h2 class="text-lg font-medium text-gray-900">Profile</h2>
+
+      <div class="mt-4 space-y-3 text-sm">
         <p>
-          <span id="download"
-                data-format="csv"
-                class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .csv</span>
+          Public URL:
+          <a href="https://pinmyblogs.com/{{.DisplayName}}"
+             class="ml-1 text-indigo-600 hover:underline">
+            pinmyblogs.com/{{.DisplayName}}
+          </a>
         </p>
+
         <p>
-          <span id="download"
-                data-format="json"
-                class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .json</span>
+          Display name:
+          <span class="font-medium text-gray-900 ml-1">{{.DisplayName}}</span>
+          <span class="ml-3 text-indigo-600 hover:underline cursor-pointer">
+            Change
+          </span>
         </p>
+
         <p>
-          <span id="download"
-                data-format="csv"
-                class="ml-1 text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none">Download .html</span>
-        </p>
-        <br />
-        <p>
-          <span class="ml-1 select-none {{ if eq .ShareDataOverMail "true" }}text-indigo-400 hover:underline hover:underline-offset-4 cursor-pointer {{ else }}text-gray-400 cursor-not-allowed{{ end }}">Send me my data over email</span>
+          Profile visibility:
+          <span class="ml-1 font-medium">
+            {{ if .IsProfilePublic }}Public{{ else }}Private{{ end }}
+          </span>
+          ·
+          <a href="/setting/profile/{{ if .IsProfilePublic }}private{{ else }}public{{ end }}"
+             class="text-indigo-600 hover:underline">
+            Change
+          </a>
         </p>
       </div>
-    </div>
-    <div class="mb-6">
-    </div>
-    <div class="leading-relaxed text-pretty" id="delete-account-setting">
-      <p class="mt-2 border-b-4 border-gray-500 select-none text-2xl w-fit">
-        Delete Account
-      </p>
-      <div class="mt-4">
-        <p class="mb-3 text-md w-[inherit]">
-          <span>I have no interest in utilizing</span>
-          <a class="pl-1 italic text-indigo-400 hover:underline hover:underline-offset-4 cursor-pointer"
-             href="https://pinmyblogs.com"
-             target="_blank">pinmyblogs.com</a>.
-          <span>I am aware that this action will result in the complete deletion of all my data and</span>
-          <span class="font-bold italic">I authorize the removal of my account, along with all associated data.</span>
-          <span class="h-5 w-5">&#128542;</span>
-        </p>
-        <p>
-          <span class="text-indigo-400 cursor-pointer hover:underline hover:underline-offset-4 select-none"
-                id="disable-my-account">Deactivate my account until I login back.</span>
-        </p>
-        <div class="mb-2">
-        </div>
-        <p>
-          <span class="text-red-400 cursor-pointer hover:underline hover:underline-offset-4 select-none"
-                id="delete-my-account">Delete My Account</span>
-        </p>
+    </section>
+
+    <!-- DOWNLOAD -->
+    <section class="rounded-xl border border-gray-200 bg-white p-6">
+      <h2 class="text-lg font-medium text-gray-900">Download your data</h2>
+
+      <div class="mt-4 space-y-2 text-sm">
+        <span class="block text-indigo-600 hover:underline cursor-pointer" data-format="csv">Download CSV</span>
+        <span class="block text-indigo-600 hover:underline cursor-pointer" data-format="json">Download JSON</span>
+        <span class="block text-indigo-600 hover:underline cursor-pointer" data-format="html">Download HTML</span>
       </div>
-    </div>
-    <div class="mb-12">
-    </div>
+    </section>
+
+    <!-- DANGER ZONE -->
+    <section class="rounded-xl border border-red-200 bg-red-50 p-6">
+      <h2 class="text-lg font-medium text-red-700">Danger zone</h2>
+
+      <p class="mt-3 text-sm text-red-600">
+        Deleting your account will permanently remove all your data.
+      </p>
+
+      <div class="mt-4 space-y-2 text-sm">
+        <span id="disable-my-account"
+              class="block text-red-600 hover:underline cursor-pointer">
+          Deactivate my account
+        </span>
+        <span id="delete-my-account"
+              class="block font-medium text-red-700 hover:underline cursor-pointer">
+          Delete my account permanently
+        </span>
+      </div>
+    </section>
+
   </div>
 </div>
-</div>
-</div>
+
 {{ template "setting/delete_account_modal" . }}
 {{ end }}
