@@ -1,8 +1,9 @@
 package pagination
 
 import (
-	"gorm.io/gorm"
 	"math"
+
+	"gorm.io/gorm"
 )
 
 const (

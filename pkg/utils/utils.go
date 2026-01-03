@@ -3,10 +3,11 @@ package utils
 import (
 	"crypto/sha256"
 	"fmt"
-	"golang.org/x/crypto/bcrypt"
 	"net/mail"
 	"net/url"
 	"time"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 func DomainName(link string) string {
@@ -54,10 +55,14 @@ func HashifyBCrypt(text string) string {
 }
 
 func CompareBCrypt(hashed string, plainText string) error {
-	return bcrypt.CompareHashAndPassword(
-		[]byte(hashed),    // stored hash
-		[]byte(plainText), // user input
-	)
+	if err := bcrypt.CompareHashAndPassword(
+		[]byte(hashed),
+		[]byte(plainText),
+	); err != nil {
+		return fmt.Errorf("compare bcrypt hash: %w", err)
+	}
+
+	return nil
 }
 
 // ValidateEmail will validate the email is in correct format or not

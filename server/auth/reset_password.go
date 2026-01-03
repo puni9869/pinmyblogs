@@ -2,6 +2,9 @@ package auth
 
 import (
 	"errors"
+	"net/http"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/puni9869/pinmyblogs/models"
@@ -14,8 +17,6 @@ import (
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
 	"gorm.io/gorm"
-	"net/http"
-	"time"
 )
 
 func ResetPasswordGet(c *gin.Context) {
@@ -130,7 +131,6 @@ func ResetPasswordSetPost(c *gin.Context) {
 	if err := database.Db().
 		First(&user, "password_reset_hash = ?", hash).
 		Error; err != nil {
-
 		if errors.Is(err, gorm.ErrRecordNotFound) {
 			log.WithField("passwordResetHash", hash).
 				Error("password reset link not found in database")
@@ -157,7 +157,6 @@ func ResetPasswordSetPost(c *gin.Context) {
 	// Password match validation
 	if (ctx["Password_HasError"] == nil || ctx["Password_HasError"] == false) &&
 		password != confirmPassword {
-
 		ctx["HasError"] = true
 		ctx["Password_HasError"] = true
 		ctx["Password_Error"] = ""
@@ -194,7 +193,6 @@ func ResetPasswordSetPost(c *gin.Context) {
 			"password_reset_hash":    "",
 			"last_password_reset_at": time.Now(),
 		}).Error; err != nil {
-
 		log.WithFields(map[string]any{
 			"user": user.Email,
 			"id":   user.ID,

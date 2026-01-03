@@ -2,11 +2,12 @@ package command
 
 import (
 	"fmt"
-	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"html/template"
 	"io/fs"
 	"net/http"
 	"os"
+
+	"github.com/puni9869/pinmyblogs/server/middlewares"
 
 	"github.com/puni9869/pinmyblogs/pkg/utils"
 	"gorm.io/gorm"
@@ -61,7 +62,6 @@ func startAction(ctx *cli.Context) error {
 		db, err = database.NewPostgresConnection(&dbConfig)
 	default:
 		return fmt.Errorf("unsupported database type: %s", dbType)
-
 	}
 	if err != nil {
 		return err //nolint:wrapcheck
