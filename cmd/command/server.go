@@ -2,6 +2,7 @@ package command
 
 import (
 	"fmt"
+	tf "github.com/puni9869/pinmyblogs/pkg/template_functions"
 	"html/template"
 	"io/fs"
 	"net/http"
@@ -9,7 +10,6 @@ import (
 
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 
-	"github.com/puni9869/pinmyblogs/pkg/utils"
 	"gorm.io/gorm"
 
 	gormsessions "github.com/gin-contrib/sessions/gorm"
@@ -106,11 +106,11 @@ func startAction(ctx *cli.Context) error {
 	}
 	var tmpl = template.Must(template.New("").
 		Funcs(template.FuncMap{
-			"add":          utils.Add,
-			"sub":          utils.Sub,
-			"relativeTime": utils.FormatRelativeTime,
-			"domainName":   utils.DomainName,
-			"asset":        utils.Asset(BuildVersion),
+			"add":          tf.Add,
+			"sub":          tf.Sub,
+			"relativeTime": tf.FormatRelativeTime,
+			"domainName":   tf.DomainName,
+			"asset":        tf.Asset(BuildVersion),
 		}).ParseFS(tmplFS, "**/*.tmpl"))
 	r.SetHTMLTemplate(tmpl)
 
