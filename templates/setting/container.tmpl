@@ -1,7 +1,6 @@
 {{ define "setting/container" }}
 <div class="flex justify-center px-4 sm:px-6">
   <div class="w-full max-w-3xl py-10 space-y-10">
-
     <!-- Header -->
     <div class="flex items-center gap-3">
       <svg xmlns="http://www.w3.org/2000/svg"
@@ -10,27 +9,25 @@
            stroke="currentColor"
            stroke-width="1.7"
            class="h-6 w-6 text-indigo-500">
-        <path stroke-linecap="round" stroke-linejoin="round"
-              d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281a1.125 1.125 0 0 0 .644.87l.22.127c.325.196.72.257 1.076.124l1.216-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.004.827a1.125 1.125 0 0 0-.43.992v.255c-.007.378.138.75.43.991l1.004.827a1.125 1.125 0 0 1 .26 1.43l-1.296 2.247a1.125 1.125 0 0 1-1.37.49l-1.216-.456a1.125 1.125 0 0 0-1.076.124l-.22.128a1.125 1.125 0 0 0-.644.869l-.213 1.281a1.125 1.125 0 0 1-1.11.94h-2.594a1.125 1.125 0 0 1-1.11-.94l-.213-1.281a1.125 1.125 0 0 0-.644-.87l-.22-.127a1.125 1.125 0 0 0-1.076-.124l-1.216.456a1.125 1.125 0 0 1-1.37-.49l-1.296-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827a1.125 1.125 0 0 0 .43-.991v-.255a1.125 1.125 0 0 0-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.296-2.247a1.125 1.125 0 0 1 1.37-.49l1.216.456a1.125 1.125 0 0 0 1.076-.124l.22-.127a1.125 1.125 0 0 0 .644-.87l.213-1.28Z" />
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281a1.125 1.125 0 0 0 .644.87l.22.127c.325.196.72.257 1.076.124l1.216-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.004.827a1.125 1.125 0 0 0-.43.992v.255c-.007.378.138.75.43.991l1.004.827a1.125 1.125 0 0 1 .26 1.43l-1.296 2.247a1.125 1.125 0 0 1-1.37.49l-1.216-.456a1.125 1.125 0 0 0-1.076.124l-.22.128a1.125 1.125 0 0 0-.644.869l-.213 1.281a1.125 1.125 0 0 1-1.11.94h-2.594a1.125 1.125 0 0 1-1.11-.94l-.213-1.281a1.125 1.125 0 0 0-.644-.87l-.22-.127a1.125 1.125 0 0 0-1.076-.124l-1.216.456a1.125 1.125 0 0 1-1.37-.49l-1.296-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827a1.125 1.125 0 0 0 .43-.991v-.255a1.125 1.125 0 0 0-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.296-2.247a1.125 1.125 0 0 1 1.37-.49l1.216.456a1.125 1.125 0 0 0 1.076-.124l.22-.127a1.125 1.125 0 0 0 .644-.87l.213-1.28Z" />
       </svg>
       <h1 class="text-2xl font-semibold text-gray-900">
         Settings
       </h1>
     </div>
-
     <!-- ACCOUNT -->
     <section class="rounded-xl border border-gray-200 bg-white p-6">
-      <h2 class="text-lg font-medium text-gray-900">Account</h2>
+      <h2 class="text-lg font-medium text-gray-900">
+        Account
+      </h2>
       <p class="mt-1 text-sm text-gray-500">
         Manage your email and password.
       </p>
-
       <div class="mt-5 space-y-3 text-sm">
         <p>
           Email:
           <span class="font-medium text-gray-900 ml-1">{{ .Email }}</span>
         </p>
-
         <p>
           Password:
           <span class="ml-1 text-gray-400">••••••••</span>
@@ -39,18 +36,17 @@
             Change
           </span>
           ·
-          <a href="/reset-password"
-             class="text-indigo-600 hover:underline">
+          <a href="/reset-password" class="text-indigo-600 hover:underline">
             Reset
           </a>
         </p>
       </div>
     </section>
-
     <!-- PROFILE -->
     <section class="rounded-xl border border-gray-200 bg-white p-6">
-      <h2 class="text-lg font-medium text-gray-900">Profile</h2>
-
+      <h2 class="text-lg font-medium text-gray-900">
+        Profile
+      </h2>
       <div class="mt-4 space-y-3 text-sm">
         <p>
           Public URL:
@@ -59,7 +55,6 @@
             pinmyblogs.com/{{.DisplayName}}
           </a>
         </p>
-
         <p>
           Display name:
           <span class="font-medium text-gray-900 ml-1">{{.DisplayName}}</span>
@@ -67,54 +62,53 @@
             Change
           </span>
         </p>
-
         <p>
           Profile visibility:
           <span class="ml-1 font-medium">
-            {{ if .IsProfilePublic }}Public{{ else }}Private{{ end }}
+          {{ if .IsProfilePublic }}Public{{ else }}Private{{ end }}
           </span>
           ·
-          <a href="/setting/profile/{{ if .IsProfilePublic }}private{{ else }}public{{ end }}"
-             class="text-indigo-600 hover:underline">
-            Change
-          </a>
-        </p>
-      </div>
-    </section>
-
-    <!-- DOWNLOAD -->
-    <section class="rounded-xl border border-gray-200 bg-white p-6">
-      <h2 class="text-lg font-medium text-gray-900">Download your data</h2>
-
-      <div class="mt-4 space-y-2 text-sm">
-        <span class="block text-indigo-600 hover:underline cursor-pointer" data-format="csv">Download CSV</span>
-        <span class="block text-indigo-600 hover:underline cursor-pointer" data-format="json">Download JSON</span>
-        <span class="block text-indigo-600 hover:underline cursor-pointer" data-format="html">Download HTML</span>
-      </div>
-    </section>
-
-    <!-- DANGER ZONE -->
-    <section class="rounded-xl border border-red-200 bg-red-50 p-6">
-      <h2 class="text-lg font-medium text-red-700">Danger zone</h2>
-
-      <p class="mt-3 text-sm text-red-600">
-        Deleting your account will permanently remove all your data.
+        <a href="/setting/profile/{{ if .IsProfilePublic }}private{{ else }}public{{ end }}"
+           class="text-indigo-600 hover:underline">
+          Change
+        </a>
       </p>
-
-      <div class="mt-4 space-y-2 text-sm">
-        <span id="disable-my-account"
-              class="block text-red-600 hover:underline cursor-pointer">
-          Deactivate my account
-        </span>
-        <span id="delete-my-account"
-              class="block font-medium text-red-700 hover:underline cursor-pointer">
-          Delete my account permanently
-        </span>
-      </div>
-    </section>
-
-  </div>
+    </div>
+  </section>
+  <!-- DOWNLOAD -->
+  <section class="rounded-xl border border-gray-200 bg-white p-6">
+    <h2 class="text-lg font-medium text-gray-900">
+      Download your data
+    </h2>
+    <div class="mt-4 space-y-2 text-sm">
+      <span class="block text-indigo-600 hover:underline cursor-pointer"
+            data-format="csv">Download CSV</span>
+      <span class="block text-indigo-600 hover:underline cursor-pointer"
+            data-format="json">Download JSON</span>
+      <span class="block text-indigo-600 hover:underline cursor-pointer"
+            data-format="html">Download HTML</span>
+    </div>
+  </section>
+  <!-- DANGER ZONE -->
+  <section class="rounded-xl border border-red-200 bg-red-50 p-6">
+    <h2 class="text-lg font-medium text-red-700">
+      Danger zone
+    </h2>
+    <p class="mt-3 text-sm text-red-600">
+      Deleting your account will permanently remove all your data.
+    </p>
+    <div class="mt-4 space-y-2 text-sm">
+      <span id="disable-my-account"
+            class="block text-red-600 hover:underline cursor-pointer">
+        Deactivate my account
+      </span>
+      <span id="delete-my-account"
+            class="block font-medium text-red-700 hover:underline cursor-pointer">
+        Delete my account permanently
+      </span>
+    </div>
+  </section>
 </div>
-
+</div>
 {{ template "setting/delete_account_modal" . }}
 {{ end }}

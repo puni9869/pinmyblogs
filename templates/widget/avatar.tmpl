@@ -1,58 +1,27 @@
 {{ define "widget/avatar" }}
 <div class="relative inline-block group focus-within:z-50">
   <!-- Avatar button -->
-  <button
-    type="button"
-    class="flex items-center justify-center h-9 w-9 rounded-full
-           bg-indigo-600 text-white text-sm font-semibold
-           shadow-sm
-           hover:bg-indigo-700
-           focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2
-           transition"
-  >
+  <button type="button"
+          class="flex items-center justify-center h-9 w-9 rounded-full bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
     <span class="capitalize">{{ avatar $.Email }}</span>
   </button>
-
   <!-- Dropdown -->
-  <div
-    class="absolute right-0 z-50 mt-3 w-56 origin-top-right
-           rounded-xl bg-white
-           shadow-xl
-           ring-1 ring-black/5
-           opacity-0 scale-95 translate-y-1
-           pointer-events-none
-           group-focus-within:opacity-100
-           group-focus-within:scale-100
-           group-focus-within:translate-y-0
-           group-focus-within:pointer-events-auto
-           transition-all duration-200 ease-out"
-  >
+  <div class="absolute right-0 z-50 mt-3 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-black/5 opacity-0 scale-95 translate-y-1 pointer-events-none group-focus-within:opacity-100 group-focus-within:scale-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-200 ease-out">
     <!-- User info -->
     <div class="px-4 py-3 border-b border-gray-100">
       <p class="text-xs text-gray-500 truncate">
         {{ $.Email }}
       </p>
     </div>
-
     <!-- Actions -->
     <div class="py-2 text-sm text-gray-700">
-      <a
-        href="/setting"
-        class="flex items-center gap-2 px-4 py-2
-               hover:bg-blue-50
-               transition"
-      >
+      <a href="/setting"
+         class="flex items-center gap-2 px-4 py-2 hover:bg-blue-50 transition">
         Settings
       </a>
-
       <form action="/logout" method="GET">
-        <button
-          type="submit"
-          class="flex w-full items-center gap-2 px-4 py-2
-                 text-left text-red-600
-                 hover:bg-red-50
-                 transition"
-        >
+        <button type="submit"
+                class="flex w-full items-center gap-2 px-4 py-2 text-left text-red-600 hover:bg-red-50 transition">
           Logout
         </button>
       </form>

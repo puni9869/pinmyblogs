@@ -8,10 +8,10 @@
         id="top-nav-bar">
     <div class=" flex flex-row items-center justify-between gap-2 py-2 px-2 sm:px-4 bg-white border-l-2 border-r-2 border-gray-200 ">
       {{ template "widget/nav_bar_opener" . }}
-     <div class="flex flex-row items-center justify-end gap-2">
-      {{ template "widget/add_link" . }}
-      {{ template "widget/avatar" . }}
-    </div>
+      <div class="flex flex-row items-center justify-end gap-2">
+        {{ template "widget/add_link" . }}
+        {{ template "widget/avatar" . }}
+      </div>
     </div>
     {{if .Pagination.TotalItems}}
     {{ template "widget/url_container" . }}
