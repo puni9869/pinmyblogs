@@ -3,8 +3,9 @@ package utils
 import (
 	"crypto/sha256"
 	"fmt"
-	"golang.org/x/crypto/bcrypt"
 	"net/mail"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 // HashifySHA256 will convert any text into SHA256 hash

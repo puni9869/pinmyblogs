@@ -2,11 +2,12 @@ package command
 
 import (
 	"fmt"
-	tf "github.com/puni9869/pinmyblogs/pkg/template_functions"
 	"html/template"
 	"io/fs"
 	"net/http"
 	"os"
+
+	tf "github.com/puni9869/pinmyblogs/pkg/template_functions"
 
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 
