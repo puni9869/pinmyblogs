@@ -22,7 +22,7 @@
     </div>
     <!-- URLs List -->
     <div class="bg-gray-50 flex flex-col items-start w-full space-y-1 p-0">
-      {{ range .Urls }}
+      {{ range .Pagination.Items }}
       {{ template "widget/url_row" . }}
       {{ end }}
     </div>

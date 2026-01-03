@@ -1,18 +1,37 @@
 package home
 
 import (
-	"net/http"
-	"strconv"
-
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
+	"github.com/puni9869/pinmyblogs/pkg/pagination"
 	"github.com/puni9869/pinmyblogs/pkg/spider"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
+	"net/http"
+	"strconv"
 )
+
+func getPageAndLimit(c *gin.Context) (page int, limit int) {
+	r := c.Request
+	q := r.URL.Query()
+
+	page, _ = strconv.Atoi(q.Get("page"))
+	if page <= 0 {
+		page = 1
+	}
+
+	limit, _ = strconv.Atoi(q.Get("limit"))
+	switch {
+	case limit > 100:
+		limit = 100
+	case limit <= 0:
+		limit = pagination.DefaultLimit
+	}
+	return page, limit
+}
 
 func AddWeblink(c *gin.Context) {
 	log := logger.NewLogger()
@@ -41,70 +60,62 @@ func AddWeblink(c *gin.Context) {
 }
 
 func Home(c *gin.Context) {
-	log := logger.NewLogger()
 	session := sessions.Default(c)
-	currentlyLoggedIn := session.Get(middlewares.Userkey)
-	var urls []models.Url
+	email, _ := session.Get(middlewares.Userkey).(string)
+	page, limit := getPageAndLimit(c)
+	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
-	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_archived = ?", currentlyLoggedIn.(string), true, false, false).
-		Order("id desc").
-		Find(&urls)
-	if result.RowsAffected > 0 {
-		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
-	}
-
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
+	db.Scopes(pagination.Paginate(&models.Url{}, &p)).
+		Where(
+			"created_by = ? AND is_active = ? AND is_deleted = ? AND is_archived = ?",
+			email, true, false, false,
+		).
+		Order("id DESC").
+		Find(&p.Items)
+	// p is pagination
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p})
 }
 
 func Favourite(c *gin.Context) {
-	log := logger.NewLogger()
 	session := sessions.Default(c)
-	currentlyLoggedIn := session.Get(middlewares.Userkey)
-	var urls []models.Url
+	email, _ := session.Get(middlewares.Userkey).(string)
+	page, limit := getPageAndLimit(c)
+	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
-	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_fav =? ", currentlyLoggedIn.(string), true, false, true).
+	db.Scopes(pagination.Paginate(&models.Url{}, &p)).
+		Where("created_by =? and  is_active = ? and is_deleted = ? and is_fav =? ", email, true, false, true).
 		Order("id desc").
-		Limit(100).
-		Find(&urls)
-	if result.RowsAffected > 0 {
-		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
-	}
+		Find(&p.Items)
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p})
 }
 
 func Archived(c *gin.Context) {
-	log := logger.NewLogger()
 	session := sessions.Default(c)
-	currentlyLoggedIn := session.Get(middlewares.Userkey)
-	var urls []models.Url
+	email, _ := session.Get(middlewares.Userkey).(string)
+	page, limit := getPageAndLimit(c)
+	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
-	result := db.Where("created_by =? and  is_active = ? and is_deleted = ? and is_archived =? ", currentlyLoggedIn.(string), true, false, true).
+	db.Scopes(pagination.Paginate(&models.Url{}, &p)).
+		Where("created_by =? and  is_active = ? and is_deleted = ? and is_archived =? ", email, true, false, true).
 		Order("id desc").
-		Limit(100).
-		Find(&urls)
-	if result.RowsAffected > 0 {
-		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
-	}
+		Find(&p.Items)
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p})
 }
 
 func Trash(c *gin.Context) {
-	log := logger.NewLogger()
 	session := sessions.Default(c)
-	currentlyLoggedIn := session.Get(middlewares.Userkey)
-	var urls []models.Url
+	email, _ := session.Get(middlewares.Userkey).(string)
+	page, limit := getPageAndLimit(c)
+	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
-	result := db.Where("created_by =? and  is_active = ? and is_deleted = ?", currentlyLoggedIn.(string), true, true).
-		Order("updated_at desc").
-		Limit(100).
-		Find(&urls)
-	if result.RowsAffected > 0 {
-		log.WithField("resultCount", result.RowsAffected).Info("Fetching the result")
-	}
+	db.Scopes(pagination.Paginate(&models.Url{}, &p)).
+		Where("created_by =? and  is_active = ? and is_deleted = ?", email, true, true).
+		Order("id desc").
+		Find(&p.Items)
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Urls": urls, "Count": result.RowsAffected})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p})
 }
 
 func Actions(c *gin.Context) {

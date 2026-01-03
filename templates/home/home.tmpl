@@ -11,11 +11,11 @@
       {{ template "widget/search" . }}
       {{ template "widget/add_link" . }}
     </div>
-    {{ if and .Count (gt .Count 0) }}
-    {{ template "widget/url_container" . }}
-    {{template "widget/pagination" .}}
-  {{ else }}
-    {{ template "widget/no_data" . }}
+    {{if .Pagination.TotalItems}}
+        {{ template "widget/url_container" . }}
+        {{template "widget/pagination" .}}
+    {{ else }}
+        {{ template "widget/no_data" . }}
     {{ end }}
   </main>
 </div>
