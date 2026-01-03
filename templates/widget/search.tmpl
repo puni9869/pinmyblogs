@@ -1,41 +1,25 @@
 {{ define "widget/search" }}
 <div class="flex-1 min-w-0">
-  <div
-    class="flex items-center rounded-md bg-gray-200 overflow-hidden
-           border border-gray-300
-           focus-within:ring-2 focus-within:ring-indigo-500
-           focus-within:bg-white transition"
-  >
+  <div class="flex items-center rounded-md bg-gray-200 overflow-hidden border border-gray-300 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:bg-white transition">
     <!-- Icon -->
     <div class="pl-3 text-gray-500 pointer-events-none">
       <!-- Heroicons: Magnifying Glass -->
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        stroke-width="2"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          d="m21 21-4.35-4.35m1.85-5.4a7.25 7.25 0 1 1-14.5 0 7.25 7.25 0 0 1 14.5 0Z"
-        />
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-4 w-4"
+           fill="none"
+           viewBox="0 0 24 24"
+           stroke="currentColor"
+           stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35m1.85-5.4a7.25 7.25 0 1 1-14.5 0 7.25 7.25 0 0 1 14.5 0Z" />
       </svg>
     </div>
-
     <!-- Input -->
     <form action="/search" method="GET" class="w-full">
-      <input
-        type="text"
-        name="q"
-        value="{{if .SearchQuery}}{{.SearchQuery}}{{end}}"
-        placeholder="Search for words or #tags"
-        class="w-full bg-transparent px-3 py-2 text-gray-900
-               placeholder-gray-500 text-sm sm:text-base
-               focus:outline-none"
-      />
+      <input type="text"
+             name="q"
+             value="{{if .SearchQuery}}{{.SearchQuery}}{{end}}"
+             placeholder="Search for words or #tags"
+             class="w-full bg-transparent px-3 py-2 text-gray-900 placeholder-gray-500 text-sm sm:text-base focus:outline-none" />
     </form>
   </div>
 </div>
