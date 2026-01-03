@@ -193,3 +193,38 @@ async function ShareLink(data) {
 	}
 }
 
+
+export function BackToTopBtn() {
+
+	const btn = document.getElementById('backToTop');
+	const footer = document.querySelector('footer');
+	const pagination = document.querySelector('[data-pagination]');
+
+	const SHOW_AFTER = 200;
+	const SAFE_OFFSET = 120;
+
+	window.addEventListener('scroll', () => {
+		const scrollY = window.scrollY;
+		const windowH = window.innerHeight;
+
+		let hide = scrollY < SHOW_AFTER;
+
+		if (footer) {
+			const footerTop = footer.getBoundingClientRect().top;
+			if (footerTop < windowH + SAFE_OFFSET) hide = true;
+		}
+
+		if (pagination) {
+			const paginationTop = pagination.getBoundingClientRect().top;
+			if (paginationTop < windowH + SAFE_OFFSET) hide = true;
+		}
+
+		btn.classList.toggle('opacity-0', hide);
+		btn.classList.toggle('pointer-events-none', hide);
+	});
+
+	btn.addEventListener('click', () =>
+		window.scrollTo({top: 0, behavior: 'smooth'})
+	);
+
+}

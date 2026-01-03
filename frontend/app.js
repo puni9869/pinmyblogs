@@ -1,4 +1,12 @@
-import {NavItemSelected, SideNavCollapse, AddNewWebLinkInit, WebLinkActionsInit, ShareLinkInit} from './home/index.js';
+import {
+	NavItemSelected,
+	SideNavCollapse,
+	AddNewWebLinkInit,
+	WebLinkActionsInit,
+	ShareLinkInit,
+	BackToTopBtn
+} from './home/index.js';
+
 import {DeleteAccountModelInit, DisableMyAccountInit, DownloadMyData} from './setting/index.js';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -10,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	WebLinkActionsInit();
 	ShareLinkInit();
 	DownloadMyData();
+	BackToTopBtn();
 	console.info('App is loaded');
 }, false);
 

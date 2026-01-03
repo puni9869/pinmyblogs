@@ -111,6 +111,7 @@ func startAction(ctx *cli.Context) error {
 			"relativeTime": tf.FormatRelativeTime,
 			"domainName":   tf.DomainName,
 			"asset":        tf.Asset(BuildVersion),
+			"avatar":       tf.AvatarInitials,
 		}).ParseFS(tmplFS, "**/*.tmpl"))
 	r.SetHTMLTemplate(tmpl)
 

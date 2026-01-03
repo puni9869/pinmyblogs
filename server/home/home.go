@@ -56,7 +56,7 @@ func Home(c *gin.Context) {
 		Order("id DESC").
 		Find(&p.Items)
 	// p is pagination
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
 }
 
 func Favourite(c *gin.Context) {
@@ -70,7 +70,7 @@ func Favourite(c *gin.Context) {
 		Order("id desc").
 		Find(&p.Items)
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
 }
 
 func Archived(c *gin.Context) {
@@ -98,7 +98,7 @@ func Trash(c *gin.Context) {
 		Order("id desc").
 		Find(&p.Items)
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
 }
 
 func Actions(c *gin.Context) {

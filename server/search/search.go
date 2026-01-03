@@ -43,5 +43,5 @@ func Search(c *gin.Context) {
 		log.WithError(db.Error).Error("error in fetching search query")
 	}
 	// p is pagination
-	c.HTML(http.StatusOK, "search.tmpl", gin.H{"HasError": false, "Pagination": p, "SearchQuery": q})
+	c.HTML(http.StatusOK, "search.tmpl", gin.H{"HasError": false, "Pagination": p, "SearchQuery": q, "Email": email})
 }

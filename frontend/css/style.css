@@ -86,3 +86,8 @@ body {
     margin: 0 3px 0 0;
     border: 1px solid #2f2424;
 }
+
+:root {
+    --brand: #4f46e5; /* PinMyBlogs purple */
+    --radius: 9999px; /* fully round */
+}

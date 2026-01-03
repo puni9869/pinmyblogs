@@ -14,6 +14,10 @@ func DomainName(link string) string {
 	return u.Hostname()
 }
 
+func AvatarInitials(text string) string {
+	return fmt.Sprintf("%c", text[0])
+}
+
 func Add(a, b int) int {
 	return a + b
 }
