@@ -10,6 +10,7 @@ import (
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/server/public"
+	"github.com/puni9869/pinmyblogs/server/search"
 	"github.com/puni9869/pinmyblogs/server/setting"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
@@ -51,6 +52,9 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/share/:id", home.Share)
 		authRouters.PUT("/actions", home.Actions)
 		authRouters.POST("/new", middlewares.Bind(forms.WeblinkRequest{}), home.AddWeblink)
+
+		//Search routes
+		authRouters.GET("/search", search.Search)
 
 		// setting handler
 		settingsRoute := authRouters.Group("/setting")

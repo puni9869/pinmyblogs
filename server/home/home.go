@@ -1,6 +1,7 @@
 package home
 
 import (
+	"github.com/puni9869/pinmyblogs/pkg/utils"
 	"net/http"
 	"strconv"
 
@@ -14,25 +15,6 @@ import (
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
-
-func getPageAndLimit(c *gin.Context) (page int, limit int) {
-	r := c.Request
-	q := r.URL.Query()
-
-	page, _ = strconv.Atoi(q.Get("page"))
-	if page <= 0 {
-		page = 1
-	}
-
-	limit, _ = strconv.Atoi(q.Get("limit"))
-	switch {
-	case limit > 100:
-		limit = 100
-	case limit <= 0:
-		limit = pagination.DefaultLimit
-	}
-	return page, limit
-}
 
 func AddWeblink(c *gin.Context) {
 	log := logger.NewLogger()
@@ -63,7 +45,7 @@ func AddWeblink(c *gin.Context) {
 func Home(c *gin.Context) {
 	session := sessions.Default(c)
 	email, _ := session.Get(middlewares.Userkey).(string)
-	page, limit := getPageAndLimit(c)
+	page, limit := utils.GetPageAndLimit(c)
 	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
 	db.Scopes(pagination.Paginate(&models.Url{}, &p)).
@@ -80,7 +62,7 @@ func Home(c *gin.Context) {
 func Favourite(c *gin.Context) {
 	session := sessions.Default(c)
 	email, _ := session.Get(middlewares.Userkey).(string)
-	page, limit := getPageAndLimit(c)
+	page, limit := utils.GetPageAndLimit(c)
 	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
 	db.Scopes(pagination.Paginate(&models.Url{}, &p)).
@@ -94,7 +76,7 @@ func Favourite(c *gin.Context) {
 func Archived(c *gin.Context) {
 	session := sessions.Default(c)
 	email, _ := session.Get(middlewares.Userkey).(string)
-	page, limit := getPageAndLimit(c)
+	page, limit := utils.GetPageAndLimit(c)
 	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
 	db.Scopes(pagination.Paginate(&models.Url{}, &p)).
@@ -108,7 +90,7 @@ func Archived(c *gin.Context) {
 func Trash(c *gin.Context) {
 	session := sessions.Default(c)
 	email, _ := session.Get(middlewares.Userkey).(string)
-	page, limit := getPageAndLimit(c)
+	page, limit := utils.GetPageAndLimit(c)
 	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
 	db.Scopes(pagination.Paginate(&models.Url{}, &p)).

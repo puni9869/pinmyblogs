@@ -14,7 +14,7 @@
     <nav class="isolate inline-flex rounded-md shadow-sm h-full"
          aria-label="Pagination">
       <!-- Previous -->
-    <a href="{{if .Pagination.HasPrev}}?page={{sub .Pagination.Page 1}}&limit={{.Pagination.Limit}}{{else}}javascript:void(){{end}}"
+    <a href="{{if .Pagination.HasPrev}}?page={{sub .Pagination.Page 1}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}{{else}}javascript:void(){{end}}"
        class="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-gray-300 {{if not .Pagination.HasPrev}}cursor-not-allowed text-gray-400{{end}}">
       <span class="sr-only">Previous</span>
       <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -22,7 +22,7 @@
       </svg>
     </a>
     <!-- First page -->
-    <a href="?page=1&limit={{.Pagination.Limit}}"
+    <a href="?page=1&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}"
        class="relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-gray-300 {{if eq .Pagination.Page 1}}bg-indigo-500 text-white{{end}}">
       1
     </a>
@@ -34,7 +34,7 @@
     {{ end }}
     <!-- Centered pages -->
     {{ range .Pagination.Pages }}
-    <a href="?page={{.}}&limit={{$.Pagination.Limit}}"
+    <a href="?page={{.}}&limit={{$.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}"
        class="relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-gray-300 {{if eq . $.Pagination.Page}}bg-indigo-500 text-white{{end}}">
       {{.}}
     </a>
@@ -46,12 +46,12 @@
     </span>
     {{ end }}
     <!-- Last page -->
-    <a href="?page={{.Pagination.TotalPages}}&limit={{.Pagination.Limit}}"
+    <a href="?page={{.Pagination.TotalPages}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}"
        class="relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-gray-300 {{if eq .Pagination.Page .Pagination.TotalPages}}bg-indigo-500 text-white{{end}}">
       {{.Pagination.TotalPages}}
     </a>
     <!-- Next -->
-  <a href="{{if .Pagination.HasNext}}?page={{add .Pagination.Page 1}}&limit={{.Pagination.Limit}}{{else}}javascript:void(){{end}}"
+  <a href="{{if .Pagination.HasNext}}?page={{add .Pagination.Page 1}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}{{else}}javascript:void(){{end}}"
      class="relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-gray-300 {{if not .Pagination.HasNext}}cursor-not-allowed text-gray-400{{end}}">
     <span class="sr-only">Next</span>
     <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
