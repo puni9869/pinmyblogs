@@ -99,17 +99,19 @@ func startAction(ctx *cli.Context) error {
 	}
 	// --- Load embedded templates ---
 	// Load the template first because they are not thread-safe
+
 	tmplFS, err := fs.Sub(pinmyblogs.Files, "templates")
 	if err != nil {
 		return fmt.Errorf("load templates fs: %w", err)
 	}
 	var tmpl = template.Must(template.New("").
-		Funcs(template.FuncMap{"relativeTime": utils.FormatRelativeTime}).
-		Funcs(template.FuncMap{"asset": func(file string) string {
-			return "/statics/" + file + "?v=" + BuildVersion
-		}}).
-		Funcs(template.FuncMap{"domainName": utils.DomainName}).
-		ParseFS(tmplFS, "**/*.tmpl"))
+		Funcs(template.FuncMap{
+			"add":          utils.Add,
+			"sub":          utils.Sub,
+			"relativeTime": utils.FormatRelativeTime,
+			"domainName":   utils.DomainName,
+			"asset":        utils.Asset(BuildVersion),
+		}).ParseFS(tmplFS, "**/*.tmpl"))
 	r.SetHTMLTemplate(tmpl)
 
 	// --- Serve embedded static files ---

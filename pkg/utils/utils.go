@@ -18,6 +18,20 @@ func DomainName(link string) string {
 	return u.Hostname()
 }
 
+func Add(a, b int) int {
+	return a + b
+}
+
+func Sub(a, b int) int {
+	return a - b
+}
+
+func Asset(version string) func(file string) string {
+	return func(file string) string {
+		return "/statics/" + file + "?v=" + version
+	}
+}
+
 // FormatRelativeTime returns a string like "3 hours ago" or "2 days ago"
 func FormatRelativeTime(t time.Time) string {
 	if t.IsZero() {
