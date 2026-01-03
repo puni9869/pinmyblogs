@@ -99,7 +99,6 @@ func startAction(ctx *cli.Context) error {
 	}
 	// --- Load embedded templates ---
 	// Load the template first because they are not thread-safe
-
 	tmplFS, err := fs.Sub(pinmyblogs.Files, "templates")
 	if err != nil {
 		return fmt.Errorf("load templates fs: %w", err)
