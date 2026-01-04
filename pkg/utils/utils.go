@@ -3,10 +3,11 @@ package utils
 import (
 	"crypto/sha256"
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/puni9869/pinmyblogs/pkg/pagination"
 	"net/mail"
 	"strconv"
+
+	"github.com/gin-gonic/gin"
+	"github.com/puni9869/pinmyblogs/pkg/pagination"
 
 	"golang.org/x/crypto/bcrypt"
 )

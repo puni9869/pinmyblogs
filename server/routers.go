@@ -39,6 +39,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		loginRoutes.POST("/reset-password", middlewares.Bind(forms.ResetForm{}), auth.ResetPasswordPost)
 		loginRoutes.GET("/reset-password/:hash", auth.ResetPasswordSetGet)
 		loginRoutes.POST("/set-password", middlewares.Bind(forms.ResetPasswordForm{}), auth.ResetPasswordSetPost)
+		loginRoutes.GET("/enable-my-account/:hash", setting.EnableMyAccount)
 	}
 
 	authRouters := r.Group("")
@@ -67,6 +68,8 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 
 			// Data routes
 			settingsRoute.GET("/download-my-data/:format", setting.DownloadMyData)
+
+			// Account related routes
 			settingsRoute.DELETE("/delete-my-account", setting.DeleteMyAccount)
 			settingsRoute.PUT("/disable-my-account", setting.DisableMyAccount)
 		}

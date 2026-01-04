@@ -193,12 +193,14 @@ async function ShareLink(data) {
 	}
 }
 
-
 export function BackToTopBtn() {
-
 	const btn = document.getElementById('backToTop');
 	const footer = document.querySelector('footer');
 	const pagination = document.querySelector('[data-pagination]');
+
+	if (!btn || !footer || !pagination) {
+		return;
+	}
 
 	const SHOW_AFTER = 200;
 	const SAFE_OFFSET = 120;
@@ -226,5 +228,36 @@ export function BackToTopBtn() {
 	btn.addEventListener('click', () =>
 		window.scrollTo({top: 0, behavior: 'smooth'})
 	);
-
 }
+
+export function AvatarToggle() {
+	const menu = document.getElementById('avatar-menu');
+	if (!menu) return;
+
+	const btn = menu.querySelector('#avatar-btn');
+	const dropdown = menu.querySelector('#avatar-dropdown');
+
+	const open = () => {
+		dropdown.classList.remove('opacity-0', 'scale-95', 'translate-y-1', 'pointer-events-none');
+		dropdown.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+		btn.setAttribute('aria-expanded', 'true');
+	};
+
+	const close = () => {
+		dropdown.classList.add('opacity-0', 'scale-95', 'translate-y-1', 'pointer-events-none');
+		dropdown.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+		btn.setAttribute('aria-expanded', 'false');
+	};
+
+	btn.addEventListener('click', (e) => {
+		e.stopPropagation();
+		dropdown.classList.contains('opacity-0') ? open() : close();
+	});
+
+	document.addEventListener('click', close);
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') close();
+	});
+}
+
+

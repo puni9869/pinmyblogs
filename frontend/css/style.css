@@ -91,3 +91,7 @@ body {
     --brand: #4f46e5; /* PinMyBlogs purple */
     --radius: 9999px; /* fully round */
 }
+
+.transition {
+    transition: all 160ms cubic-bezier(.4, 0, .2, 1);
+}

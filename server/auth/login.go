@@ -3,6 +3,8 @@ package auth
 import (
 	"net/http"
 
+	"github.com/puni9869/pinmyblogs/pkg/mailer"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
@@ -53,6 +55,11 @@ func LoginPost(c *gin.Context) {
 				"isActive":        user.IsActive,
 				"isEmailVerified": user.EmailVerifyHash,
 			}).WithError(result.Error).Error("Account is disabled.")
+
+			action := "enable"
+			m := mailer.NewAccountService(*user, action)
+			go m.Send()
+
 			c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is disabled. Please check your email."})
 			c.Abort()
 			return

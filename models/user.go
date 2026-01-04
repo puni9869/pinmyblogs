@@ -21,8 +21,10 @@ type User struct {
 	ActivatedAt         time.Time // Uses time.Time for nullable time fields
 	CreatedAt           time.Time // Automatically managed by GORM for creation time
 	UpdatedAt           time.Time // Automatically managed by GORM for update time
-	AlternateEmail      string    // Can be used for changing emailid
+	AlternateEmail      string    // Can be used for changing email-id
 	PasswordResetHash   string    // Used for reset password link
+	AccountEnableHash   string    // Used for enable/disable account
+	LastAccountEnableAt time.Time // Uses time.Time for nullable time fields
 	LastPasswordResetAt time.Time // Uses time.Time for nullable time fields
 }
 

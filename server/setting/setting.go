@@ -6,12 +6,11 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/gin-contrib/sessions"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
-
-	"github.com/gin-contrib/sessions"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 
 	"github.com/gin-gonic/gin"
@@ -39,72 +38,6 @@ func Setting(c *gin.Context) {
 		tmplCtx["IsProfilePublic"] = user.IsProfilePublic
 	}
 	c.HTML(http.StatusOK, "setting.tmpl", tmplCtx)
-}
-
-func DeleteMyAccount(c *gin.Context) {
-	c.HTML(http.StatusOK, "settings_page.tmpl", nil)
-}
-
-func DisableMyAccount(c *gin.Context) {
-	log := logger.NewLogger()
-
-	session := sessions.Default(c)
-	email := session.Get(middlewares.Userkey)
-	log.Infof("Got disablemyaccount request for user-%s \n", email)
-
-	var user *models.User
-	result := database.Db().First(&user, "email = ?", email)
-	if result.Error != nil {
-		log.WithField("email", nil).WithError(result.Error).Error("Email not found. Database error")
-		c.JSON(http.StatusNotFound, map[string]string{"Status": "NOT_OK", "Message": "Account not found."})
-		c.Abort()
-		return
-	}
-	if user == nil {
-		log.WithField("email", nil).WithError(result.Error).Error("User not found and getting nil from database.")
-		c.JSON(http.StatusNotFound, map[string]string{"Status": "NOT_OK", "Message": "User not found."})
-		c.Abort()
-		return
-	}
-	if config.C.Authentication.OpenDisabledAccountByEmailLink {
-		user.IsActive = false
-		database.Db().Save(user)
-	}
-	c.JSON(http.StatusOK, map[string]string{"Status": "OK"})
-}
-
-func ProfileAction(c *gin.Context) {
-	profileAction := c.Param("action")
-	if !slices.Contains([]string{"public", "private"}, profileAction) {
-		profileAction = "private"
-	}
-	log := logger.NewLogger()
-	session := sessions.Default(c)
-	currentlyLoggedIn := session.Get(middlewares.Userkey)
-	email, ok := currentlyLoggedIn.(string)
-
-	if !ok || currentlyLoggedIn == nil || email == "" {
-		c.Redirect(http.StatusPermanentRedirect, "/login")
-		return
-	}
-
-	var user *models.User
-	result := database.Db().First(&user, "email = ?", email)
-	if result.Error != nil {
-		log.WithField("email", email).WithError(result.Error).Error("record not found")
-	}
-	log.Info(profileAction)
-	log.Println("params:", c.Params)
-	isPublic := profileAction == "public"
-	log.Info(isPublic)
-	user.IsProfilePublic = isPublic
-	if err := database.Db().Save(user).Error; err != nil {
-		log.WithField("profileAction", profileAction).
-			WithError(err).
-			Error("failed to update profile visibility")
-	}
-
-	c.Redirect(http.StatusFound, "/setting")
 }
 
 func DownloadMyData(c *gin.Context) {

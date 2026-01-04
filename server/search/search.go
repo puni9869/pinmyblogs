@@ -1,7 +1,10 @@
 package search
 
 import (
-	"fmt"
+	"net/http"
+	"net/url"
+	"strconv"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
@@ -10,8 +13,6 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/pagination"
 	"github.com/puni9869/pinmyblogs/pkg/utils"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
-	"net/http"
-	"net/url"
 )
 
 func Search(c *gin.Context) {
@@ -21,13 +22,14 @@ func Search(c *gin.Context) {
 	page, limit := utils.GetPageAndLimit(c)
 	if q == "" {
 		nextRoute, _ := url.Parse("/home")
+		query := nextRoute.Query()
 		if page > 1 {
-			nextRoute.Query().Set("page", fmt.Sprintf("%d", page))
+			query.Set("page", strconv.Itoa(page))
 		}
-		if page > pagination.DefaultLimit {
-			nextRoute.Query().Set("limit", fmt.Sprintf("%d", limit))
+		if limit > pagination.DefaultLimit {
+			query.Set("limit", strconv.Itoa(limit))
 		}
-
+		nextRoute.RawQuery = query.Encode()
 		c.Redirect(http.StatusFound, nextRoute.String())
 		return
 	}

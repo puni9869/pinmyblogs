@@ -1,9 +1,10 @@
 package home
 
 import (
-	"github.com/puni9869/pinmyblogs/pkg/utils"
 	"net/http"
 	"strconv"
+
+	"github.com/puni9869/pinmyblogs/pkg/utils"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"

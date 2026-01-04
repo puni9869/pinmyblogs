@@ -1,27 +1,34 @@
 {{ define "widget/avatar" }}
-<div class="relative inline-block group focus-within:z-50">
+<div class="relative inline-block" id="avatar-menu">
   <!-- Avatar button -->
   <button type="button"
-          class="flex items-center justify-center h-9 w-9 rounded-full bg-indigo-600 text-white text-sm font-semibold shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+          id="avatar-btn"
+          aria-haspopup="true"
+          aria-expanded="false"
+          class="flex items-center justify-center h-9 w-9 rounded-full bg-indigo-600 text-white text-sm font-semibold cursor-pointer shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
     <span class="capitalize">{{ avatar $.Email }}</span>
   </button>
   <!-- Dropdown -->
-  <div class="absolute right-0 z-50 mt-3 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-black/5 opacity-0 scale-95 translate-y-1 pointer-events-none group-focus-within:opacity-100 group-focus-within:scale-100 group-focus-within:translate-y-0 group-focus-within:pointer-events-auto transition-all duration-200 ease-out">
+  <div id="avatar-dropdown"
+       class="absolute right-0 z-50 mt-3 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-black/5 opacity-0 scale-95 translate-y-1 pointer-events-none transition-all duration-200 ease-out">
     <!-- User info -->
     <div class="px-4 py-3 border-b border-gray-100">
+      <p class="text-sm font-medium text-gray-900">
+        {{ avatar $.Email }}
+      </p>
       <p class="text-xs text-gray-500 truncate">
         {{ $.Email }}
       </p>
     </div>
     <!-- Actions -->
-    <div class="py-2 text-sm text-gray-700">
+    <div class="py-2 text-sm">
       <a href="/setting"
-         class="flex items-center gap-2 px-4 py-2 hover:bg-blue-50 transition">
+         class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
         Settings
       </a>
       <form action="/logout" method="GET">
         <button type="submit"
-                class="flex w-full items-center gap-2 px-4 py-2 text-left text-red-600 hover:bg-red-50 transition">
+                class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition cursor-pointer">
           Logout
         </button>
       </form>
