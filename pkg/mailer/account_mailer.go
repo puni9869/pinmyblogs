@@ -119,7 +119,7 @@ func (a *Account) Send() {
 	}
 	if config.GetEnv() == config.LocalEnv {
 		a.log.WithFields(f).Infof("user account %s confirmation mail sent. hash %s", a.action, a.user.AccountEnableHash)
-		//return
+		return
 	}
 
 	if err := m.DialAndSend(msg); err != nil {
