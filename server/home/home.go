@@ -85,7 +85,7 @@ func Archived(c *gin.Context) {
 		Order("id desc").
 		Find(&p.Items)
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
 }
 
 func Trash(c *gin.Context) {
