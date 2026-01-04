@@ -89,9 +89,6 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		publicRouters.POST("/start", middlewares.Bind(forms.JoinWaitList{}), public.JoinWaitListPost)
 		publicRouters.GET("/favicon.ico", public.FavIcon)
 		publicRouters.GET("/500", public.Route500)
-
-		//	New theme
-		publicRouters.GET("/start2", public.LandingPage2Get)
 	}
 	// this route will accept all the params
 	r.NoRoute(public.UserPublicProfilePage)

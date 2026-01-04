@@ -106,6 +106,7 @@ func startAction(ctx *cli.Context) error {
 	}
 	var tmpl = template.Must(template.New("").
 		Funcs(template.FuncMap{
+			"mod":          func(a, b int) int { return a % b },
 			"add":          tf.Add,
 			"sub":          tf.Sub,
 			"relativeTime": tf.FormatRelativeTime,

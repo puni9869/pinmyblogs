@@ -18,10 +18,6 @@ func LandingPageGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "landing_page.tmpl", nil)
 }
 
-func LandingPage2Get(c *gin.Context) {
-	c.HTML(http.StatusOK, "landing_page_2.tmpl", nil)
-}
-
 func PrivacyPolicyGet(c *gin.Context) {
 	c.Header("Cache-Control", "public, max-age=31536000, immutable")
 	c.Header("ETag", faviconETag)
