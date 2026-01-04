@@ -11,6 +11,8 @@ import (
 
 // UserPublicProfilePage profile page
 func UserPublicProfilePage(c *gin.Context) {
+	c.HTML(http.StatusNotFound, "404.tmpl", nil)
+	return
 	path := c.Request.URL.Path
 
 	// Only handle /@username
