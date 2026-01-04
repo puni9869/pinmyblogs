@@ -94,5 +94,5 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		publicRouters.GET("/start2", public.LandingPage2Get)
 	}
 	// this route will accept all the params
-	r.NoRoute(public.Route404)
+	r.NoRoute(public.UserPublicProfilePage)
 }
