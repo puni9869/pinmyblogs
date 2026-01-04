@@ -1,62 +1,64 @@
 {{ define "widget/pagination" }}
-<div class="flex justify-center">
-  <div class="flex flex-row items-center justify-between w-full sm:w-11/12 md:w-10/12 lg:w-6/12 bg-white shadow-md p-2 border-t-2 border-gray-200 mb-8">
-    <!-- Results info -->
-    <p class="sm:block text-sm text-gray-700">
-      Total:
-      <span class="font-medium"
-            id="total-items"
-            data-total-items="{{.Pagination.TotalItems}}">
-        {{.Pagination.TotalItems}}
-      </span>
-    </p>
-    {{ if gt .Pagination.TotalPages 1 }}
-    <nav class="isolate inline-flex rounded-md shadow-sm h-full"
-         aria-label="Pagination">
-      <!-- Previous -->
-    <a href="{{if .Pagination.HasPrev}}?page={{sub .Pagination.Page 1}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}{{else}}javascript:void(){{end}}"
-       class="relative inline-flex items-center rounded-l-md px-2 py-2 ring-1 ring-gray-300 {{if not .Pagination.HasPrev}}cursor-not-allowed text-gray-400{{end}}">
-      <span class="sr-only">Previous</span>
-      <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
-      </svg>
-    </a>
-    <!-- First page -->
+<div class="flex justify-center w-full">
+  <div class="w-full sm:w-11/12 md:w-10/12 lg:w-7/12 bg-white rounded-lg border border-gray-200 shadow-sm px-4 py-3 mt-2 mb-10">
+    <div class="flex items-center justify-between gap-4">
+      <!-- Results info -->
+      <p class="text-sm text-gray-500">
+        Total
+        <span class="font-medium text-gray-800"
+              id="total-items"
+              data-total-items="{{.Pagination.TotalItems}}">
+          {{.Pagination.TotalItems}}
+        </span>
+      </p>
+      {{ if gt .Pagination.TotalPages 1 }}
+      <nav class="isolate inline-flex rounded-md overflow-hidden border border-gray-300"
+           aria-label="Pagination">
+        <!-- Previous -->
+      <a href="{{if .Pagination.HasPrev}}?page={{sub .Pagination.Page 1}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}{{else}}javascript:void(){{end}}"
+         class="inline-flex items-center px-2 py-2 text-gray-500 hover:bg-gray-50 transition {{if not .Pagination.HasPrev}}cursor-not-allowed opacity-40{{end}}">
+        <span class="sr-only">Previous</span>
+        <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
+        </svg>
+      </a>
+      <!-- First page -->
     <a href="?page=1&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}"
-       class="relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-gray-300 {{if eq .Pagination.Page 1}}bg-indigo-500 text-white{{end}}">
+       class="px-3 py-2 text-sm font-medium {{if eq .Pagination.Page 1}} bg-indigo-500 text-white {{else}} text-gray-700 hover:bg-gray-50 {{end}}">
       1
     </a>
     <!-- Start dots -->
     {{ if .Pagination.ShowStartDots }}
-    <span class="relative inline-flex items-center px-4 py-2 text-sm text-gray-500"> … </span>
+    <span class="px-3 py-2 text-sm text-gray-400">…</span>
     {{ end }}
     <!-- Centered pages -->
     {{ range .Pagination.Pages }}
-    <a href="?page={{.}}&limit={{$.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}"
-       class="relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-gray-300 {{if eq . $.Pagination.Page}}bg-indigo-500 text-white{{end}}">
-      {{.}}
-    </a>
-    {{ end }}
-    <!-- End dots -->
-    {{ if .Pagination.ShowEndDots }}
-    <span class="relative inline-flex items-center px-4 py-2 text-sm text-gray-500"> … </span>
-    {{ end }}
-    <!-- Last page -->
-    <a href="?page={{.Pagination.TotalPages}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}"
-       class="relative inline-flex items-center px-4 py-2 text-sm font-semibold ring-1 ring-gray-300 {{if eq .Pagination.Page .Pagination.TotalPages}}bg-indigo-500 text-white{{end}}">
-      {{.Pagination.TotalPages}}
-    </a>
-    <!-- Next -->
-  <a href="{{if .Pagination.HasNext}}?page={{add .Pagination.Page 1}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}{{else}}javascript:void(){{end}}"
-     class="relative inline-flex items-center rounded-r-md px-2 py-2 ring-1 ring-gray-300 {{if not .Pagination.HasNext}}cursor-not-allowed text-gray-400{{end}}">
-    <span class="sr-only">Next</span>
-    <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-      <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-    </svg>
+  <a href="?page={{.}}&limit={{$.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}"
+     class="px-3 py-2 text-sm font-medium {{if eq . $.Pagination.Page}} bg-indigo-500 text-white {{else}} text-gray-700 hover:bg-gray-50 {{end}}">
+    {{.}}
   </a>
+  {{ end }}
+  <!-- End dots -->
+  {{ if .Pagination.ShowEndDots }}
+  <span class="px-3 py-2 text-sm text-gray-400">…</span>
+  {{ end }}
+  <!-- Last page -->
+<a href="?page={{.Pagination.TotalPages}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}"
+   class="px-3 py-2 text-sm font-medium {{if eq .Pagination.Page .Pagination.TotalPages}} bg-indigo-500 text-white {{else}} text-gray-700 hover:bg-gray-50 {{end}}">
+  {{.Pagination.TotalPages}}
+</a>
+<!-- Next -->
+<a href="{{if .Pagination.HasNext}}?page={{add .Pagination.Page 1}}&limit={{.Pagination.Limit}}{{if $.SearchQuery}}&q={{$.SearchQuery}}{{end}}{{else}}javascript:void(){{end}}"
+   class="inline-flex items-center px-2 py-2 text-gray-500 hover:bg-gray-50 transition {{if not .Pagination.HasNext}}cursor-not-allowed opacity-40{{end}}">
+<span class="sr-only">Next</span>
+<svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+  <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+</svg>
+</a>
 </nav>
 {{ end }}
 </div>
-{{template "widget/back_to_top" .}}
+</div>
+{{ template "widget/back_to_top" . }}
 </div>
 {{ end }}

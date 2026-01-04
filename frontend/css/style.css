@@ -92,6 +92,3 @@ body {
     --radius: 9999px; /* fully round */
 }
 
-.transition {
-    transition: all 160ms cubic-bezier(.4, 0, .2, 1);
-}

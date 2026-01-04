@@ -2,15 +2,16 @@
 <div class="flex min-h-screen flex-row bg-gray-100 text-gray-800">
   <aside class="fixed top-0 left-0 h-screen w-40 bg-white p-1"
          id="side-navbar">
-    {{ template "widget/nav" . }}
+    {{ template "widget/side_nav" . }}
   </aside>
-  <main class="flex flex-col flex-1 ml-40 duration-150 ease-out"
+  <main class="flex flex-col flex-1 ml-40 transition-all duration-200 ease-in-out"
         id="top-nav-bar">
-    <div class=" flex flex-row items-center gap-2 py-2 px-2 sm:px-4 bg-white border-l-2 border-r-2 border-gray-200 ">
+    <div class="sticky top-0 left-40 right-0 flex items-center justify-between gap-2 py-2 px-2 sm:px-4 bg-white border-l-2 border-r-2 border-gray-200 shadow-sm z-50">
       {{ template "widget/nav_bar_opener" . }}
-      {{ template "widget/search" . }}
-      {{ template "widget/add_link" . }}
-      {{ template "widget/avatar" . }}
+      <div class="flex flex-row items-center justify-end gap-2">
+        {{ template "widget/add_link" . }}
+        {{ template "widget/avatar" . }}
+      </div>
     </div>
     {{ template "setting/container" . }}
   </main>
