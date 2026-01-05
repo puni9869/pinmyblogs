@@ -8,7 +8,7 @@ bin = "main"
 delay = 1000
 include_ext = ["go", "tmpl", "js", "css", "json"]
 include_file = ["main.go"]
-include_dir = ["types", "templates", "frontend", "cmd", "models", "modules", "internal", "pkg", "options", "routers", "services", "server", "config"]
+include_dir = ["cmd", "config", "frontend", "internal", "models", "modules", "pkg", "server", "templates", "types"]
 exclude_regex = ["_test.go$", "_gen.go$"]
 stop_on_error = true
 
