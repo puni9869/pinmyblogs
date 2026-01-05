@@ -12,9 +12,9 @@
       {{ template "widget/add_link" . }}
       {{ template "widget/avatar" . }}
     </div>
-    {{if .Pagination.TotalItems}}
+    {{ if .Pagination.TotalItems }}
     {{ template "widget/url_container" . }}
-    {{template "widget/pagination" .}}
+    {{ template "widget/pagination" . }}
   {{ else }}
     {{ template "widget/no_search_data" . }}
     {{ end }}

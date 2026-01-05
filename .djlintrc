@@ -1,10 +1,12 @@
 {
   "profile": "golang",
+  "format_attribute_template_tags": true,
   "blank_line_after_tag": "load,extends,include",
   "blank_line_before_tag": "load,extends,include",
-  "close_void_tags": true,
-  "custom_html": "mjml,simple-greeting,mj-\\w+",
-  "exclude": ".venv,venv,.tox,.eggs",
+  "close_void_tags": false,
+  "quiet": true,
+  "ignore": "H014,H015,H021,H008,H006,H031,H030",
+  "exclude": ".venv,venv,.tox,.eggs,.node_modules",
   "format_css": true,
   "css": {
     "indent_size": 2
@@ -14,7 +16,7 @@
     "indent_size": 2
   },
   "indent": 2,
-  "line_break_after_multiline_tag": true,
+  "line_break_after_multiline_tag": false,
   "linter_output_format": "{filename}:{line}: {code} {message} {match}",
   "use_gitignore": true
 }

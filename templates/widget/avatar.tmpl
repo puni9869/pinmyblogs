@@ -1,65 +1,31 @@
 {{ define "widget/avatar" }}
 {{ $l := len $.Email }}
-
 <div class="relative inline-block" id="avatar-menu">
   <!-- Avatar button -->
-  <button
-    type="button"
-    id="avatar-btn"
-    aria-haspopup="true"
-    aria-expanded="false"
-    class="
-      flex items-center justify-center h-9 w-9 rounded-full
-      text-white text-sm font-semibold
-      shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2
-      transition
-      {{ if eq (mod $l 6) 0 }} bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500
-      {{ else if eq (mod $l 6) 1 }} bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500
-      {{ else if eq (mod $l 6) 2 }} bg-rose-600 hover:bg-rose-700 focus:ring-rose-500
-      {{ else if eq (mod $l 6) 3 }} bg-amber-600 hover:bg-amber-700 focus:ring-amber-500
-      {{ else if eq (mod $l 6) 4 }} bg-sky-600 hover:bg-sky-700 focus:ring-sky-500
-      {{ else }} bg-violet-600 hover:bg-violet-700 focus:ring-violet-500
-      {{ end }}
-    "
-  >
-    <span class="capitalize">
-      {{ avatar $.Email }}
-    </span>
-  </button>
-
-  <!-- Dropdown -->
-  <div
-    id="avatar-dropdown"
-    class="absolute right-0 z-50 mt-3 w-56 origin-top-right
-           rounded-xl bg-white shadow-xl ring-1 ring-black/5
-           opacity-0 scale-95 translate-y-1 pointer-events-none
-           transition-all duration-200 ease-out"
-  >
-    <!-- User info -->
-    <div class="px-4 py-3 border-b border-gray-100">
-      <p class="text-sm font-medium text-gray-900">
-        {{ avatar $.Email }}
-      </p>
-      <p class="text-xs text-gray-500 truncate">
-        {{ $.Email }}
-      </p>
-    </div>
-
-    <!-- Actions -->
-    <div class="py-2 text-sm">
-      <a href="/setting"
-         class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">
-        Settings
-      </a>
-      <form action="/logout" method="GET">
-        <button
-          type="submit"
-          class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition"
-        >
-          Logout
-        </button>
-      </form>
-    </div>
+<button type="button"
+        id="avatar-btn"
+        aria-haspopup="true"
+        aria-expanded="false"
+        class="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-semibold shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 transition {{ if eq (mod $l 6) 0 }} bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 {{ else if eq (mod $l 6) 1 }} bg-emerald-600 hover:bg-emerald-700 focus:ring-emerald-500 {{ else if eq (mod $l 6) 2 }} bg-rose-600 hover:bg-rose-700 focus:ring-rose-500 {{ else if eq (mod $l 6) 3 }} bg-amber-600 hover:bg-amber-700 focus:ring-amber-500 {{ else if eq (mod $l 6) 4 }} bg-sky-600 hover:bg-sky-700 focus:ring-sky-500 {{ else }} bg-violet-600 hover:bg-violet-700 focus:ring-violet-500 {{ end }}">
+  <span class="capitalize">{{ avatar $.Email }}</span>
+</button>
+<!-- Dropdown -->
+<div id="avatar-dropdown"
+     class="absolute right-0 z-50 mt-3 w-56 origin-top-right rounded-xl bg-white shadow-xl ring-1 ring-black/5 opacity-0 scale-95 translate-y-1 pointer-events-none transition-all duration-200 ease-out">
+  <!-- User info -->
+  <div class="px-4 py-3 border-b border-gray-100">
+    <p class="text-sm font-medium text-gray-900">{{ avatar $.Email }}</p>
+    <p class="text-xs text-gray-500 truncate">{{ $.Email }}</p>
   </div>
+  <!-- Actions -->
+  <div class="py-2 text-sm">
+    <a href="/setting"
+       class="block px-4 py-2 text-gray-700 hover:bg-gray-100 transition">Settings</a>
+    <form action="/logout" method="get">
+      <button type="submit"
+              class="w-full text-left px-4 py-2 text-red-600 hover:bg-red-50 transition">Logout</button>
+    </form>
+  </div>
+</div>
 </div>
 {{ end }}

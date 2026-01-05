@@ -10,13 +10,9 @@
       <a href="{{.WebLink}}"
          target="_blank"
          class="text-gray-900 font-medium text-sm sm:text-base truncate hover:underline hover:text-indigo-600 transition-colors"
-         title="{{ or .Title .WebLink }}">
-        {{ or .Title .WebLink }}
-      </a>
+         title="{{ or .Title .WebLink }}">{{ or .Title .WebLink }}</a>
       <!-- Domain -->
-      <span class="text-xs text-gray-400 truncate">
-        {{ .WebLink }}
-      </span>
+      <span class="text-xs text-gray-400 truncate">{{ .WebLink }}</span>
     </div>
   </div>
   <!-- Meta Row: Tag + Summary -->
@@ -30,9 +26,7 @@
     <a href="{{.WebLink}}"
        target="_blank"
        class="truncate hover:underline hover:text-indigo-500 transition-colors"
-       title="{{ or .Summary .WebLink }}">
-      {{ or .Summary .WebLink }}
-    </a>
+       title="{{ or .Summary .WebLink }}">{{ or .Summary .WebLink }}</a>
   </div>
   <!-- Actions (fade-in on hover) -->
   <div class="pt-1 opacity-100 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">

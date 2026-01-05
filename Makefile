@@ -18,12 +18,12 @@ test:
 .PHONY: lint
 lint:
 	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.1.6
-	golangci-lint run ./...
+	golangci-lint run ./... && djlint templates/**/* --lint
 
 .PHONY: format
 format:
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-	golangci-lint run ./... --fix
+	golangci-lint run ./... --fix && djlint templates/**/* --reformat
 
 .PHONY: govulncheck
 govulncheck:

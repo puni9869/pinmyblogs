@@ -4,23 +4,17 @@
     <!-- Logo/Icon -->
     <div class="flex flex-col items-center">
       <div class="flex justify-center flex-col item-center w-fit max-w-xs sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto h-20 w-auto">
-        {{template "widget/pinmyblogs_name" .}}
+        {{ template "widget/pinmyblogs_name" . }}
       </div>
-      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
-        Reset your password
-      </h2>
+      <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Reset your password</h2>
     </div>
     <!-- Error Message -->
-  <p class="mt-4 text-center text-red-600 text-sm {{ if .HasError }}visible{{ else }}hidden{{ end }}">
-    {{.Error}}
-  </p>
+  <p class="mt-4 text-center text-red-600 text-sm {{ if .HasError }}visible{{ else }}hidden{{ end }}">{{.Error}}</p>
   <!-- Reset Form -->
-  <form class="mt-6 space-y-6" action="/reset-password" method="POST">
+  <form class="mt-6 space-y-6" action="/reset-password" method="post">
     <!-- Email -->
     <div>
-      <label for="email" class="block text-sm font-medium text-gray-900">
-        Email address
-      </label>
+      <label for="email" class="block text-sm font-medium text-gray-900">Email address</label>
       <div class="mt-2">
         <input id="email"
                value="{{.Email}}"
