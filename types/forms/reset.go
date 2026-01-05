@@ -1,5 +1,5 @@
 package forms
 
-type ResetForm struct {
+type Reset struct {
 	Email string `form:"email" json:"email" binding:"required,email"`
 }

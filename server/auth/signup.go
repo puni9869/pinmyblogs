@@ -39,7 +39,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 		}
 
 		field := new(formbinding.FieldErrors)
-		form := middlewares.GetForm(c).(*forms.SignUpForm)
+		form := middlewares.GetForm(c).(*forms.SignUp)
 		ctx := middlewares.GetContext(c)
 
 		password := form.Password

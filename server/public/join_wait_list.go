@@ -2,6 +2,7 @@ package public
 
 import (
 	"errors"
+	"github.com/puni9869/pinmyblogs/types/forms"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,12 +10,11 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
-	"github.com/puni9869/pinmyblogs/types/forms"
 )
 
 func JoinWaitListPost(c *gin.Context) {
 	log := logger.NewLogger()
-	form := middlewares.GetForm(c).(*forms.JoinWaitList)
+	form := middlewares.GetForm(c).(forms.JoinWaitList)
 	email := form.Email
 	ctx := middlewares.GetContext(c)
 	if ctx["Email_HasError"] == true {

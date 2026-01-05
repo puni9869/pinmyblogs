@@ -38,7 +38,7 @@ func ResetPasswordPost(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	form := middlewares.GetForm(c).(*forms.ResetForm)
+	form := middlewares.GetForm(c).(*forms.Reset)
 	ctx := middlewares.GetContext(c)
 
 	email := form.Email
@@ -110,7 +110,7 @@ func ResetPasswordSetPost(c *gin.Context) {
 	log := logger.NewLogger()
 
 	field := new(formbinding.FieldErrors)
-	form := middlewares.GetForm(c).(*forms.ResetPasswordForm)
+	form := middlewares.GetForm(c).(*forms.ResetPassword)
 	ctx := middlewares.GetContext(c)
 
 	// Helper to show invalid/expired message

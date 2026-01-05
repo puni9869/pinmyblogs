@@ -28,7 +28,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	{
 		loginRoutes.GET("/signup", auth.SignupGet)
 		loginRoutes.POST("/signup",
-			middlewares.Bind(forms.SignUpForm{}),
+			middlewares.Bind(forms.SignUp{}),
 			auth.SignupPost(signupService),
 		)
 		loginRoutes.POST("/login", auth.LoginPost)
@@ -36,9 +36,9 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		loginRoutes.Any("/logout", auth.Logout)
 		loginRoutes.GET("/reset-password", auth.ResetPasswordGet)
 		loginRoutes.GET("/reset-password/sent", auth.ResetPasswordSentGet)
-		loginRoutes.POST("/reset-password", middlewares.Bind(forms.ResetForm{}), auth.ResetPasswordPost)
+		loginRoutes.POST("/reset-password", middlewares.Bind(forms.Reset{}), auth.ResetPasswordPost)
 		loginRoutes.GET("/reset-password/:hash", auth.ResetPasswordSetGet)
-		loginRoutes.POST("/set-password", middlewares.Bind(forms.ResetPasswordForm{}), auth.ResetPasswordSetPost)
+		loginRoutes.POST("/set-password", middlewares.Bind(forms.ResetPassword{}), auth.ResetPasswordSetPost)
 		loginRoutes.GET("/enable-my-account/:hash", setting.EnableMyAccount)
 	}
 
