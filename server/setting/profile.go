@@ -32,8 +32,6 @@ func ProfileAction(c *gin.Context) {
 	if result.Error != nil {
 		log.WithField("email", email).WithError(result.Error).Error("record not found")
 	}
-	log.Info(profileAction)
-	log.Println("params:", c.Params)
 	isPublic := profileAction == "public"
 	log.Info(isPublic)
 	user.IsProfilePublic = isPublic

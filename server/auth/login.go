@@ -144,16 +144,16 @@ func Logout(c *gin.Context) {
 		c.Abort()
 	}
 
-	sId := session.ID()
+	sID := session.ID()
 
-	if len(sId) != 0 {
+	if len(sID) != 0 {
 		log.WithField("session", user).Info("session id found")
 
-		session.Delete(sId)
+		session.Delete(sID)
 		session.Set(Userkey, nil)
 
 		var s *models.Session
-		res := database.Db().Delete(&s, "id = ?", sId)
+		res := database.Db().Delete(&s, "id = ?", sID)
 		if res.Error != nil {
 			log.WithField("session", user).WithError(res.Error).Error("failed to delete the session from database")
 		}

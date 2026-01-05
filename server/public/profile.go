@@ -90,7 +90,7 @@ func fetchPublicUserByUsername(username string) (*PublicUser, error) {
 		return nil, err
 	}
 
-	blogs, err := blogRepoFindPublicByUserID(user.ID)
+	blogs, err := blogRepoFindPublicByUserID()
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +124,7 @@ func userRepoFindByUsername(username string) (*User, error) {
 	}, nil
 }
 
-func blogRepoFindPublicByUserID(userID int64) ([]PublicBlog, error) {
+func blogRepoFindPublicByUserID() ([]PublicBlog, error) {
 	return []PublicBlog{
 		{
 			Title:       "PostgreSQL Indexing Explained",

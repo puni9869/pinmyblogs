@@ -1,20 +1,25 @@
-version: "2"
+version: 2
+
 run:
   timeout: 5m
   tests: true
+  out-format: colored-line-number
 
 linters:
   enable:
-    # Core correctness
+    # Core
     - govet
     - errcheck
     - staticcheck
     - ineffassign
     - unused
 
-    # Error handling
+    # Error discipline
     - errorlint
     - wrapcheck
+
+    # Style
+    - revive
 
     # Security
     - gosec
@@ -40,8 +45,6 @@ formatters:
     excludes:
       - G104
       - G307
-      - ST1005
-      - QF1012
 
   errorlint:
     errorf: true
@@ -57,21 +60,16 @@ exclude-dirs:
   - node_modules
   - dist
   - tmp
-  - .git
 
 exclude-files:
   - ".*\\.gen\\.go"
   - ".*_mock\\.go"
 
 exclude-rules:
-  - path: _test\.go
+  - path: _test\\.go
     linters:
       - errcheck
       - gosec
-
-  - path: .*\.gen\.go
-    linters:
-      - revive
 
 severity:
   default-severity: error
