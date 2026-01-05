@@ -1,0 +1,43 @@
+{
+  "environment": "local",
+  "appConfig": {
+    "debug": true,
+    "secretKey": "dummy",
+    "defaultPort": "8080",
+    "customPort": "80",
+    "useCDN": false,
+    "hostname": "localhost",
+    "dataBaseType": "sqlite"
+  },
+  "mailer": {
+    "smtpHost": "",
+    "smtpPort": "",
+    "emailId": "",
+    "bccEmailId": "",
+    "username": "",
+    "password": ""
+  },
+  "database": {
+    "postgres": {
+      "type": "postgres",
+      "host": "127.0.0.1",
+      "username": "username",
+      "password": "",
+      "port": "5432",
+      "databaseName": "pinmyblogs",
+      "logSql": true
+    },
+    "sqlite": {
+      "type": "sqlite",
+      "databaseName": "pinmyblogs",
+      "fileName": "data.dat"
+    }
+  },
+  "enableSsl": false,
+  "authentication": {
+    "enableLogin": true,
+    "openDisabledAccountByEmailLink": true,
+    "enableRegistration": true,
+    "enableForgotPassword": true
+  }
+}

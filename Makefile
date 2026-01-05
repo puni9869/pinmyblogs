@@ -3,6 +3,14 @@ MAIN_PATH=./cmd/main.go
 VERSION=$(shell git rev-parse --short HEAD)
 PKG=github.com/puni9869/pinmyblogs/cmd/command
 GOLANGCI_LINT_VERSION=v2.1.6
+CONFIG_DIR=config
+
+.PHONY: generate-config
+generate-config:
+	mkdir $(CONFIG_DIR)
+	mv sample_config/sample_local.json $(CONFIG_DIR)/local.json
+	mv sample_config/sample_prod.json $(CONFIG_DIR)/prod.json
+
 
 .PHONY: build
 build:
