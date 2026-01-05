@@ -112,11 +112,13 @@ func (a *Account) Send() {
 	}
 	var msg *gomail.Message
 	var m *gomail.Dialer
-	if a.action == "disable" {
+	switch a.action {
+	case "disable":
 		m, msg = a.disableAccount()
-	} else if a.action == "enable" {
+	case "enable":
 		m, msg = a.enableAccount()
 	}
+
 	if config.GetEnv() == config.LocalEnv {
 		a.log.WithFields(f).Infof("user account %s confirmation mail sent. hash %s", a.action, a.user.AccountEnableHash)
 		return

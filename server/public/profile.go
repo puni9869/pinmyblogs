@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 	"time"
+	"unicode"
 
 	"github.com/gin-gonic/gin"
 )
@@ -77,8 +78,8 @@ func fetchPublicUserByUsername(username string) (*PublicUser, error) {
 
 	// allow a-z 0-9 - _
 	for _, r := range username {
-		if !(r >= 'a' && r <= 'z') &&
-			!(r >= '0' && r <= '9') &&
+		if !unicode.IsLower(r) &&
+			!unicode.IsDigit(r) &&
 			r != '-' && r != '_' {
 			return nil, errors.New("invalid username")
 		}

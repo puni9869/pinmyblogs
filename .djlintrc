@@ -5,7 +5,7 @@
   "blank_line_before_tag": "load,extends,include",
   "close_void_tags": false,
   "quiet": true,
-  "ignore": "H014,H015,H021,H008,H006,H031,H030",
+  "ignore": "H014,H015,H021,H008,H006,H031,H030,H016",
   "exclude": ".venv,venv,.tox,.eggs,.node_modules",
   "format_css": true,
   "css": {

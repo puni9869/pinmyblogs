@@ -2,6 +2,7 @@ BINARY_NAME=main
 MAIN_PATH=./cmd/main.go
 VERSION=$(shell git rev-parse --short HEAD)
 PKG=github.com/puni9869/pinmyblogs/cmd/command
+GOLANGCI_LINT_VERSION=v2.1.6
 
 .PHONY: build
 build:
@@ -16,14 +17,21 @@ test:
 	go test ./... -cover
 
 .PHONY: lint
-lint:
-	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.1.6
-	golangci-lint run ./... && djlint templates/**/* --lint
+lint: install-linter
+	golangci-lint run --config .golangci.yml ./... && djlint templates/**/* --lint
+
+.PHONY: install-linter
+install-linter:
+	go install github.com/golangci/golangci-lint/v2/cmd/golangci-lint@$(GOLANGCI_LINT_VERSION)
+
+.PHONY: golangci-ci
+golangci-ci:
+	@command -v golangci-lint >/dev/null || (echo "golangci-lint not found; please install it in CI image"; exit 1)
+	@golangci-lint run --config .golangci.yml ./...
 
 .PHONY: format
-format:
-	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-	golangci-lint run ./... --fix && djlint templates/**/* --reformat
+format: install-linter
+	golangci-lint run --config .golangci.yml ./... --fix && djlint templates/**/* --reformat
 
 .PHONY: govulncheck
 govulncheck:

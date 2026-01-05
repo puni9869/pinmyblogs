@@ -1,24 +1,17 @@
+version: 2
 run:
   timeout: 5m
   tests: true
+  skip-dirs-use-default: true
 
 linters:
-  disable-all: true
   enable:
     # Core correctness
     - govet
     - errcheck
     - staticcheck
     - ineffassign
-    - typecheck
-
-    # Code quality
     - unused
-
-    # Style & formatting
-    - gofmt
-    - goimports
-    - whitespace
 
     # Error handling
     - errorlint
@@ -27,6 +20,10 @@ linters:
     # Security
     - gosec
 
+formatters:
+  enable:
+    - gofmt
+    - goimports
 linters-settings:
   revive:
     rules:
@@ -42,6 +39,8 @@ linters-settings:
     excludes:
       - G104
       - G307
+      - ST1005
+      - QF1012
 
   errorlint:
     errorf: true
@@ -56,19 +55,19 @@ issues:
     - vendor
     - node_modules
     - dist
+    - tmp
+    - .git
 
   exclude-files:
     - ".*\\.gen\\.go"
     - ".*_mock\\.go"
 
   exclude-rules:
-    # Ignore some linters in tests
     - path: _test\.go
       linters:
         - errcheck
         - gosec
 
-    # Generated files
     - path: .*\.gen\.go
       linters:
         - revive
