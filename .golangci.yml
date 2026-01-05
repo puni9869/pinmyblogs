@@ -1,4 +1,4 @@
-version: 2
+version: "2"
 run:
   timeout: 5m
   tests: true
@@ -23,16 +23,18 @@ formatters:
   enable:
     - gofmt
     - goimports
-linters-settings:
-  revive:
-    rules:
-      - name: var-naming
-      - name: line-length-limit
-        arguments: [ 120 ]
-      - name: unexported-return
-      - name: blank-imports
-      - name: error-strings
-      - name: error-naming
+  linters-settings:
+    govet:
+      check-shadowing: true
+    revive:
+      rules:
+        - name: var-naming
+        - name: line-length-limit
+          arguments: [ 120 ]
+        - name: unexported-return
+        - name: blank-imports
+        - name: error-strings
+        - name: error-naming
 
   gosec:
     excludes:
@@ -50,26 +52,26 @@ issues:
   max-issues-per-linter: 0
   max-same-issues: 0
 
-  exclude-dirs:
-    - vendor
-    - node_modules
-    - dist
-    - tmp
-    - .git
+exclude-dirs:
+  - vendor
+  - node_modules
+  - dist
+  - tmp
+  - .git
 
-  exclude-files:
-    - ".*\\.gen\\.go"
-    - ".*_mock\\.go"
+exclude-files:
+  - ".*\\.gen\\.go"
+  - ".*_mock\\.go"
 
-  exclude-rules:
-    - path: _test\.go
-      linters:
-        - errcheck
-        - gosec
+exclude-rules:
+  - path: _test\.go
+    linters:
+      - errcheck
+      - gosec
 
-    - path: .*\.gen\.go
-      linters:
-        - revive
+  - path: .*\.gen\.go
+    linters:
+      - revive
 
 severity:
   default-severity: error

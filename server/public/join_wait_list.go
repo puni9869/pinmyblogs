@@ -2,8 +2,9 @@ package public
 
 import (
 	"errors"
-	"github.com/puni9869/pinmyblogs/types/forms"
 	"net/http"
+
+	"github.com/puni9869/pinmyblogs/types/forms"
 
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"

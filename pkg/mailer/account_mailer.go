@@ -2,6 +2,7 @@ package mailer
 
 import (
 	"fmt"
+
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
