@@ -2,12 +2,11 @@ package mailer
 
 import (
 	"fmt"
-
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/sirupsen/logrus"
-	"gopkg.in/gomail.v2"
+	m "gopkg.in/gomail.v2"
 )
 
 type Account struct {
@@ -17,7 +16,7 @@ type Account struct {
 	action string
 }
 
-func (a *Account) disableAccount() (*gomail.Dialer, *gomail.Message) {
+func (a *Account) disableAccount() (*m.Dialer, *m.Message) {
 	tmpl := fmt.Sprintf(`<!DOCTYPE>
 	<html>
 	<body>
@@ -33,14 +32,14 @@ func (a *Account) disableAccount() (*gomail.Dialer, *gomail.Message) {
 	</html>
 	`, a.user.Email)
 
-	msg := gomail.NewMessage()
+	msg := m.NewMessage()
 	msg.SetHeader("From", config.C.Mailer.EmailId)
 	msg.SetHeader("To", a.user.Email)
 	msg.SetHeader("Bcc", config.C.Mailer.BccEmailId)
 	msg.SetHeader("Subject", "Your pinmyblogs.com Account Has Been Disabled")
 	msg.SetBody("text/html", tmpl)
 
-	dialer := gomail.NewDialer(
+	dialer := m.NewDialer(
 		config.C.Mailer.SmtpHost,
 		config.C.Mailer.SmtpPort,
 		config.C.Mailer.Username,
@@ -50,7 +49,7 @@ func (a *Account) disableAccount() (*gomail.Dialer, *gomail.Message) {
 	return dialer, msg
 }
 
-func (a *Account) enableAccount() (*gomail.Dialer, *gomail.Message) {
+func (a *Account) enableAccount() (*m.Dialer, *m.Message) {
 	host := map[string]string{"local": "http://localhost", "prod": "https://pinmyblogs.com"}[config.GetEnv()]
 	tmpl := fmt.Sprintf(`<!DOCTYPE>
 			<html>
@@ -87,14 +86,14 @@ func (a *Account) enableAccount() (*gomail.Dialer, *gomail.Message) {
 		</html>
 	`, a.user.Email, host, a.user.AccountEnableHash)
 
-	msg := gomail.NewMessage()
+	msg := m.NewMessage()
 	msg.SetHeader("From", config.C.Mailer.EmailId)
 	msg.SetHeader("To", a.user.Email)
 	msg.SetHeader("Bcc", config.C.Mailer.BccEmailId)
 	msg.SetHeader("Subject", "Enable Your pinmyblogs.com Account")
 	msg.SetBody("text/html", tmpl)
 
-	dialer := gomail.NewDialer(
+	dialer := m.NewDialer(
 		config.C.Mailer.SmtpHost,
 		config.C.Mailer.SmtpPort,
 		config.C.Mailer.Username,
@@ -110,8 +109,8 @@ func (a *Account) Send() {
 		"id":   a.user.ID,
 		"env":  config.GetEnv(),
 	}
-	var msg *gomail.Message
-	var m *gomail.Dialer
+	var msg *m.Message
+	var m *m.Dialer
 	switch a.action {
 	case "disable":
 		m, msg = a.disableAccount()

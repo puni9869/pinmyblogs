@@ -7,7 +7,7 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/config"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/sirupsen/logrus"
-	"gopkg.in/gomail.v2"
+	mail "gopkg.in/gomail.v2"
 )
 
 type UserRegister struct {
@@ -38,14 +38,14 @@ func (u *UserRegister) Send() {
 	</html>
 	`, u.user.Email)
 
-	msg := gomail.NewMessage()
+	msg := mail.NewMessage()
 	msg.SetHeader("From", config.C.Mailer.EmailId)
 	msg.SetHeader("To", u.user.Email)
 	msg.SetHeader("Bcc", config.C.Mailer.BccEmailId)
 	msg.SetHeader("Subject", "Welcome to pinmyblogs.com")
 	msg.SetBody("text/html", tmpl)
 
-	m := gomail.NewDialer(
+	m := mail.NewDialer(
 		config.C.Mailer.SmtpHost,
 		config.C.Mailer.SmtpPort,
 		config.C.Mailer.Username,
