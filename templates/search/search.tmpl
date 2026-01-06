@@ -11,10 +11,8 @@
     <div class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div class="mx-auto gap-3 flex items-center justify-between px-3 sm:px-4 py-2">
         {{ template "widget/nav_bar_opener" . }}
-        <div class="flex flex-1">
-            {{ template "widget/search" . }}
-        </div>
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-3">
+          {{ template "widget/search" . }}
           {{ template "widget/add_link" . }}
           {{ template "widget/avatar" . }}
         </div>
@@ -26,10 +24,9 @@
       {{ template "widget/url_container" . }}
       {{ template "widget/pagination" . }}
     {{ else }}
-       {{ template "widget/no_search_data" . }}
+      {{ template "widget/no_search_data" . }}
       {{ end }}
     </div>
   </main>
 </div>
 {{ template "footer" . }}
-

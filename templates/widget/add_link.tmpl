@@ -1,7 +1,7 @@
 {{ define "widget/add_link" }}
 <div class="relative group w-full sm:w-auto flex justify-end">
   <button id="add-weblink"
-          class="inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm sm:text-base font-medium text-white bg-indigo-500 hover:bg-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
+          class="flex flex-row items-center h-10 gap-2 rounded-full px-5 py-2 text-sm sm:text-base font-medium text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none transition active:scale-95 whitespace-nowrap">
     <!-- Plus icon -->
     <svg xmlns="http://www.w3.org/2000/svg"
          class="h-4 w-4"
@@ -10,7 +10,8 @@
          stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15" />
     </svg>
-    Add Link
+    <!-- INLINE TEXT -->
+    <span>Add Link</span>
   </button>
 </div>
 <!-- Modal Background -->

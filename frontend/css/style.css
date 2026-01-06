@@ -92,3 +92,41 @@ body {
     --radius: 9999px; /* fully round */
 }
 
+/* search */
+/* ===== CRITICAL CLOSED STATE ===== */
+#mobile-search:not([open]) form {
+    display: none !important;
+}
+
+#mobile-search summary {
+    list-style: none;
+    display: block;
+}
+
+/* Sticky parent conflict fix */
+.sticky #mobile-search form {
+    position: fixed;
+    right: 4vw;
+    left: 4vw;
+    top: 60px;
+    width: 92vw;
+    z-index: 9999;
+}
+
+/* Animation */
+details[open] form {
+    animation: fadePremium .18s ease forwards;
+}
+
+@keyframes fadePremium {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
