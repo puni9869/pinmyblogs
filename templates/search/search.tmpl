@@ -1,23 +1,35 @@
 {{ template "layout/base" . }}
-<div class="flex min-h-screen flex-row bg-gray-100 text-gray-800">
+<div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
+  <!-- Sidebar -->
   <aside class="fixed top-0 left-0 h-screen w-40 bg-white p-1"
          id="side-navbar">
     {{ template "widget/side_nav" . }}
   </aside>
-  <main class="flex flex-col flex-1 ml-40 duration-150 ease-out"
-        id="top-nav-bar">
-    <div class="flex flex-row items-center justify-between gap-2 py-2 px-2 sm:px-4 bg-white border-l-2 border-r-2 border-gray-200">
-      {{ template "widget/nav_bar_opener" . }}
-      {{ template "widget/search" . }}
-      {{ template "widget/add_link" . }}
-      {{ template "widget/avatar" . }}
+  <!-- Main Content -->
+  <main class="flex flex-col flex-1 ml-40" id="top-nav-bar">
+    <!-- Sticky Top Bar -->
+    <div class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div class="mx-auto gap-3 flex items-center justify-between px-3 sm:px-4 py-2">
+        {{ template "widget/nav_bar_opener" . }}
+        <div class="inline-flex flex-1">
+            {{ template "widget/search" . }}
+        </div>
+        <div class="flex items-center gap-2">
+          {{ template "widget/add_link" . }}
+          {{ template "widget/avatar" . }}
+        </div>
+      </div>
     </div>
-    {{ if .Pagination.TotalItems }}
-    {{ template "widget/url_container" . }}
-    {{ template "widget/pagination" . }}
-  {{ else }}
-    {{ template "widget/no_search_data" . }}
-    {{ end }}
+    <!-- Content Rail -->
+    <div class="mx-auto w-full px-3">
+      {{ if .Pagination.TotalItems }}
+      {{ template "widget/url_container" . }}
+      {{ template "widget/pagination" . }}
+    {{ else }}
+       {{ template "widget/no_search_data" . }}
+      {{ end }}
+    </div>
   </main>
 </div>
 {{ template "footer" . }}
+
