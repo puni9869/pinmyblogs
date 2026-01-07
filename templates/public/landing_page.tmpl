@@ -1,8 +1,22 @@
 {{ template "layout/base" . }}
 <body class="bg-gradient-to-b from-white via-slate-50 to-white text-slate-900 font-sans flex flex-col min-h-screen">
   <!-- Hero Section -->
+  <div class="flex justify-end p-4">
+    <a href="https://chromewebstore.google.com/detail/pinmyblogscom/kbaljigapbggohllflnnklhclnbheaaj"
+       target="_blank"
+       class="inline-flex items-center gap-2 rounded-full px-6 py-2 text-sm sm:text-base font-semibold
+              bg-slate-900 text-white
+              hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20
+              transition active:scale-95">
+
+      <img src='{{ asset "icons/chrome.svg" }}' alt="Chrome" class="h-5 w-5" />
+      Add to Chrome
+    </a>
+  </div>
+
+
   <section class="flex-1 flex items-center justify-center px-4 md:px-0">
-    <div class="text-center max-w-2xl mx-auto md:py-10">
+    <div class="text-center max-w-2xl mx-auto md:py-5">
       <!-- Logo -->
       <div class="flex justify-center mb-10">{{ template "widget/pinmyblogs_name" . }}</div>
       <!-- Headline -->
@@ -17,27 +31,18 @@
         and publish when you’re ready.
       </p>
       <!-- CTA -->
-      <div class="mt-10 flex flex-col items-center gap-6">
+      <div class="mt-10 flex flex-col items-center gap-6 mb-10">
         <!-- Signup / Login -->
         <div class="flex flex-wrap justify-center gap-4">
           <a href="/signup"
-             class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm sm:text-base font-semibold text-white bg-indigo-600 hover:bg-indigo-700 shadow-lg shadow-indigo-600/20 transition focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2">
+             class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm sm:text-base font-semibold
+                    bg-indigo-900 text-white shadow-lg transition active:scale-95">
             Get started free
           </a>
-          <a href="/login"
-             class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm sm:text-base font-medium text-slate-700 border border-slate-300 hover:bg-slate-100 transition">
+         <a href="/login"
+            class="inline-flex items-center justify-center shadow-lg rounded-full px-7 py-3 text-sm sm:text-base font-medium text-white border bg-emerald-500 hover:bg-emerald-600 transition active:scale-95">
             Sign in
-          </a>
-        </div>
-        <!-- Chrome Extension -->
-        <div class="flex flex-col items-center gap-2 pt-4">
-          <a href="https://chromewebstore.google.com/detail/pinmyblogscom/kbaljigapbggohllflnnklhclnbheaaj"
-             target="_blank"
-             class="inline-flex items-center gap-3 rounded-full px-6 py-2.5 text-sm font-medium bg-white border border-slate-200 hover:border-indigo-300 hover:shadow-md transition">
-            <img src='{{ asset "icons/chrome.svg" }}' alt="Chrome" class="h-5 w-5" />
-            Add Chrome extension
-          </a>
-          <p class="text-xs text-slate-500">Save links instantly while browsing</p>
+         </a>
         </div>
       </div>
     </div>
