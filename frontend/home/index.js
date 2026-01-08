@@ -260,4 +260,21 @@ export function AvatarToggle() {
 	});
 }
 
+export function SearchTextToggle() {
+	const text = document.getElementById("search-text");
+	const btn = document.getElementById("search-toggle");
+	if (!text || !btn) return;
+	let expanded = false;
+	btn.addEventListener("click", () => {
+		expanded = !expanded;
+		if (expanded) {
+			text.classList.remove("truncate");
+			btn.textContent = "less";
+		} else {
+			text.classList.add("truncate");
+			btn.textContent = "more";
+		}
+	});
+}
+
 

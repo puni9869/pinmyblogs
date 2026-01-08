@@ -5,7 +5,8 @@ import {
 	WebLinkActionsInit,
 	ShareLinkInit,
 	BackToTopBtn,
-	AvatarToggle
+	AvatarToggle,
+	SearchTextToggle
 } from './home/index.js';
 
 import {DeleteAccountModelInit, DisableMyAccountInit, DownloadMyData} from './setting/index.js';
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	DownloadMyData();
 	BackToTopBtn();
 	AvatarToggle();
+	SearchTextToggle();
 	console.info('App is loaded');
 }, false);
 
