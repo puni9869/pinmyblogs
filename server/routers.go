@@ -72,6 +72,9 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 			// Account related routes
 			settingsRoute.DELETE("/delete-my-account", setting.DeleteMyAccount)
 			settingsRoute.PUT("/disable-my-account", setting.DisableMyAccount)
+
+			//	 User's preferences
+			settingsRoute.PUT("/prefs", middlewares.Bind(forms.Prefs{}), setting.Prefs)
 		}
 	}
 	// public routes

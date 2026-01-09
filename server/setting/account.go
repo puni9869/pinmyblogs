@@ -3,6 +3,7 @@ package setting
 import (
 	"errors"
 	"net/http"
+	"slices"
 	"time"
 
 	"github.com/gin-contrib/sessions"
@@ -135,4 +136,36 @@ func EnableMyAccount(c *gin.Context) {
 	c.HTML(http.StatusOK, "account_message.tmpl",
 		gin.H{"Message": "Your account has been successfully enabled. You can now log in."},
 	)
+}
+
+func ProfileAction(c *gin.Context) {
+	profileAction := c.Param("action")
+	if !slices.Contains([]string{"public", "private"}, profileAction) {
+		profileAction = "private"
+	}
+	log := logger.NewLogger()
+	session := sessions.Default(c)
+	currentlyLoggedIn := session.Get(middlewares.Userkey)
+	email, ok := currentlyLoggedIn.(string)
+
+	if !ok || currentlyLoggedIn == nil || email == "" {
+		c.Redirect(http.StatusPermanentRedirect, "/login")
+		return
+	}
+
+	var user *models.User
+	result := database.Db().First(&user, "email = ?", email)
+	if result.Error != nil {
+		log.WithField("email", email).WithError(result.Error).Error("record not found")
+	}
+	isPublic := profileAction == "public"
+	log.Info(isPublic)
+	user.IsProfilePublic = isPublic
+	if err := database.Db().Save(user).Error; err != nil {
+		log.WithField("profileAction", profileAction).
+			WithError(err).
+			Error("failed to update profile visibility")
+	}
+
+	c.Redirect(http.StatusFound, "/setting")
 }

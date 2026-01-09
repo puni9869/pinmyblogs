@@ -44,6 +44,7 @@ func AddWeblink(c *gin.Context) {
 }
 
 func Home(c *gin.Context) {
+	log := logger.NewLogger()
 	session := sessions.Default(c)
 	email, _ := session.Get(middlewares.Userkey).(string)
 	page, limit := utils.GetPageAndLimit(c)
@@ -56,11 +57,28 @@ func Home(c *gin.Context) {
 		).
 		Order("id DESC").
 		Find(&p.Items)
+
+	var sideNavPref models.Setting
+	result := database.Db().Model(models.Setting{}).
+		Where("created_by = ? AND action = ? ", email, "sideNav").Find(&sideNavPref)
+	if result.Error != nil {
+		log.WithError(result.Error).Error("failed to get the preferences on home page")
+	}
+	log.Infof("getting sideNav prefs %s", sideNavPref.Value)
+
+	// "SideNavCollapse": false  || get from user's settings
+	sideNavCollapse := sideNavPref.Value == "hide"
 	// p is pagination
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+		"HasError":        false,
+		"Pagination":      p,
+		"Email":           email,
+		"SideNavCollapse": sideNavCollapse,
+	})
 }
 
 func Favourite(c *gin.Context) {
+	log := logger.NewLogger()
 	session := sessions.Default(c)
 	email, _ := session.Get(middlewares.Userkey).(string)
 	page, limit := utils.GetPageAndLimit(c)
@@ -70,11 +88,27 @@ func Favourite(c *gin.Context) {
 		Where("created_by =? and  is_active = ? and is_deleted = ? and is_fav =? ", email, true, false, true).
 		Order("id desc").
 		Find(&p.Items)
+	var sideNavPref models.Setting
+	result := database.Db().Model(models.Setting{}).
+		Where("created_by = ? AND action = ? ", email, "sideNav").Find(&sideNavPref)
+	if result.Error != nil {
+		log.WithError(result.Error).Error("failed to get the preferences on home page")
+	}
+	log.Infof("getting sideNav prefs %s", sideNavPref.Value)
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
+	// "SideNavCollapse": false  || get from user's settings
+	sideNavCollapse := sideNavPref.Value == "hide"
+	// p is pagination
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+		"HasError":        false,
+		"Pagination":      p,
+		"Email":           email,
+		"SideNavCollapse": sideNavCollapse,
+	})
 }
 
 func Archived(c *gin.Context) {
+	log := logger.NewLogger()
 	session := sessions.Default(c)
 	email, _ := session.Get(middlewares.Userkey).(string)
 	page, limit := utils.GetPageAndLimit(c)
@@ -84,11 +118,28 @@ func Archived(c *gin.Context) {
 		Where("created_by =? and  is_active = ? and is_deleted = ? and is_archived =? ", email, true, false, true).
 		Order("id desc").
 		Find(&p.Items)
+	var sideNavPref models.Setting
+	result := database.Db().Model(models.Setting{}).
+		Where("created_by = ? AND action = ? ", email, "sideNav").Find(&sideNavPref)
+	if result.Error != nil {
+		log.WithError(result.Error).Error("failed to get the preferences on home page")
+	}
+	log.Infof("getting sideNav prefs %s", sideNavPref.Value)
 
+	// "SideNavCollapse": false  || get from user's settings
+	sideNavCollapse := sideNavPref.Value == "hide"
+	// p is pagination
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+		"HasError":        false,
+		"Pagination":      p,
+		"Email":           email,
+		"SideNavCollapse": sideNavCollapse,
+	})
 	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
 }
 
 func Trash(c *gin.Context) {
+	log := logger.NewLogger()
 	session := sessions.Default(c)
 	email, _ := session.Get(middlewares.Userkey).(string)
 	page, limit := utils.GetPageAndLimit(c)
@@ -98,8 +149,23 @@ func Trash(c *gin.Context) {
 		Where("created_by =? and  is_active = ? and is_deleted = ?", email, true, true).
 		Order("id desc").
 		Find(&p.Items)
+	var sideNavPref models.Setting
+	result := database.Db().Model(models.Setting{}).
+		Where("created_by = ? AND action = ? ", email, "sideNav").Find(&sideNavPref)
+	if result.Error != nil {
+		log.WithError(result.Error).Error("failed to get the preferences on home page")
+	}
+	log.Infof("getting sideNav prefs %s", sideNavPref.Value)
 
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
+	// "SideNavCollapse": false  || get from user's settings
+	sideNavCollapse := sideNavPref.Value == "hide"
+	// p is pagination
+	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+		"HasError":        false,
+		"Pagination":      p,
+		"Email":           email,
+		"SideNavCollapse": sideNavCollapse,
+	})
 }
 
 func Actions(c *gin.Context) {

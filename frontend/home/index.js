@@ -1,5 +1,6 @@
 import {CloseModal, RefreshPage} from '../common/index.js';
 import {Copy} from '../common/copy.js';
+import {Prefrences} from './prefrences.js';
 
 const navUrl = {
 	'/': 'home',
@@ -29,7 +30,7 @@ export function NavItemSelected() {
 	console.info('NavBar loaded...', navUrl[window.location.pathname]);
 }
 
-export function SideNavCollapse() {
+export async function SideNavCollapse() {
 	const sideNav = document.querySelector('#side-navbar');
 	const sideNavOpener = document.querySelector('#nav-bar-open');
 	const topNavBar = document.querySelector('#top-nav-bar');
@@ -37,19 +38,24 @@ export function SideNavCollapse() {
 		return;
 	}
 	const uiPrefs = JSON.parse(localStorage.getItem("ui-prefs") || "{}");
-
 	if (uiPrefs?.storePrefsSideNav && uiPrefs?.storePrefsTopNavBar) {
 		sideNav.className = uiPrefs.storePrefsSideNav;
 		topNavBar.className = uiPrefs.storePrefsTopNavBar;
 	}
-	sideNavOpener.addEventListener('click', (e) => {
+	sideNavOpener.addEventListener('click', async (e) => {
 		sideNav.classList.toggle('hidden');
 		topNavBar.classList.toggle('ml-40');
 		sideNavOpener.classList.toggle('text-indigo-500');
+
 		localStorage.setItem("ui-prefs", JSON.stringify({
 			storePrefsSideNav: sideNav.className,
 			storePrefsTopNavBar: topNavBar.className
 		}));
+
+		const sideNavPref = {
+			action: 'sideNav', value: sideNav.classList.contains('hidden') ? 'hide' : 'show'
+		};
+		await Prefrences(sideNavPref);
 	});
 }
 

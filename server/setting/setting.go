@@ -37,6 +37,15 @@ func Setting(c *gin.Context) {
 		}
 		tmplCtx["IsProfilePublic"] = user.IsProfilePublic
 	}
+	var sideNavPref models.Setting
+	result := database.Db().Model(models.Setting{}).
+		Where("created_by = ? AND action = ? ", email, "sideNav").Find(&sideNavPref)
+	if result.Error != nil {
+		log.WithError(result.Error).Error("failed to get the preferences on home page")
+	}
+	log.Infof("getting sideNav prefs %s", sideNavPref.Value)
+	// "SideNavCollapse": false  || get from user's settings
+	tmplCtx["SideNavCollapse"] = sideNavPref.Value == "hide"
 	c.HTML(http.StatusOK, "setting.tmpl", tmplCtx)
 }
 
