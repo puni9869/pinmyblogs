@@ -1,6 +1,7 @@
 package home
 
 import (
+	"github.com/puni9869/pinmyblogs/pkg/spider"
 	"net/http"
 	"strconv"
 
@@ -12,7 +13,6 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/pkg/pagination"
-	"github.com/puni9869/pinmyblogs/pkg/spider"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
@@ -37,8 +37,17 @@ func AddWeblink(c *gin.Context) {
 		CreatedBy: currentlyLoggedIn.(string), Tag: requestBody.Tag,
 	}
 	db.Save(&url)
-	go spider.ScrapeUrl(&url)
-
+	go func(url *models.Url) {
+		defer func() {
+			if r := recover(); r != nil {
+				log.WithFields(map[string]any{
+					"panic":   r,
+					"webLink": url.WebLink,
+				}).Error("Recovered from panic while scraping url")
+			}
+		}()
+		spider.FetchAndUpdateURL(url)
+	}(&url)
 	log.Infof("Requested to add %s in tag: %s ", requestBody.Url, requestBody.Tag)
 	c.JSON(http.StatusCreated, gin.H{"Status": "OK", "Message": "Weblink Added."})
 }
