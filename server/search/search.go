@@ -44,6 +44,17 @@ func Search(c *gin.Context) {
 	if db.Error != nil {
 		log.WithError(db.Error).Error("error in fetching search query")
 	}
+
+	var sideNavPref models.Setting
+	result := db.Model(models.Setting{}).
+		Where("created_by = ? AND action = ? ", email, "sideNav").Find(&sideNavPref)
+	if result.Error != nil {
+		log.WithError(result.Error).Error("failed to get the preferences on home page")
+	}
+	log.Infof("getting sideNav prefs %s", sideNavPref.Value)
+
+	// "SideNavCollapse": false  || get from user's settings
+	sideNavCollapse := sideNavPref.Value == "hide"
 	// p is pagination
-	c.HTML(http.StatusOK, "search.tmpl", gin.H{"HasError": false, "Pagination": p, "SearchQuery": q, "Email": email})
+	c.HTML(http.StatusOK, "search.tmpl", gin.H{"HasError": false, "Pagination": p, "SearchQuery": q, "Email": email, "SideNavCollapse": sideNavCollapse})
 }
