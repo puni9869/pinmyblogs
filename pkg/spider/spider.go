@@ -1,15 +1,15 @@
 package spider
 
 import (
+	"codeberg.org/readeck/go-readability/v2"
 	"encoding/json"
-	"net/http"
-	"strconv"
-	"time"
-
-	"github.com/PuerkitoBio/goquery"
 	"github.com/puni9869/pinmyblogs/models"
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
+	"net/http"
+	u "net/url"
+	"strconv"
+	"time"
 )
 
 func ScrapeUrl(url *models.Url) {
@@ -40,19 +40,23 @@ func ScrapeUrl(url *models.Url) {
 	jsonStr, _ := json.Marshal(comment)
 	url.Comment = string(jsonStr)
 
-	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	baseURL, _ := u.Parse(url.WebLink)
+	article, err := readability.FromReader(resp.Body, baseURL)
 	if err != nil {
 		log.WithFields(map[string]any{
 			"parseWeblink": "failed",
 			"webLink":      url.WebLink,
 		}).Info("Failed to fetch the url")
-		return
 	}
-	url.Title = doc.Find("title").Text()
+
+	url.Title = article.Title()
+	url.Summary = article.Excerpt()
+
 	db := database.Db()
 	db.Model(&models.Url{}).Where("id = ?", url.ID).Updates(map[string]interface{}{
 		"title":   url.Title,
 		"comment": url.Comment,
+		"summary": url.Summary,
 	})
 
 	log.Info("Updating weblink metadata after fetching.", url.WebLink)
