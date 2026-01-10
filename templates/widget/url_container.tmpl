@@ -3,25 +3,8 @@
   <div class="w-full max-w-xl sm:w-11/12 md:w-10/12 lg:w-7/12">
     <!-- Header Divider (subtle, optional) -->
     <!-- Select / Actions Menu -->
-    {{if .SearchQuery}}
-    <div class="mb-3 flex flex-col items-center">
-      <span class="text-xl text-gray-500">Search results for</span>
-      <div class="flex items-center gap-2 max-w-md w-full justify-center">
-        <span id="search-text"
-              class="font-semibold text-gray-900 truncate max-w-full text-center transition-all duration-200">
-          {{ .SearchQuery | html }}
-        </span>
-        {{ if gt (len .SearchQuery) 30 }}
-        <button type="button"
-                id="search-toggle"
-                class="text-sm font-medium text-indigo-600 hover:underline whitespace-nowrap">more</button>
-        {{ end }}
-      </div>
-    </div>
-    {{end}}
     {{ template "widget/url_menu" . }}
     <!-- Divider -->
-
     <!-- URLs List -->
     <div class="flex flex-col gap-2">
       {{ range .Pagination.Items }}

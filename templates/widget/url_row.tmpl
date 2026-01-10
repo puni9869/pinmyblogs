@@ -22,14 +22,13 @@
       #{{.Tag}}
     </span>
     {{ end }}
-
-   {{ if .Summary }}
+    {{ if .Summary }}
     <span class="text-gray-300">•</span>
     <a href="{{.WebLink}}"
        target="_blank"
        class="truncate hover:underline hover:text-indigo-500 transition-colors"
        title="{{ .WebLink }}">{{ or  .Summary }}</a>
-   {{end}}
+    {{end}}
   </div>
   <!-- Actions (fade-in on hover) -->
   <div class="pt-1 opacity-100 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
