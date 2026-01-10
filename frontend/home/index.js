@@ -283,4 +283,18 @@ export function SearchTextToggle() {
 	});
 }
 
+export function UrlMenuToggle() {
+	const menu = document.getElementById("url-menu");
+	if (!menu) {
+		return;
+	}
+	document.addEventListener('click', (e) => {
+		document.querySelectorAll("details[open]").forEach((details) => {
+			if (!details.contains(e.target)) {
+				details.removeAttribute("open");
+			}
+		});
+	});
+}
+
 

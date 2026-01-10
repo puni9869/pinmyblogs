@@ -1,10 +1,10 @@
 {{ define "widget/search" }}
-<div class="w-full px-0 sm:px-0 flex justify-center item-center sm:justify-start">
+<div class="w-full px-0 sm:px-0 flex justify-center item-center sm:justify-start rounded-4xl">
   <form action="/search" method="get" class="relative w-full max-w-2xl">
     <!-- Outer shell -->
-    <div class="relative flex items-center rounded-sm border border-gray-200 bg-white/80 backdrop-blur shadow-sm transition hover:shadow-md focus-within:shadow-lg focus-within:border-indigo-500">
+    <div class="relative flex items-center rounded-4xl border border-gray-400 bg-white/80 backdrop-blur shadow-sm transition hover:shadow-md focus-within:border-indigo-500">
       <!-- Search icon -->
-      <span class="absolute left-4 text-gray-400">
+      <span class="absolute left-2 text-black-400">
         <svg xmlns="http://www.w3.org/2000/svg"
              class="h-5 w-5"
              fill="none"
@@ -22,9 +22,6 @@
              placeholder="Search links, notes, or #tags"
              class="w-65 h-10 rounded-sm bg-transparent pl-10 mr-0 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none" />
       <!-- Shortcut hint -->
-      <span class="hidden sm:flex absolute right-3 items-center gap-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1 text-[11px] font-medium text-gray-500">
-        ⌘ K
-      </span>
     </div>
   </form>
 </div>

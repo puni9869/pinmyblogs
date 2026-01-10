@@ -6,14 +6,15 @@ import {
 	ShareLinkInit,
 	BackToTopBtn,
 	AvatarToggle,
-	SearchTextToggle
+	SearchTextToggle,
+	UrlMenuToggle
 } from './home/index.js';
 
 import {DeleteAccountModelInit, DisableMyAccountInit, DownloadMyData} from './setting/index.js';
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
 	NavItemSelected();
-	SideNavCollapse();
+	await SideNavCollapse();
 	DeleteAccountModelInit();
 	DisableMyAccountInit();
 	AddNewWebLinkInit();
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	BackToTopBtn();
 	AvatarToggle();
 	SearchTextToggle();
+	UrlMenuToggle();
 	console.info('App is loaded');
 }, false);
 
