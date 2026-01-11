@@ -13,11 +13,11 @@
       </svg>
     </div>
     <!-- Title -->
-    <h3 class="text-base sm:text-lg text-gray-800">No results found...</h3>
+    <h3 class="text-base sm:text-lg text-gray-800 ">No results found...</h3>
     <!-- Search text -->
     {{ if .SearchQuery }}
     <p class="mt-2 text-sm text-gray-600">
-      <span class="inline-block max-w-[16rem] sm:max-w-[18rem] rounded-lg font-bold text-gray-800"
+      <span class="inline-block max-w-[16rem] sm:max-w-[18rem] rounded-lg font-bold text-gray-800  whitespace-normal break-words break-all"
             title="{{ .SearchQuery | html }}">{{ .SearchQuery | html }}</span>
     </p>
   {{ else }}

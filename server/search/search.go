@@ -37,7 +37,7 @@ func Search(c *gin.Context) {
 	p := pagination.Pagination[*models.Url]{Page: page, Limit: limit}
 	db := database.Db()
 	db.Scopes(pagination.Paginate(&models.Url{}, &p)).
-		Where("created_by = ? AND is_active = ?", email, true).
+		Where("created_by = ? AND is_active = ? AND is_deleted = ?", email, true, false).
 		Where("web_link LIKE ? OR title LIKE ?", "%"+q+"%", "%"+q+"%").
 		Order("created_at DESC").
 		Find(&p.Items)

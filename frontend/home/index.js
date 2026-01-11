@@ -121,22 +121,6 @@ async function AddNewLink(webLink, selectedTag) {
 	}
 }
 
-export function SelectAllCount() {
-	const selectAll = document.querySelector("#select-all-label");
-	if (!selectAll) {
-		return;
-	}
-
-	const checkBoxes = document.querySelectorAll('#row-selected-checkbox:checked');
-	selectAll.innerText = "Select all";
-	if (!checkBoxes?.length) {
-		document.querySelector("#url-menu").classList.add("hidden");
-		return;
-	}
-	selectAll.innerText = `${checkBoxes.length} selected`;
-	document.querySelector("#url-menu").classList.remove("hidden");
-}
-
 export function WebLinkActionsInit() {
 	document.addEventListener('click', async (e) => {
 		const action = e.target.closest('.action-btn');
@@ -337,7 +321,6 @@ export function SelectUrlRows() {
 	if (!rows.length) {
 		return;
 	}
-
 	rows.forEach(row => {
 		row.addEventListener("click", (e) => {
 			// If click happened inside actions → ignore row click
@@ -352,5 +335,90 @@ export function SelectUrlRows() {
 		});
 	});
 }
+
+export function SelectAllCount() {
+	const selectAll = document.querySelector("#select-all-label");
+	if (!selectAll) {
+		return;
+	}
+
+	const checkBoxes = document.querySelectorAll('#row-selected-checkbox:checked');
+	selectAll.innerText = "Select all";
+	if (!checkBoxes?.length) {
+		document.querySelector("#url-menu").classList.add("hidden");
+		return;
+	}
+	selectAll.innerText = `${checkBoxes.length} selected`;
+	document.querySelector("#url-menu").classList.remove("hidden");
+}
+
+async function bulkActionApi(data) {
+	const url = '/actions/bulk';
+	try {
+		const headers = new Headers();
+		headers.append('Content-Type', 'application/json');
+		const response = await fetch(url, {method: 'PATCH', headers: headers, body: JSON.stringify(data)});
+		if (!response.ok) {
+			throw new Error(`Response status: ${response.status}`);
+		}
+		const resp = await response.json();
+		if (resp?.Status === "OK") {
+			console.info(resp?.Message);
+			return true;
+		}
+	} catch (error) {
+		return false;
+	}
+}
+
+export function BulkAction() {
+	["bulk-delete", "bulk-archive", "bulk-favourite"].forEach((a) => {
+		const ele = document.querySelector(`#${a}`);
+		if (!ele) {
+			return;
+		}
+		ele.addEventListener("click", async () => {
+			const items = document.querySelectorAll('#row-selected-checkbox:checked');
+			const action = ele?.dataset?.action;
+			if (!items || !items.length || !action) {
+				return;
+			}
+			const ids = [];
+			items.forEach((item) => {
+				item?.dataset?.id && ids.push(item?.dataset?.id);
+			});
+			document.querySelectorAll("details[open]").forEach((details) => {
+				details.removeAttribute("open");
+			});
+			const resp = await bulkActionApi({ids, action});
+			if (resp) {
+				console.log("Bulk action resp", resp);
+				RefreshPage(window?.location.href);
+			}
+		});
+	});
+}
+
+export function SelectAllBtn() {
+	const btn = document.querySelector("#select-all-btn");
+	if (!btn) {
+		return;
+	}
+	btn.addEventListener("change", () => {
+		const rows = document.querySelectorAll("[data-select-id]");
+		alert(rows.length);
+		if (!rows) {
+			return;
+		}
+		rows.forEach(row => {
+			row.classList.add('bg-blue-50');
+			row.classList.add('bg-white');
+			const checkBox = row.querySelector("#row-selected-checkbox");
+			checkBox.checked = !checkBox.checked;
+		});
+		SelectAllCount();
+	})
+}
+
 
 

@@ -2,10 +2,8 @@ package home
 
 import (
 	"github.com/puni9869/pinmyblogs/pkg/spider"
-	"net/http"
-	"strconv"
-
 	"github.com/puni9869/pinmyblogs/pkg/utils"
+	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -174,61 +172,6 @@ func Trash(c *gin.Context) {
 		"Email":           email,
 		"SideNavCollapse": sideNavCollapse,
 	})
-}
-
-func Actions(c *gin.Context) {
-	log := logger.NewLogger()
-	var err error
-	session := sessions.Default(c)
-	currentlyLoggedIn := session.Get(middlewares.Userkey)
-
-	var requestBody map[string]string
-	err = c.ShouldBindJSON(&requestBody)
-	if err != nil {
-		log.WithError(err).Error("Bad request body")
-		c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Errors": "Bad values"})
-		return
-	}
-
-	u64, err := strconv.ParseUint(requestBody["id"], 10, 64)
-	if err != nil {
-		log.WithError(err).Error("Bad request body", u64)
-		c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Errors": "Bad values"})
-		return
-	}
-
-	var updates = make(map[string]any)
-
-	if val, ok := requestBody["isFav"]; ok {
-		value, err := strconv.ParseBool(val)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Errors": "Bad values"})
-			return
-		}
-		updates["IsFav"] = !value
-	}
-
-	if val, ok := requestBody["isArchived"]; ok {
-		value, err := strconv.ParseBool(val)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Errors": "Bad values"})
-			return
-		}
-		updates["IsArchived"] = !value
-	}
-
-	if val, ok := requestBody["isDeleted"]; ok {
-		value, err := strconv.ParseBool(val)
-		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"Status": "NOT_OK", "Errors": "Bad values"})
-		}
-		updates["IsDeleted"] = !value
-	}
-
-	db := database.Db()
-	db.Model(&models.Url{}).Where("id = ? and created_by = ? ", requestBody["id"], currentlyLoggedIn.(string)).Updates(updates)
-
-	c.JSON(http.StatusOK, gin.H{"Status": "OK", "Message": "Weblink updated."})
 }
 
 func Share(c *gin.Context) {

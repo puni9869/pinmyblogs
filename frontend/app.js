@@ -9,7 +9,9 @@ import {
 	SearchTextToggle,
 	UrlMenuToggle,
 	SelectUrlRows,
-	SelectAllCount
+	SelectAllCount,
+	BulkAction,
+	SelectAllBtn,
 } from './home/index.js';
 
 import {DeleteAccountModelInit, DisableMyAccountInit, DownloadMyData} from './setting/index.js';
@@ -28,7 +30,9 @@ document.addEventListener('DOMContentLoaded', async function () {
 	SearchTextToggle();
 	UrlMenuToggle();
 	SelectUrlRows();
-	SelectAllCount()
+	SelectAllCount();
+	BulkAction();
+	SelectAllBtn();
 	console.info('App is loaded');
 }, false);
 

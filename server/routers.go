@@ -51,8 +51,11 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.GET("/archived", home.Archived)
 		authRouters.GET("/trash", home.Trash)
 		authRouters.GET("/share/:id", home.Share)
+
 		authRouters.PUT("/actions", home.Actions)
-		authRouters.POST("/new", middlewares.Bind(forms.WeblinkRequest{}), home.AddWeblink)
+		authRouters.PATCH("/actions/bulk", middlewares.Bind(forms.BulkAction{}), home.BulkActions)
+
+		authRouters.PUT("/new", middlewares.Bind(forms.WeblinkRequest{}), home.AddWeblink)
 
 		//Search routes
 		authRouters.GET("/search", search.Search)
