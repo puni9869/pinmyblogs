@@ -8,7 +8,8 @@ import {
 	AvatarToggle,
 	SearchTextToggle,
 	UrlMenuToggle,
-	SelectUrlRows, SelectAllCount
+	SelectUrlRows,
+	SelectAllCount
 } from './home/index.js';
 
 import {DeleteAccountModelInit, DisableMyAccountInit, DownloadMyData} from './setting/index.js';
