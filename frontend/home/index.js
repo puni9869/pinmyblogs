@@ -406,7 +406,6 @@ export function SelectAllBtn() {
 	}
 	btn.addEventListener("change", () => {
 		const rows = document.querySelectorAll("[data-select-id]");
-		alert(rows.length);
 		if (!rows) {
 			return;
 		}
