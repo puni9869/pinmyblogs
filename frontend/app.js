@@ -7,7 +7,8 @@ import {
 	BackToTopBtn,
 	AvatarToggle,
 	SearchTextToggle,
-	UrlMenuToggle
+	UrlMenuToggle,
+	SelectUrlRows, SelectAllCount
 } from './home/index.js';
 
 import {DeleteAccountModelInit, DisableMyAccountInit, DownloadMyData} from './setting/index.js';
@@ -25,6 +26,8 @@ document.addEventListener('DOMContentLoaded', async function () {
 	AvatarToggle();
 	SearchTextToggle();
 	UrlMenuToggle();
+	SelectUrlRows();
+	SelectAllCount()
 	console.info('App is loaded');
 }, false);
 

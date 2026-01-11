@@ -144,7 +144,6 @@ func Archived(c *gin.Context) {
 		"Email":           email,
 		"SideNavCollapse": sideNavCollapse,
 	})
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{"HasError": false, "Pagination": p, "Email": email})
 }
 
 func Trash(c *gin.Context) {

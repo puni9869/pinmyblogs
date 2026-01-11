@@ -89,7 +89,6 @@ export function AddNewWebLinkInit() {
 		url.value = '';
 		RefreshPage('/');
 	});
-
 	CloseModal('#close-modal', linkModal);
 }
 
@@ -111,7 +110,6 @@ async function AddNewLink(webLink, selectedTag) {
 		const resp = await response.json();
 		if (resp?.Status === "OK") {
 			console.info(resp?.Message);
-			// RefreshPage();
 		}
 	} catch (error) {
 		const errEl = document.getElementById('weblink-err');
@@ -123,37 +121,73 @@ async function AddNewLink(webLink, selectedTag) {
 	}
 }
 
-export function WebLinkActionsInit() {
-	const actions = document.querySelector('#weblink-actions');
-	if (!actions) {
+export function SelectAllCount() {
+	const selectAll = document.querySelector("#select-all-label");
+	if (!selectAll) {
 		return;
 	}
 
-	document.querySelectorAll('#copy-weblink').forEach((elm) => {
-		elm.addEventListener('click', async (e) => {
-			const svg = elm.querySelector('svg');
-			const url = e.target.dataset?.url;
-			if (svg) {
-				svg.setAttribute('fill', 'black');
-				setTimeout(() => svg.setAttribute('fill', 'none'), 700);
-			}
-			url && await Copy(e.target.dataset.url);
-		});
-	});
+	const checkBoxes = document.querySelectorAll('#row-selected-checkbox:checked');
+	selectAll.innerText = "Select all";
+	if (!checkBoxes?.length) {
+		document.querySelector("#url-menu").classList.add("hidden");
+		return;
+	}
+	selectAll.innerText = `${checkBoxes.length} selected`;
+	document.querySelector("#url-menu").classList.remove("hidden");
+}
 
-	['#move-to-favourite', '#move-to-archive', '#move-to-trash'].forEach((actionSelector) => {
-		document.querySelectorAll(actionSelector).forEach((elm) => {
-			elm.addEventListener('click', async (e) => {
-				await WebLinkActions(e.target.dataset);
-				RefreshPage();
-			});
-		});
+export function WebLinkActionsInit() {
+	document.addEventListener('click', async (e) => {
+		const action = e.target.closest('.action-btn');
+		if (!action) return;
+
+		const {id, url, isFav, isArchived, isDeleted} = action.dataset;
+		/* COPY */
+		if (action.classList.contains('copy-weblink')) {
+			const svg = action.querySelector('svg');
+			svg?.setAttribute('fill', 'black');
+			setTimeout(() => svg?.setAttribute('fill', 'none'), 700);
+			url && await Copy(url);
+			return;
+		}
+		/* FAV / ARCHIVE / DELETE */
+		const res = await WebLinkActions({id, isFav, isArchived, isDeleted});
+		if (!res) {
+			return;
+		}
+		if (Object.keys(action?.dataset)?.includes("isFav")) {
+			const svg = action.querySelector('svg');
+			if (isFav === "true") {
+				svg?.setAttribute('fill', 'none');
+				action.classList.remove("bg-red-50");
+			} else {
+				svg?.setAttribute('fill', 'currentColor');
+				action.classList.add("bg-red-50");
+			}
+
+			const current = action.dataset["isFav"] === "true";
+			const next = !current;
+			action.dataset["isFav"] = next.toString();
+		}
+		const isArchivedOrDeleted = Object.keys(action?.dataset)?.includes("isArchived") || Object.keys(action?.dataset)?.includes("isDeleted")
+		if (isArchivedOrDeleted) {
+			const row = action.closest(".url-row");
+			if (!row) return;
+			// Lock current width (important for smooth animation)
+			row.style.width = row.offsetWidth + "px";
+			row.offsetHeight; // force reflow
+			// Animate
+			row.style.width = "0px";
+			row.style.opacity = "0";
+			// Remove after animation
+			setTimeout(() => row.remove(), 300);
+		}
+		SelectAllCount();
 	});
 }
 
-
 async function WebLinkActions(data) {
-	console.info("Action is called", data);
 	const url = '/actions';
 	try {
 		const headers = new Headers();
@@ -169,10 +203,11 @@ async function WebLinkActions(data) {
 		}
 		const resp = await response.json();
 		if (resp?.Status === "OK") {
-			console.info(resp?.Message);
+			return true;
 		}
 	} catch (error) {
 		console.error(error.message);
+		return false;
 	}
 }
 
@@ -293,6 +328,27 @@ export function UrlMenuToggle() {
 			if (!details.contains(e.target)) {
 				details.removeAttribute("open");
 			}
+		});
+	});
+}
+
+export function SelectUrlRows() {
+	const rows = document.querySelectorAll("[data-select-id]");
+	if (!rows.length) {
+		return;
+	}
+
+	rows.forEach(row => {
+		row.addEventListener("click", (e) => {
+			// If click happened inside actions → ignore row click
+			if (e.target.closest('#weblink-actions') || e.target.closest("#web-link")) {
+				return;
+			}
+			row.classList.toggle('bg-blue-50');
+			row.classList.toggle('bg-white');
+			const checkBox = row.querySelector("#row-selected-checkbox");
+			checkBox.checked = !checkBox.checked;
+			SelectAllCount();
 		});
 	});
 }

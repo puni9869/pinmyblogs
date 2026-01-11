@@ -1,22 +1,23 @@
 {{ define "widget/url_menu" }}
-<div class="z-40 max-w-xl mx-auto flex flex-col sm:flex-row sm:items-center gap-2 rounded-sm border border-gray-200 bg-white/90 backdrop-blur px-3 py-2 mb-2 shadow-sm hover:shadow-md transition-shadow">
+<div class=" sticky z-40 max-w-xl mx-auto flex flex-col sm:flex-row sm:items-center gap-2 rounded-sm border border-gray-200 bg-white/90 backdrop-blur px-3 py-2 mb-2 shadow-sm hover:shadow-md transition-shadow">
   <!-- Left: Select all + Actions -->
   <div class="flex items-center gap-3">
     <!-- Select all -->
     <div class="flex items-center gap-2">
       <input type="checkbox"
-             id="select_all"
+             id="select-all"
              class="peer h-3.5 w-3.5 cursor-pointer rounded border-gray-300 accent-indigo-600 focus:ring-1 focus:ring-indigo-500" />
-      <label for="select_all"
+      <label for="select-all" id="select-all-label"
              class="text-xs font-medium text-gray-700 cursor-pointer select-none peer-checked:text-indigo-600">
         Select all
       </label>
     </div>
-    <!-- Divider (desktop only) -->
-    <div class=" sm:block h-4 w-px bg-gray-200"></div>
+
     <!-- Actions -->
+  <div class=" sm:block h-4 w-px bg-gray-200"></div>
     <div class="relative">
-      <details class="group" id='url-menu'>
+      <details class="group hidden" id='url-menu'>
+
         <summary class="inline-flex items-center gap-1 rounded-md border border-gray-200 px-2 py-1 text-xs font-medium text-gray-700 bg-white cursor-pointer list-none hover:bg-gray-50 hover:border-gray-300 focus:outline-none focus:ring-1 focus:ring-indigo-500">
           Actions
           <svg class="h-3.5 w-3.5 transition-transform group-open:rotate-180"
