@@ -56,10 +56,7 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 		authRouters.PATCH("/actions/bulk", middlewares.Bind(forms.BulkAction{}), home.BulkActions)
 
 		authRouters.POST("/new", middlewares.Bind(forms.WeblinkRequest{}), home.AddWeblink)
-<<<<<<< HEAD
 
-=======
->>>>>>> 7e365c0408b3eac18fbfc26b407e2e91339b5b04
 		//Search routes
 		authRouters.GET("/search", search.Search)
 
