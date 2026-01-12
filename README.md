@@ -1,4 +1,3 @@
-#This is my fist project
 # 📌 pinmyblogs — Open-Source Blog Bookmarking & Read-Later App (Go)
 
 **pinmyblogs** is an open-source **blog bookmarking**, **read-later**, and **content organization** application built
