@@ -1,5 +1,6 @@
 # 📌 pinmyblogs — Open-Source Blog Bookmarking & Read-Later App (Go)
 
+First commit
 **pinmyblogs** is an open-source **blog bookmarking**, **read-later**, and **content organization** application built
 with **Go (Golang)**.
 
