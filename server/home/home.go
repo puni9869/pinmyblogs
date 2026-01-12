@@ -1,9 +1,10 @@
 package home
 
 import (
+	"net/http"
+
 	"github.com/puni9869/pinmyblogs/pkg/spider"
 	"github.com/puni9869/pinmyblogs/pkg/utils"
-	"net/http"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -76,7 +77,7 @@ func Home(c *gin.Context) {
 	// "SideNavCollapse": false  || get from user's settings
 	sideNavCollapse := sideNavPref.Value == "hide"
 	// p is pagination
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+	c.HTML(http.StatusOK, "home.html", gin.H{
 		"HasError":        false,
 		"Pagination":      p,
 		"Email":           email,
@@ -106,7 +107,7 @@ func Favourite(c *gin.Context) {
 	// "SideNavCollapse": false  || get from user's settings
 	sideNavCollapse := sideNavPref.Value == "hide"
 	// p is pagination
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+	c.HTML(http.StatusOK, "home.html", gin.H{
 		"HasError":        false,
 		"Pagination":      p,
 		"Email":           email,
@@ -136,7 +137,7 @@ func Archived(c *gin.Context) {
 	// "SideNavCollapse": false  || get from user's settings
 	sideNavCollapse := sideNavPref.Value == "hide"
 	// p is pagination
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+	c.HTML(http.StatusOK, "home.html", gin.H{
 		"HasError":        false,
 		"Pagination":      p,
 		"Email":           email,
@@ -166,7 +167,7 @@ func Trash(c *gin.Context) {
 	// "SideNavCollapse": false  || get from user's settings
 	sideNavCollapse := sideNavPref.Value == "hide"
 	// p is pagination
-	c.HTML(http.StatusOK, "home.tmpl", gin.H{
+	c.HTML(http.StatusOK, "home.html", gin.H{
 		"HasError":        false,
 		"Pagination":      p,
 		"Email":           email,
@@ -188,5 +189,5 @@ func Share(c *gin.Context) {
 		return
 	}
 	log.Info(url)
-	c.HTML(http.StatusOK, "share.tmpl", nil)
+	c.HTML(http.StatusOK, "share.html", nil)
 }

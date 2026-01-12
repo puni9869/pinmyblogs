@@ -113,7 +113,7 @@ func startAction(ctx *cli.Context) error {
 			"domainName":   tf.DomainName,
 			"asset":        tf.Asset(BuildVersion),
 			"avatar":       tf.AvatarInitials,
-		}).ParseFS(tmplFS, "**/*.tmpl"))
+		}).ParseFS(tmplFS, "**/*.html"))
 	r.SetHTMLTemplate(tmpl)
 
 	// --- Serve embedded static files ---

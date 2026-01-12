@@ -46,7 +46,7 @@ func Setting(c *gin.Context) {
 	log.Infof("getting sideNav prefs %s", sideNavPref.Value)
 	// "SideNavCollapse": false  || get from user's settings
 	tmplCtx["SideNavCollapse"] = sideNavPref.Value == "hide"
-	c.HTML(http.StatusOK, "setting.tmpl", tmplCtx)
+	c.HTML(http.StatusOK, "setting.html", tmplCtx)
 }
 
 func DownloadMyData(c *gin.Context) {

@@ -15,7 +15,7 @@ func UserPublicProfilePage(c *gin.Context) {
 	path := c.Request.URL.Path
 	// Only handle /@username
 	if !strings.HasPrefix(path, "/@") {
-		c.HTML(http.StatusNotFound, "404.tmpl", nil)
+		c.HTML(http.StatusNotFound, "404.html", nil)
 		return
 	}
 
@@ -24,13 +24,13 @@ func UserPublicProfilePage(c *gin.Context) {
 
 	user, err := fetchPublicUserByUsername(username)
 	if err != nil {
-		c.HTML(http.StatusNotFound, "404.tmpl", gin.H{
+		c.HTML(http.StatusNotFound, "404.html", gin.H{
 			"Username": username,
 		})
 		return
 	}
 
-	c.HTML(http.StatusOK, "profile_page.tmpl", gin.H{
+	c.HTML(http.StatusOK, "profile_page.html", gin.H{
 		"User":  user,
 		"Blogs": user.PublicBlogs,
 	})

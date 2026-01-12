@@ -20,7 +20,7 @@ import (
 )
 
 func ResetPasswordGet(c *gin.Context) {
-	c.HTML(http.StatusOK, "reset.tmpl", nil)
+	c.HTML(http.StatusOK, "reset.html", nil)
 }
 
 func ResetPasswordPost(c *gin.Context) {
@@ -31,7 +31,7 @@ func ResetPasswordPost(c *gin.Context) {
 			WithField("isEnableForgotPassword", config.C.Authentication.EnableForgotPassword).
 			Warn("Forgot Password is disabled globally.")
 
-		c.HTML(http.StatusOK, "reset.tmpl", gin.H{
+		c.HTML(http.StatusOK, "reset.html", gin.H{
 			"HasError": true,
 			"Error":    "Reset password is currently disable.",
 		})
@@ -45,7 +45,7 @@ func ResetPasswordPost(c *gin.Context) {
 
 	if ctx["Email_HasError"] == true {
 		log.WithField("email", email).Error("email id not found.")
-		c.HTML(http.StatusBadRequest, "reset.tmpl", gin.H{"Email": email, "HasError": true, "Error": "Email id not found."})
+		c.HTML(http.StatusBadRequest, "reset.html", gin.H{"Email": email, "HasError": true, "Error": "Email id not found."})
 		return
 	}
 
@@ -53,7 +53,7 @@ func ResetPasswordPost(c *gin.Context) {
 	result := database.Db().First(&user, "email = ?", email)
 	if result.Error != nil {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid email or password. Database error")
-		c.HTML(http.StatusBadRequest, "reset.tmpl", gin.H{"Email": email, "HasError": true, "Error": "Email id not found."})
+		c.HTML(http.StatusBadRequest, "reset.html", gin.H{"Email": email, "HasError": true, "Error": "Email id not found."})
 		c.Abort()
 		return
 	}
@@ -64,7 +64,7 @@ func ResetPasswordPost(c *gin.Context) {
 			"isActive":        user.IsActive,
 			"isEmailVerified": user.IsEmailVerified,
 		}).WithError(result.Error).Error("Account is disabled.")
-		c.HTML(http.StatusUnauthorized, "reset.tmpl", gin.H{"HasError": true, "Error": "Account is disabled."})
+		c.HTML(http.StatusUnauthorized, "reset.html", gin.H{"HasError": true, "Error": "Account is disabled."})
 		c.Abort()
 		return
 	}
@@ -95,7 +95,7 @@ func ResetPasswordSentGet(c *gin.Context) {
 		c.Abort()
 	}
 
-	c.HTML(http.StatusOK, "reset_password_sent.tmpl", gin.H{"Email": email})
+	c.HTML(http.StatusOK, "reset_password_sent.html", gin.H{"Email": email})
 }
 
 func ResetPasswordSetGet(c *gin.Context) {
@@ -103,7 +103,7 @@ func ResetPasswordSetGet(c *gin.Context) {
 
 	hash := c.Param("hash")
 	log.Info(hash)
-	c.HTML(http.StatusOK, "reset_password_set.tmpl", gin.H{"hash": hash})
+	c.HTML(http.StatusOK, "reset_password_set.html", gin.H{"hash": hash})
 }
 
 func ResetPasswordSetPost(c *gin.Context) {
@@ -115,7 +115,7 @@ func ResetPasswordSetPost(c *gin.Context) {
 
 	// Helper to show invalid/expired message
 	renderInvalidLink := func() {
-		c.HTML(http.StatusOK, "reset_password_message.tmpl",
+		c.HTML(http.StatusOK, "reset_password_message.html",
 			gin.H{"Message": "This link is expired or invalid."},
 		)
 	}
@@ -166,7 +166,7 @@ func ResetPasswordSetPost(c *gin.Context) {
 
 	// Stop if validation failed
 	if ctx["HasError"] == true {
-		c.HTML(http.StatusOK, "reset_password_set.tmpl", ctx)
+		c.HTML(http.StatusOK, "reset_password_set.html", ctx)
 		return
 	}
 
@@ -179,7 +179,7 @@ func ResetPasswordSetPost(c *gin.Context) {
 		log.WithField("email", user.Email).
 			Error(errMsg)
 
-		c.HTML(http.StatusOK, "reset_password_set.tmpl", ctx)
+		c.HTML(http.StatusOK, "reset_password_set.html", ctx)
 		return
 	}
 
@@ -208,7 +208,7 @@ func ResetPasswordSetPost(c *gin.Context) {
 		"id":   user.ID,
 	}).Info("password has been reset")
 
-	c.HTML(http.StatusOK, "reset_password_message.tmpl",
+	c.HTML(http.StatusOK, "reset_password_message.html",
 		gin.H{"Message": "Password has been reset."},
 	)
 }
