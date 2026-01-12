@@ -1,15 +1,14 @@
 {{ define "widget/no_search_data" }}
 <div class="flex min-h-[18rem] sm:min-h-[22rem] items-center justify-center px-4">
-  <div class="flex w-full max-w-sm flex-col items-center rounded-3xl bg-gradient-to-br from-indigo-50 to-indigo-100 px-6 py-8 sm:p-10 shadow-lg border border-indigo-200 text-center">
+  <div
+    class="flex w-full max-w-sm flex-col items-center rounded-3xl bg-gradient-to-br from-indigo-50 to-indigo-100 px-6 py-8 sm:p-10 shadow-lg border border-indigo-200 text-center">
     <!-- Icon -->
-    <div class="mb-5 sm:mb-6 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-white shadow-md">
-      <svg xmlns="http://www.w3.org/2000/svg"
-           fill="none"
-           viewBox="0 0 24 24"
-           stroke-width="1.5"
-           stroke="currentColor"
-           class="h-7 w-7 sm:h-8 sm:w-8 text-indigo-500 animate-bounce">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+    <div
+      class="mb-5 sm:mb-6 flex h-14 w-14 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-white shadow-md">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="h-7 w-7 sm:h-8 sm:w-8 text-indigo-500 animate-bounce">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
       </svg>
     </div>
     <!-- Title -->
@@ -17,10 +16,11 @@
     <!-- Search text -->
     {{ if .SearchQuery }}
     <p class="mt-2 text-sm text-gray-600">
-      <span class="inline-block max-w-[16rem] sm:max-w-[18rem] rounded-lg font-bold text-gray-800  whitespace-normal break-words break-all"
-            title="{{ .SearchQuery | html }}">{{ .SearchQuery | html }}</span>
+      <span
+        class="inline-block max-w-[16rem] sm:max-w-[18rem] rounded-lg font-bold text-gray-800  whitespace-normal break-words break-all"
+        title="{{ .SearchQuery | html }}">{{ .SearchQuery | html }}</span>
     </p>
-  {{ else }}
+    {{ else }}
     <p class="mt-2 text-sm text-gray-500">Try searching with different keywords</p>
     {{ end }}
     <!-- CTA Buttons -->

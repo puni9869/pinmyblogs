@@ -1,13 +1,9 @@
 {{ define "widget/add_link" }}
 <div class="relative group w-full sm:w-auto flex justify-end">
   <button id="add-weblink"
-          class="flex flex-row items-center h-10 gap-2 rounded-full px-5 py-2 text-sm sm:text-base font-medium text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none transition active:scale-95 whitespace-nowrap">
+    class="flex flex-row items-center h-10 gap-2 rounded-full px-5 py-2 text-sm sm:text-base font-medium text-white bg-indigo-500 hover:bg-indigo-600 focus:outline-none transition active:scale-95 whitespace-nowrap">
     <!-- Plus icon -->
-    <svg xmlns="http://www.w3.org/2000/svg"
-         class="h-4 w-4"
-         fill="none"
-         viewBox="0 0 24 24"
-         stroke="currentColor">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15" />
     </svg>
     <!-- INLINE TEXT -->
@@ -16,30 +12,21 @@
 </div>
 <!-- Modal Background -->
 <div id="add-weblink-modal"
-     class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-sm flex justify-center items-start pt-10 sm:pt-16">
+  class="fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-sm flex justify-center items-start pt-10 sm:pt-16">
   <!-- Modal Content -->
   <div class="relative w-full max-w-md mx-4 rounded-xl bg-white p-6 sm:p-7 md:p-8 shadow-xl">
     <!-- Close Button -->
     <button id="close-modal"
-            class="absolute top-4 right-4 rounded-full p-1 text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition">
-      <svg xmlns="http://www.w3.org/2000/svg"
-           class="h-4 w-4"
-           fill="none"
-           viewBox="0 0 24 24"
-           stroke="currentColor">
+      class="absolute top-4 right-4 rounded-full p-1 text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
     <!-- Title -->
     <h2 class="text-base sm:text-lg font-semibold text-gray-900 mb-4">Add Link</h2>
     <!-- Input Box -->
-    <input autocomplete="on"
-           required
-           autofocus
-           id="add-weblink-input-box"
-           type="text"
-           placeholder="Enter link"
-           class="w-full rounded-lg border px-3 py-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+    <input autocomplete="on" required autofocus id="add-weblink-input-box" type="text" placeholder="Enter link"
+      class="w-full rounded-lg border px-3 py-2 mb-3 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
     <!-- Error -->
     <p id="weblink-err" class="hidden text-sm text-red-600 mb-3"></p>
     <!-- Colors + Button Row -->
@@ -49,43 +36,48 @@
         <li>
           <label class="cursor-pointer">
             <input id="tag" type="radio" name="tag" value="black" class="peer hidden" />
-            <span class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
-                  style="background:#222"></span>
+            <span
+              class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
+              style="background:#222"></span>
           </label>
         </li>
         <li>
           <label class="cursor-pointer">
             <input id="tag" type="radio" name="tag" value="yellow" class="peer hidden" />
-            <span class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
-                  style="background:#ffde21"></span>
+            <span
+              class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
+              style="background:#ffde21"></span>
           </label>
         </li>
         <li>
           <label class="cursor-pointer">
             <input id="tag" type="radio" name="tag" value="red" class="peer hidden" />
-            <span class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
-                  style="background:#ffa896"></span>
+            <span
+              class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
+              style="background:#ffa896"></span>
           </label>
         </li>
         <li>
           <label class="cursor-pointer">
             <input id="tag" type="radio" name="tag" value="blue" class="peer hidden" />
-            <span class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
-                  style="background:#6e8cd5"></span>
+            <span
+              class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
+              style="background:#6e8cd5"></span>
           </label>
         </li>
         <li>
           <label class="cursor-pointer">
             <input id="tag" type="radio" name="tag" value="green" class="peer hidden" />
-            <span class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
-                  style="background:#44c28d"></span>
+            <span
+              class="block h-6 w-6 rounded-full border border-gray-300 peer-checked:ring-2 peer-checked:ring-indigo-500"
+              style="background:#44c28d"></span>
           </label>
         </li>
       </ul>
       <!-- Add Button -->
       <div class="flex flex-1 justify-end">
         <button id="add-link-btn"
-                class="rounded-full bg-indigo-500 px-5 py-2 text-sm font-medium text-white hover:bg-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-400">
+          class="rounded-full bg-indigo-500 px-5 py-2 text-sm font-medium text-white hover:bg-indigo-600 transition focus:outline-none focus:ring-2 focus:ring-indigo-400">
           Add Link
         </button>
       </div>

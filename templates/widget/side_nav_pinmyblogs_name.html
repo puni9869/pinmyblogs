@@ -1,22 +1,21 @@
 {{ define "widget/side_nav_pinmyblogs_name" }}
 <a href="/" class="group block select-none" aria-label="PinMyBlogs Home">
-  <svg viewBox="0 0 225 64"
-       xmlns="http://www.w3.org/2000/svg"
-       class="w-full h-auto">
+  <svg viewBox="0 0 225 64" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
     <defs>
-    <!-- Softer premium gradient -->
-    <linearGradient id="pinmyblogsGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-    <stop offset="0%" stop-color="#6366F1" />
-    <stop offset="100%" stop-color="#4338CA" />
-    </linearGradient>
-    <!-- Subtle shadow for depth -->
-    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
-    <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#6366F1" flood-opacity="0.12" />
-    </filter>
+      <!-- Softer premium gradient -->
+      <linearGradient id="pinmyblogsGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#6366F1" />
+        <stop offset="100%" stop-color="#4338CA" />
+      </linearGradient>
+      <!-- Subtle shadow for depth -->
+      <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="1" stdDeviation="1.2" flood-color="#6366F1" flood-opacity="0.12" />
+      </filter>
     </defs>
     <!-- Brand text -->
-    <text x="10%" y="70%" font-family="'Pacifico', cursive" font-size="34" fill="url(#pinmyblogsGradient)" letter-spacing="0.4" filter="url(#softShadow)">
-    pinmyblogs
+    <text x="10%" y="70%" font-family="'Pacifico', cursive" font-size="34" fill="url(#pinmyblogsGradient)"
+      letter-spacing="0.4" filter="url(#softShadow)">
+      pinmyblogs
     </text>
   </svg>
 </a>

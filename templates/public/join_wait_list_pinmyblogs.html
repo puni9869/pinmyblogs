@@ -1,4 +1,5 @@
 {{ template "layout/base" . }}
+
 <body class="bg-[#2167DE] min-h-screen flex flex-col px-6 py-7 lg:px-8">
   <!-- Logo -->
   <header class="flex justify-center mb-6">
@@ -9,16 +10,19 @@
     <section class="w-full max-w-sm sm:max-w-md md:max-w-lg">
       <!-- SEO H1 -->
       <h1 class="sr-only">PinMyBlogs – Save and Organize Your Favorite Blogs</h1>
-      <article class="group border border-white/20 rounded-3xl p-6 sm:p-8 md:p-10 text-white text-center backdrop-blur-md hover:border-white transition-all duration-300 shadow-lg">
+      <article
+        class="group border border-white/20 rounded-3xl p-6 sm:p-8 md:p-10 text-white text-center backdrop-blur-md hover:border-white transition-all duration-300 shadow-lg">
         <!-- Header -->
         <header class="flex flex-col items-center mb-6">
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold underline underline-offset-6 mb-3 drop-shadow-md">
+          <h2
+            class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold underline underline-offset-6 mb-3 drop-shadow-md">
             PinMyBlogs
           </h2>
-          <span class="inline-flex w-fit items-center justify-center px-4 py-1.5 text-xs sm:text-sm rounded-full bg-white text-blue-600 font-semibold whitespace-nowrap shadow-md">
+          <span
+            class="inline-flex w-fit items-center justify-center px-4 py-1.5 text-xs sm:text-sm rounded-full bg-white text-blue-600 font-semibold whitespace-nowrap shadow-md">
             {{ if .email }}
             Waitlist joined
-          {{ else }}
+            {{ else }}
             Join waitlist
             {{ end }}
           </span>
@@ -30,17 +34,12 @@
         </p>
         {{ if not .email }}
         <!-- Form -->
-        <form method="post"
-              action="/start"
-              class="flex flex-col sm:flex-row gap-3 justify-center items-center"
-              aria-label="Join waitlist">
-          <input name="email"
-                 type="email"
-                 required
-                 placeholder="you@example.com"
-                 class="w-full sm:flex-1 px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/70 ring-1 ring-white/40 focus:ring-2 focus:ring-white/80 focus:outline-none transition-all duration-200 backdrop-blur-sm" />
+        <form method="post" action="/start" class="flex flex-col sm:flex-row gap-3 justify-center items-center"
+          aria-label="Join waitlist">
+          <input name="email" type="email" required placeholder="you@example.com"
+            class="w-full sm:flex-1 px-4 py-3 rounded-xl bg-white/20 text-white placeholder-white/70 ring-1 ring-white/40 focus:ring-2 focus:ring-white/80 focus:outline-none transition-all duration-200 backdrop-blur-sm" />
           <button type="submit"
-                  class="px-6 py-3 rounded-xl bg-white text-blue-600 font-semibold hover:bg-white/90 shadow-lg transition-all duration-200">
+            class="px-6 py-3 rounded-xl bg-white text-blue-600 font-semibold hover:bg-white/90 shadow-lg transition-all duration-200">
             Join
           </button>
         </form>

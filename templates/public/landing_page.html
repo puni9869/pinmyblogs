@@ -1,10 +1,10 @@
 {{ template "layout/base" . }}
+
 <body class="bg-gradient-to-b from-white via-slate-50 to-white text-slate-900 font-sans flex flex-col min-h-screen">
   <!-- Hero Section -->
   <div class="flex justify-end p-4">
-    <a href="https://chromewebstore.google.com/detail/pinmyblogscom/kbaljigapbggohllflnnklhclnbheaaj"
-       target="_blank"
-       class="inline-flex items-center gap-2 rounded-full px-6 py-2 text-sm sm:text-base font-semibold bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 transition active:scale-95">
+    <a href="https://chromewebstore.google.com/detail/pinmyblogscom/kbaljigapbggohllflnnklhclnbheaaj" target="_blank"
+      class="inline-flex items-center gap-2 rounded-full px-6 py-2 text-sm sm:text-base font-semibold bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 transition active:scale-95">
       <img src='{{ asset "icons/chrome.svg" }}' alt="Chrome" class="h-5 w-5" />
       Add to Chrome
     </a>
@@ -29,11 +29,11 @@
         <!-- Signup / Login -->
         <div class="flex flex-wrap justify-center gap-4">
           <a href="/signup"
-             class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm sm:text-base font-semibold bg-indigo-900 text-white shadow-lg transition active:scale-95">
+            class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm sm:text-base font-semibold bg-indigo-900 text-white shadow-lg transition active:scale-95">
             Get started free
           </a>
           <a href="/login"
-             class="inline-flex items-center justify-center shadow-lg rounded-full px-7 py-3 text-sm sm:text-base font-medium text-white border bg-emerald-500 hover:bg-emerald-600 transition active:scale-95">
+            class="inline-flex items-center justify-center shadow-lg rounded-full px-7 py-3 text-sm sm:text-base font-medium text-white border bg-emerald-500 hover:bg-emerald-600 transition active:scale-95">
             Sign in
           </a>
         </div>
@@ -50,10 +50,8 @@
           · All rights reserved
         </p>
         <nav class="flex items-center gap-6 text-sm">
-          <a href="/policies"
-             class="text-slate-500 hover:text-slate-900 transition">Privacy</a>
-          <a href="/support"
-             class="text-slate-500 hover:text-slate-900 transition">Support</a>
+          <a href="/policies" class="text-slate-500 hover:text-slate-900 transition">Privacy</a>
+          <a href="/support" class="text-slate-500 hover:text-slate-900 transition">Support</a>
         </nav>
       </div>
     </div>
