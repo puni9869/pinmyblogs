@@ -24,7 +24,7 @@ func JoinWaitListPost(c *gin.Context) {
 			WithError(errors.New(ctx["Email_Error"].(string))).
 			Error("bad email from join wait list page.")
 
-		c.HTML(http.StatusBadRequest, "join_wait_list_pinmyblogs.tmpl", ctx)
+		c.HTML(http.StatusBadRequest, "join_wait_list_pinmyblogs.html", ctx)
 		return
 	}
 
@@ -34,13 +34,13 @@ func JoinWaitListPost(c *gin.Context) {
 		log.WithFields(map[string]any{
 			"email": j.Email, "app": j.App,
 		}).WithError(err).Error("failed to save user into wait list")
-		c.HTML(http.StatusBadRequest, "join_wait_list_pinmyblogs.tmpl", ctx)
+		c.HTML(http.StatusBadRequest, "join_wait_list_pinmyblogs.html", ctx)
 		return
 	}
 	log.Infof("%s has joined the wait list", email)
-	c.HTML(http.StatusAccepted, "join_wait_list_pinmyblogs.tmpl", ctx)
+	c.HTML(http.StatusAccepted, "join_wait_list_pinmyblogs.html", ctx)
 }
 
 func JoinWaitListGet(c *gin.Context) {
-	c.HTML(http.StatusOK, "join_wait_list_pinmyblogs.tmpl", nil)
+	c.HTML(http.StatusOK, "join_wait_list_pinmyblogs.html", nil)
 }

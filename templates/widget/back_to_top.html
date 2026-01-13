@@ -1,0 +1,11 @@
+{{ define "widget/back_to_top" }}
+<div data-pagination>
+  <button id="backToTop" type="button" aria-label="Back to top"
+    class="fixed z-50 h-10 w-10 sm:h-11 sm:w-11 rounded-[var(--radius)] bg-[var(--brand)] text-white shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:brightness-110 active:scale-95 bottom-10 right-4 sm:bottom-10 sm:right-6">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 sm:h-5 sm:w-5 mx-auto" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+  </button>
+</div>
+{{ end }}

@@ -19,7 +19,7 @@ import (
 )
 
 func DeleteMyAccount(c *gin.Context) {
-	c.HTML(http.StatusOK, "settings_page.tmpl", nil)
+	c.HTML(http.StatusOK, "settings_page.html", nil)
 }
 
 func DisableMyAccount(c *gin.Context) {
@@ -63,7 +63,7 @@ func EnableMyAccount(c *gin.Context) {
 
 	hash := c.Param("hash")
 	if hash == "" {
-		c.HTML(http.StatusOK, "account_message.tmpl",
+		c.HTML(http.StatusOK, "account_message.html",
 			gin.H{"Message": "Invalid or expired link."},
 		)
 		return
@@ -74,7 +74,7 @@ func EnableMyAccount(c *gin.Context) {
 		log.WithField("hash", hash).
 			Warn("invalid UUID in enable account link")
 
-		c.HTML(http.StatusOK, "account_message.tmpl",
+		c.HTML(http.StatusOK, "account_message.html",
 			gin.H{"Message": "Invalid or expired link."},
 		)
 		return
@@ -92,7 +92,7 @@ func EnableMyAccount(c *gin.Context) {
 				Error("database error while enabling account")
 		}
 
-		c.HTML(http.StatusOK, "account_message.tmpl",
+		c.HTML(http.StatusOK, "account_message.html",
 			gin.H{"Message": "This link is invalid or has already been used."},
 		)
 		return
@@ -100,7 +100,7 @@ func EnableMyAccount(c *gin.Context) {
 
 	// Already enabled safeguard
 	if user.IsActive {
-		c.HTML(http.StatusOK, "account_message.tmpl",
+		c.HTML(http.StatusOK, "account_message.html",
 			gin.H{"Message": "Your account is already active."},
 		)
 		return
@@ -122,7 +122,7 @@ func EnableMyAccount(c *gin.Context) {
 		}).WithError(err).
 			Error("failed to enable account")
 
-		c.HTML(http.StatusOK, "account_message.tmpl",
+		c.HTML(http.StatusOK, "account_message.html",
 			gin.H{"Message": "Something went wrong. Please try again."},
 		)
 		return
@@ -133,7 +133,7 @@ func EnableMyAccount(c *gin.Context) {
 		"id":   user.ID,
 	}).Info("account successfully enabled")
 
-	c.HTML(http.StatusOK, "account_message.tmpl",
+	c.HTML(http.StatusOK, "account_message.html",
 		gin.H{"Message": "Your account has been successfully enabled. You can now log in."},
 	)
 }

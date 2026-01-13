@@ -26,7 +26,7 @@ func LoginPost(c *gin.Context) {
 			"enableLoginFlag": config.C.Authentication.EnableLogin,
 			"email":           email,
 		}).Error("Login service is globally disabled.")
-		c.HTML(http.StatusForbidden, "login.tmpl",
+		c.HTML(http.StatusForbidden, "login.html",
 			gin.H{"HasError": true, "Error": "Account's login is currently disabled. We are working on it."},
 		)
 		c.Abort()
@@ -35,7 +35,7 @@ func LoginPost(c *gin.Context) {
 
 	if email == "" || password == "" || !utils.ValidateEmail(email) {
 		log.WithField("email", email).Error("Empty password or email. Or email address is not valid.")
-		c.HTML(http.StatusBadRequest, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password."})
+		c.HTML(http.StatusBadRequest, "login.html", gin.H{"HasError": true, "Error": "Invalid email or password."})
 		c.Abort()
 	}
 
@@ -43,7 +43,7 @@ func LoginPost(c *gin.Context) {
 	result := database.Db().First(&user, "email = ?", email)
 	if result.Error != nil {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid email or password. Database error")
-		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account not found."})
+		c.HTML(http.StatusUnauthorized, "login.html", gin.H{"HasError": true, "Error": "Account not found."})
 		c.Abort()
 		return
 	}
@@ -60,7 +60,7 @@ func LoginPost(c *gin.Context) {
 			m := mailer.NewAccountService(*user, action)
 			go m.Send()
 
-			c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is disabled. Please check your email."})
+			c.HTML(http.StatusUnauthorized, "login.html", gin.H{"HasError": true, "Error": "Account is disabled. Please check your email."})
 			c.Abort()
 			return
 		}
@@ -72,14 +72,14 @@ func LoginPost(c *gin.Context) {
 			"isActive":        user.IsActive,
 			"isEmailVerified": user.EmailVerifyHash,
 		}).WithError(result.Error).Error("Account is not verified.")
-		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Account is not verified. Please check your email."})
+		c.HTML(http.StatusUnauthorized, "login.html", gin.H{"HasError": true, "Error": "Account is not verified. Please check your email."})
 		c.Abort()
 		return
 	}
 
 	if err := utils.CompareBCrypt(user.Password, password); err != nil {
 		log.WithField("email", email).WithError(result.Error).Error("Invalid password.")
-		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password"})
+		c.HTML(http.StatusUnauthorized, "login.html", gin.H{"HasError": true, "Error": "Invalid email or password"})
 		c.Abort()
 		return
 	}
@@ -95,7 +95,7 @@ func LoginPost(c *gin.Context) {
 
 		if err := session.Save(); err != nil {
 			log.WithField("email", email).WithError(result.Error).Error("Unable to save session.")
-			c.HTML(http.StatusInternalServerError, "login.tmpl", gin.H{"HasError": true, "Error": "Something went wrong. We are working on it."})
+			c.HTML(http.StatusInternalServerError, "login.html", gin.H{"HasError": true, "Error": "Something went wrong. We are working on it."})
 			c.Abort()
 		}
 
@@ -115,7 +115,7 @@ func LoginGet(c *gin.Context) {
 	currentlyLoggedIn := session.Get(Userkey)
 
 	if currentlyLoggedIn == nil || len(currentlyLoggedIn.(string)) == 0 {
-		c.HTML(http.StatusOK, "login.tmpl", nil)
+		c.HTML(http.StatusOK, "login.html", nil)
 		c.Abort()
 		return
 	}
@@ -123,7 +123,7 @@ func LoginGet(c *gin.Context) {
 	result := database.Db().First(&user, "email = ?", currentlyLoggedIn)
 	if result.Error != nil {
 		log.WithField("email", currentlyLoggedIn).WithError(result.Error).Error("User not found in database. Database error")
-		c.HTML(http.StatusUnauthorized, "login.tmpl", gin.H{"HasError": true, "Error": "Invalid email or password"})
+		c.HTML(http.StatusUnauthorized, "login.html", gin.H{"HasError": true, "Error": "Invalid email or password"})
 		c.Abort()
 		return
 	}
@@ -162,7 +162,7 @@ func Logout(c *gin.Context) {
 
 		if err := session.Save(); err != nil {
 			log.WithError(err).Error("Unable to delete the session.")
-			c.HTML(http.StatusInternalServerError, "login.tmpl", gin.H{"HasError": true, "Error": "Something went wrong. We are working on it."})
+			c.HTML(http.StatusInternalServerError, "login.html", gin.H{"HasError": true, "Error": "Something went wrong. We are working on it."})
 			c.Abort()
 		}
 	}

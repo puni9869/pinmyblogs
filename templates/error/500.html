@@ -1,0 +1,12 @@
+{{ template "layout/base" . }}
+<span class="flex h-screen w-full items-center justify-center text-center bg-gray-100 px-4">
+  <div class="bg-white px-6 py-8 sm:px-10 sm:py-12 rounded-lg shadow-lg max-w-xl w-full">
+    <h1 class="text-xl sm:text-2xl font-bold uppercase tracking-widest text-red-500 mb-4">500 | something went wrong
+    </h1>
+    <p class="text-gray-700 mb-6">The server encountered an internal error.</p>
+    <a href="/start" class="inline-block px-6 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition">Go
+      Back</a>
+  </div>
+</span>
+{{ template "widget/public_footer" . }}
+{{ template "footer" . }}

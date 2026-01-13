@@ -15,19 +15,19 @@ var (
 )
 
 func LandingPageGet(c *gin.Context) {
-	c.HTML(http.StatusOK, "landing_page.tmpl", nil)
+	c.HTML(http.StatusOK, "landing_page.html", nil)
 }
 
 func PrivacyPolicyGet(c *gin.Context) {
 	c.Header("Cache-Control", "public, max-age=31536000, immutable")
 	c.Header("ETag", faviconETag)
-	c.HTML(http.StatusOK, "privacy_policy.tmpl", nil)
+	c.HTML(http.StatusOK, "privacy_policy.html", nil)
 }
 
 func SupportGet(c *gin.Context) {
 	c.Header("Cache-Control", "public, max-age=31536000, immutable")
 	c.Header("ETag", faviconETag)
-	c.HTML(http.StatusOK, "support.tmpl", nil)
+	c.HTML(http.StatusOK, "support.html", nil)
 }
 
 func FavIcon(c *gin.Context) {
@@ -54,11 +54,11 @@ func FavIcon(c *gin.Context) {
 }
 
 func Route404(c *gin.Context) {
-	c.HTML(http.StatusNotFound, "404.tmpl", nil)
+	c.HTML(http.StatusNotFound, "404.html", nil)
 }
 
 func Route500(c *gin.Context) {
-	c.HTML(http.StatusInternalServerError, "500.tmpl", nil)
+	c.HTML(http.StatusInternalServerError, "500.html", nil)
 }
 
 func Health(c *gin.Context) {
@@ -72,5 +72,5 @@ func ServiceWorker(c *gin.Context) {
 }
 
 func OfflinePage(c *gin.Context) {
-	c.HTML(http.StatusOK, "offline_page.tmpl", nil)
+	c.HTML(http.StatusOK, "offline_page.html", nil)
 }

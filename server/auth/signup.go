@@ -14,10 +14,10 @@ import (
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
 
-// SignupGet is renders the signup.tmpl
+// SignupGet is renders the signup.html
 // c is gin.Context
 func SignupGet(c *gin.Context) {
-	c.HTML(http.StatusOK, "signup.tmpl", nil)
+	c.HTML(http.StatusOK, "signup.html", nil)
 }
 
 // SignupPost is a handler for handling registrations of new user
@@ -30,7 +30,7 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 				WithField("isEnableRegistration", config.C.Authentication.EnableRegistration).
 				Warn("User registration is disabled globally.")
 
-			c.HTML(http.StatusOK, "signup.tmpl", gin.H{
+			c.HTML(http.StatusOK, "signup.html", gin.H{
 				"HasError": true,
 				"Error":    "New account's registration is currently disabled.",
 			})
@@ -86,6 +86,6 @@ func SignupPost(signUp signup.Service) gin.HandlerFunc {
 				log.WithError(err).Error("error in registering user")
 			}
 		}
-		c.HTML(http.StatusOK, "signup.tmpl", ctx)
+		c.HTML(http.StatusOK, "signup.html", ctx)
 	}
 }

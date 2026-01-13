@@ -56,5 +56,5 @@ func Search(c *gin.Context) {
 	// "SideNavCollapse": false  || get from user's settings
 	sideNavCollapse := sideNavPref.Value == "hide"
 	// p is pagination
-	c.HTML(http.StatusOK, "search.tmpl", gin.H{"HasError": false, "Pagination": p, "SearchQuery": q, "Email": email, "SideNavCollapse": sideNavCollapse})
+	c.HTML(http.StatusOK, "search.html", gin.H{"HasError": false, "Pagination": p, "SearchQuery": q, "Email": email, "SideNavCollapse": sideNavCollapse})
 }

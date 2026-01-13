@@ -1,0 +1,60 @@
+{{ template "layout/base" . }}
+
+<body class="bg-gradient-to-b from-white via-slate-50 to-white text-slate-900 font-sans flex flex-col min-h-screen">
+  <!-- Hero Section -->
+  <div class="flex justify-end p-4">
+    <a href="https://chromewebstore.google.com/detail/pinmyblogscom/kbaljigapbggohllflnnklhclnbheaaj" target="_blank"
+      class="inline-flex items-center gap-2 rounded-full px-6 py-2 text-sm sm:text-base font-semibold bg-slate-900 text-white hover:bg-slate-800 hover:shadow-lg hover:shadow-slate-900/20 transition active:scale-95">
+      <img src='{{ asset "icons/chrome.svg" }}' alt="Chrome" class="h-5 w-5" />
+      Add to Chrome
+    </a>
+  </div>
+  <section class="flex-1 flex items-center justify-center px-4 md:px-0">
+    <div class="text-center max-w-xl mx-auto md:py-5">
+      <!-- Logo -->
+      <div class="flex justify-center mb-10">{{ template "widget/pinmyblogs_name" . }}</div>
+      <!-- Headline -->
+      <h1 class="font-serif text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-tight">
+        Save.
+        <span class="text-indigo-600">Organize.</span>
+        Publish.
+      </h1>
+      <!-- Subtext -->
+      <p class="mt-5 text-lg md:text-xl text-slate-600 max-w-xl mx-auto">
+        A calm, personal workspace to bookmark blogs, collect ideas,
+        and publish when you’re ready.
+      </p>
+      <!-- CTA -->
+      <div class="mt-10 flex flex-col items-center gap-6 mb-10">
+        <!-- Signup / Login -->
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/signup"
+            class="inline-flex items-center justify-center rounded-full px-7 py-3 text-sm sm:text-base font-semibold bg-indigo-900 text-white shadow-lg transition active:scale-95">
+            Get started free
+          </a>
+          <a href="/login"
+            class="inline-flex items-center justify-center shadow-lg rounded-full px-7 py-3 text-sm sm:text-base font-medium text-white border bg-emerald-500 hover:bg-emerald-600 transition active:scale-95">
+            Sign in
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 bg-white">
+    <div class="max-w-4xl mx-auto px-4 py-4">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-slate-500">
+          © 2017–2025
+          <span class="font-medium text-slate-800">pinmyblogs.com</span>
+          · All rights reserved
+        </p>
+        <nav class="flex items-center gap-6 text-sm">
+          <a href="/policies" class="text-slate-500 hover:text-slate-900 transition">Privacy</a>
+          <a href="/support" class="text-slate-500 hover:text-slate-900 transition">Support</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+</body>
+{{ template "footer" . }}
