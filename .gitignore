@@ -29,3 +29,6 @@ data.dat*
 .DS_Store/*
 config
 *.zip
+
+pinmyblogs.db
+*/.DS_Store

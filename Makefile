@@ -8,8 +8,8 @@ CONFIG_DIR=config
 .PHONY: generate-config
 generate-config:
 	mkdir $(CONFIG_DIR)
-	mv sample_config/sample_local.json $(CONFIG_DIR)/local.json
-	mv sample_config/sample_prod.json $(CONFIG_DIR)/prod.json
+	cp sample_config/sample_local.json $(CONFIG_DIR)/local.json
+	cp sample_config/sample_prod.json $(CONFIG_DIR)/prod.json
 
 
 .PHONY: build

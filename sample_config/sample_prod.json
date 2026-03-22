@@ -1,0 +1,33 @@
+{
+  "enableSSL": true,
+  "shareDataOverMail": false,
+  "appConfig": {
+    "debug": false,
+    "secretKey": "change-me-to-a-random-secret",
+    "defaultPort": "8080",
+    "customPort": "8080",
+    "useCDN": false,
+    "hostname": "localhost",
+    "dataBaseType": "sqlite"
+  },
+  "database": {
+    "sqlite": {
+      "type": "sqlite",
+      "fileName": "pinmyblogs.db"
+    }
+  },
+  "authentication": {
+    "enableLogin": true,
+    "openDisabledAccountByEmailLink": false,
+    "enableRegistration": false,
+    "enableForgotPassword": false
+  },
+  "mailer": {
+    "smtpHost": "",
+    "smtpPort": 587,
+    "emailId": "",
+    "bccEmailId": "",
+    "username": "",
+    "password": ""
+  }
+}
