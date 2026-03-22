@@ -2,13 +2,14 @@ root = "."
 tmp_dir = ".air"
 
 [build]
-cmd = "make build"
+cmd = "make build-pinmyblogs"
 args_bin = ["server"]
 bin = "main"
 delay = 1000
-include_ext = ["go", "tmpl", "js", "css", "json", "html"]
+include_ext = ["go", "tmpl", "json", "html"]
 include_file = ["main.go"]
-include_dir = ["cmd", "config", "frontend", "internal", "models", "modules", "pkg", "server", "templates", "types"]
+include_dir = ["cmd", "config", "frontend/css", "frontend/home", "frontend/common", "frontend/setting", "frontend/lib", "internal", "models", "modules", "pkg", "server", "templates", "types"]
+exclude_dir = ["blank-editor", "frontend/editor"]
 exclude_regex = ["_test.go$", "_gen.go$"]
 stop_on_error = true
 

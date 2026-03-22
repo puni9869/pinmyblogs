@@ -130,6 +130,13 @@ func startAction(ctx *cli.Context) error {
 	}
 	r.StaticFS("/icons", http.FS(iconsFS))
 
+	// ____ Serve the blankeditor static assets
+	editorFS, err := fs.Sub(pinmyblogs.Files, "frontend/blankeditor")
+	if err != nil {
+		return fmt.Errorf("load frontend/blankeditor fs: %w", err)
+	}
+	r.StaticFS("/blankeditor/statics", http.FS(editorFS))
+
 	// register all the server routes
 	server.RegisterRoutes(r, sessionStore)
 	err = r.Run(":" + config.C.AppConfig.CustomPort)

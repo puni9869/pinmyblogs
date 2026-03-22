@@ -12,9 +12,21 @@ generate-config:
 	cp sample_config/sample_prod.json $(CONFIG_DIR)/prod.json
 
 
-.PHONY: build
-build:
+.PHONY: build-editor
+build-editor:
+	cd blank-editor && pnpm install --frozen-lockfile && pnpm build
+
+.PHONY: build-pinmyblogs
+build-pinmyblogs:
 	go build -ldflags "-w -s -X $(PKG).BuildVersion=$(VERSION)" -o $(BINARY_NAME) $(MAIN_PATH)
+
+.PHONY: build
+build: build-editor build-pinmyblogs
+
+.PHONY: dev
+dev:
+	cd blank-editor && pnpm build --watch &
+	air
 
 .PHONY: server
 server:

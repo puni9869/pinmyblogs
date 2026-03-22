@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  />
+  <title>Blank Editor | Minimal Rich Text Editor for Focused Writing</title>
+  <meta
+    name="description"
+    content="Blank Editor is a minimal, distraction-free rich text editor for focused writing. Fast, open-source, responsive, and built with TipTap."
+  />
+  <meta
+    name="keywords"
+    content="Blank Editor, rich text editor, minimal editor, distraction free editor, TipTap editor, open source writing app"
+  />
+  <meta name="author" content="Punit Inani" />
+  <meta name="application-name" content="Blank Editor" />
+  <meta
+    name="robots"
+    content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+  />
+  <link rel="canonical" href="https://puni9869.github.io/blank-editor/" />
+  <link
+    rel="alternate"
+    hreflang="en"
+    href="https://puni9869.github.io/blank-editor/"
+  />
+
+  <!-- Standard favicons -->
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="96x96"
+    href="/editor/statics/favicon/favicon-96x96.png"
+  />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Blank Editor" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+  <link rel="icon" href="/editor/statics/favicon/favicon.ico" type="image/x-icon" />
+  <link rel="icon" type="image/svg+xml" href="/editor/statics/favicon/favicon.svg" />
+
+  <!-- Apple touch icon -->
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/editor/statics/favicon/apple-touch-icon.png"
+  />
+
+  <!-- Web app manifest (for Android / PWA) -->
+  <link rel="manifest" href="/editor/statics/favicon/site.webmanifest" />
+  <link
+    rel="icon"
+    sizes="192x192"
+    href="/editor/statics/favicon/web-app-manifest-192x192.png"
+  />
+  <link
+    rel="icon"
+    sizes="512x512"
+    href="/editor/statics/favicon/web-app-manifest-512x512.png"
+  />
+
+  <!-- Safari pinned tab -->
+  <link rel="mask-icon" href="/editor/statics/favicon/favicon.svg" color="#5bbad5" />
+
+  <!-- Windows tile -->
+  <meta name="msapplication-TileColor" content="#2b5797" />
+  <meta name="msapplication-TileImage" content="/editor/statics/favicon/favicon-96x96.png" />
+
+  <!-- Open Graph (Facebook, LinkedIn, Slack) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Blank Editor" />
+  <meta property="og:locale" content="en_US" />
+  <meta
+    property="og:title"
+    content="Blank Editor | Minimal Rich Text Editor for Focused Writing"
+  />
+  <meta
+    property="og:description"
+    content="A minimal, distraction-free rich text editor for focused writing. Fast, responsive, and open-source."
+  />
+  <meta
+    property="og:url"
+    content="https://puni9869.github.io/blank-editor/"
+  />
+  <meta
+    property="og:image"
+    content="https://puni9869.github.io/blank-editor/favicon/web-app-manifest-512x512.png"
+  />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:image:alt" content="Blank Editor app icon" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta
+    name="twitter:title"
+    content="Blank Editor | Minimal Rich Text Editor"
+  />
+  <meta
+    name="twitter:description"
+    content="Distraction-free rich text editor for focused writing. Fast, responsive, and open-source."
+  />
+  <meta
+    name="twitter:image"
+    content="https://puni9869.github.io/blank-editor/favicon/web-app-manifest-512x512.png"
+  />
+  <meta name="twitter:image:alt" content="Blank Editor app icon" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Blank Editor",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "Web",
+      "description": "Blank Editor is a minimal, distraction-free rich text editor for focused writing.",
+      "url": "https://puni9869.github.io/blank-editor/",
+      "image": "https://puni9869.github.io/blank-editor/favicon/web-app-manifest-512x512.png",
+      "author": {
+        "@type": "Person",
+        "name": "Punit Inani"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+  </script>
+  <script type="module" crossorigin src="/editor/statics/assets/index-CEFZk4Cw.js"></script>
+  <link rel="stylesheet" crossorigin href="/editor/statics/assets/index-DFAWZYLu.css">
+</head>
+<body>
+<h1 class="sr-only">Blank Editor - Minimal Rich Text Editor</h1>
+<div class="header no-select">
+  <div class="top-left" id="top-left">
+    <div class="brand">
+      <img
+        src="/editor/statics/favicon/apple-touch-icon.png"
+        alt="Blank Editor"
+        class="logo"
+      />
+
+      <input
+        id="title"
+        type="text"
+        class="editor-title dotted"
+        placeholder="Untitled"
+      />
+      <input type="hidden" value="" id="editor-note-id" />
+    </div>
+  </div>
+
+  <div class="top-toolbar" id="top-toolbar">
+    <button data-cmd="bold" title="Bold (Ctrl/Cmd + B)"><b>B</b></button>
+    <button data-cmd="italic" title="Italic (Ctrl/Cmd + I)">
+      <i>I</i>
+    </button>
+    <button data-cmd="underline" title="Underline (Ctrl/Cmd + U)">
+      <u>U</u>
+    </button>
+    <button data-cmd="highlight" title="Highlight (Ctrl/Cmd + H)">H</button>
+
+    <div class="divider"></div>
+
+    <select
+      id="heading-menu"
+      class="toolbar-select"
+      aria-label="Heading menu"
+    >
+      <option value="paragraph">Paragraph</option>
+      <option value="1">Heading 1</option>
+      <option value="2">Heading 2</option>
+      <option value="3">Heading 3</option>
+      <option value="4">Heading 4</option>
+      <option value="5">Heading 5</option>
+    </select>
+
+    <div class="divider"></div>
+
+    <button data-cmd="bullet" title="Bullet List">•</button>
+    <button data-cmd="ordered" title="Numbered List">1.</button>
+
+    <div class="divider"></div>
+
+    <button data-cmd="quote" title="Blockquote">"</button>
+    <button data-cmd="strike" title="Strikethrough">S̶</button>
+
+    <div class="divider"></div>
+
+    <select
+      id="content-direction-menu"
+      class="toolbar-select"
+      aria-label="Content direction menu"
+    >
+      <option value="left">Left</option>
+      <option value="center">Center</option>
+      <option value="right">Right</option>
+      <option value="justify">Justify</option>
+    </select>
+
+    <div class="divider"></div>
+
+    <button data-cmd="codeblock" title="Code Block">&lt;/&gt;</button>
+    <button data-cmd="divider" title="Horizontal Divider">—</button>
+    <button class="editor-link" data-cmd="link" title="Link">
+      <img alt="link" src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20width='24'%20height='24'%20viewBox='0%200%2024%2024'%20fill='none'%3e%3cpath%20d='M13.213%209.787a3.391%203.391%200%200%200-4.795%200l-3.425%203.426a3.39%203.39%200%200%200%204.795%204.794l.321-.304m-.321-4.49a3.39%203.39%200%200%200%204.795%200l3.424-3.426a3.39%203.39%200%200%200-4.794-4.795l-1.028.961'%20stroke='currentColor'%20stroke-linecap='round'%20stroke-linejoin='round'%20stroke-width='2'/%3e%3c/svg%3e" />
+    </button>
+    <div class="divider"></div>
+    <button data-cmd="journal" title="Journal">Jr.</button>
+  </div>
+</div>
+<div class="top-right" id="top-right">
+  <button class="dots-btn" aria-label="More options">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</div>
+<div class="dropdown-menu no-select" id="more-menu">
+  <a href="#" id="new">New <span class="shortcut">⌘⇧O</span></a>
+  <a href="#" id="copy">Copy</a>
+  <a href="#" id="save">Save <span class="shortcut">⌘S</span></a>
+  <a href="#" id="clear" class="danger">Clear</a>
+  <div class="dropdown-divider"></div>
+  <a href="#" id="all-notes">
+    All Notes
+    <span class="shortcut">⌘ /</span>
+  </a>
+  <a href="#" id="preferences">Preferences</a>
+  <a href="#" id="full-screen">
+    <span class="menu-label">Full Screen</span>
+    <span class="shortcut">⌘⇧F</span>
+  </a>
+  <div class="dropdown-divider"></div>
+  <a href="#" id="about">About</a>
+  <div class="dropdown-divider"></div>
+</div>
+<div class="editor-wrapper">
+  <div class="placeholder"></div>
+  <div id="editor"></div>
+</div>
+
+<!-- Save Modal -->
+<div
+  class="modal-backdrop"
+  id="save-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="save-title"
+>
+  <div class="modal">
+    <h2 id="save-title">Save file</h2>
+
+    <label for="file-name">
+      File name
+      <input
+        type="text"
+        id="file-name"
+        placeholder="Untitled"
+        autocomplete="off"
+      />
+    </label>
+
+    <label for="file-format">
+      Format
+      <select id="file-format">
+        <option value=".txt">Text (.txt)</option>
+      </select>
+    </label>
+
+    <div class="modal-actions">
+      <button id="close-modal-btn" type="button" class="btn ghost">
+        Cancel
+      </button>
+      <button id="save-file" type="button" class="btn primary">Save</button>
+    </div>
+  </div>
+</div>
+<ol id="sonner-toast-container"
+    position="bottom-right"
+    max-toasts="3"
+    rich-colors="false"
+    duration="2500"
+    theme="light">
+</ol>
+</body>
+</html>
