@@ -13,6 +13,7 @@ import (
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 )
 
+// JoinWaitListPost handles the wait list signup form submission.
 func JoinWaitListPost(c *gin.Context) {
 	log := logger.NewLogger()
 	form := middlewares.GetForm(c).(forms.JoinWaitList)
@@ -41,6 +42,7 @@ func JoinWaitListPost(c *gin.Context) {
 	c.HTML(http.StatusAccepted, "join_wait_list_pinmyblogs.html", ctx)
 }
 
+// JoinWaitListGet renders the wait list signup page.
 func JoinWaitListGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "join_wait_list_pinmyblogs.html", nil)
 }

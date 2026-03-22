@@ -1,3 +1,4 @@
+// Package setting provides handlers for user settings, preferences, and account management.
 package setting
 
 import (
@@ -18,10 +19,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// DeleteMyAccount handles the account deletion request.
 func DeleteMyAccount(c *gin.Context) {
 	c.HTML(http.StatusOK, "settings_page.html", nil)
 }
 
+// DisableMyAccount handles the account disable request.
 func DisableMyAccount(c *gin.Context) {
 	log := logger.NewLogger()
 
@@ -58,6 +61,7 @@ func DisableMyAccount(c *gin.Context) {
 	c.JSON(http.StatusOK, map[string]string{"Status": "OK"})
 }
 
+// EnableMyAccount handles the account re-enable request via email link.
 func EnableMyAccount(c *gin.Context) {
 	log := logger.NewLogger()
 
@@ -138,6 +142,7 @@ func EnableMyAccount(c *gin.Context) {
 	)
 }
 
+// ProfileAction toggles the user's profile between public and private.
 func ProfileAction(c *gin.Context) {
 	profileAction := c.Param("action")
 	if !slices.Contains([]string{"public", "private"}, profileAction) {

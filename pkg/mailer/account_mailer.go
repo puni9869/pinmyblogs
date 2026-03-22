@@ -10,6 +10,7 @@ import (
 	m "gopkg.in/gomail.v2"
 )
 
+// Account handles account enable/disable notification emails.
 type Account struct {
 	MailerAPI
 	log    *logrus.Logger
@@ -104,6 +105,7 @@ func (a *Account) enableAccount() (*m.Dialer, *m.Message) {
 	return dialer, msg
 }
 
+// Send dispatches the account enable or disable email.
 func (a *Account) Send() {
 	f := map[string]any{
 		"user": a.user.Email,
@@ -132,6 +134,7 @@ func (a *Account) Send() {
 	a.log.WithFields(f).Infof("user account %s confirmation mail sent. hash %s", a.action, a.user.AccountEnableHash)
 }
 
+// NewAccountService creates a new account mailer for the given user and action.
 func NewAccountService(user models.User, action string) MailerAPI {
 	return &Account{
 		log:    logger.NewLogger(),

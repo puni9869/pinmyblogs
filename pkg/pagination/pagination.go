@@ -1,3 +1,4 @@
+// Package pagination provides generic GORM-based pagination with centered page navigation.
 package pagination
 
 import (
@@ -7,10 +8,13 @@ import (
 )
 
 const (
+	// DefaultLimit is the default number of items per page.
 	DefaultLimit = 50
-	MaxLimit     = 100
+	// MaxLimit is the maximum allowed items per page.
+	MaxLimit = 100
 )
 
+// Pagination holds the state for a paginated query result.
 type Pagination[T any] struct {
 	Page       int   `json:"page"`
 	Limit      int   `json:"limit"`
@@ -52,6 +56,7 @@ func (p *Pagination[T]) getLimit() int {
 	return p.Limit
 }
 
+// GetPage returns the current page number, defaulting to 1.
 func (p *Pagination[T]) GetPage() int {
 	if p.Page <= 0 {
 		p.Page = 1
@@ -59,6 +64,7 @@ func (p *Pagination[T]) GetPage() int {
 	return p.Page
 }
 
+// GetOffset returns the offset for the current page.
 func (p *Pagination[T]) GetOffset() int {
 	return (p.GetPage() - 1) * p.getLimit()
 }
@@ -90,6 +96,7 @@ func (p *Pagination[T]) buildCenteredPages(window int) {
 
 // ---------- GORM Scope ----------
 
+// Paginate returns a GORM scope that applies pagination to a query.
 func Paginate[T any](model any, p *Pagination[T]) func(db *gorm.DB) *gorm.DB {
 	p.normalize()
 

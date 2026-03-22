@@ -10,6 +10,7 @@ import (
 	mail "gopkg.in/gomail.v2"
 )
 
+// ResetPasswordMailer handles password reset notification emails.
 type ResetPasswordMailer struct {
 	MailerAPI
 	log  *logrus.Logger
@@ -23,6 +24,7 @@ func (u *ResetPasswordMailer) getPasswordResetLink() string {
 	return fmt.Sprintf("https://pinmyblogs.com/reset-password/%s", u.user.PasswordResetHash)
 }
 
+// Send dispatches the password reset email.
 func (u *ResetPasswordMailer) Send() {
 	if config.GetEnv() == config.LocalEnv {
 		u.log.WithFields(map[string]any{
@@ -71,6 +73,8 @@ func (u *ResetPasswordMailer) Send() {
 		"env":  config.GetEnv(),
 	}).Info("reset password email has been send")
 }
+
+// NewResetPasswordMailer creates a new password reset mailer for the given user.
 func NewResetPasswordMailer(user models.User) MailerAPI {
 	return &ResetPasswordMailer{log: logger.NewLogger(), user: user}
 }

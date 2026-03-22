@@ -1,6 +1,10 @@
+// Package home provides handlers for the authenticated home page and link management.
 package home
 
 import (
+	"net/http"
+	"strconv"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
@@ -8,10 +12,9 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
-	"net/http"
-	"strconv"
 )
 
+// BulkActions handles bulk operations (delete, archive, favourite) on multiple URLs.
 func BulkActions(c *gin.Context) {
 	log := logger.NewLogger()
 
@@ -66,6 +69,7 @@ func BulkActions(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"Status": "OK", "Message": "Bulk operation successful."})
 }
 
+// Actions handles single URL action updates (favourite, archive, delete).
 func Actions(c *gin.Context) {
 	log := logger.NewLogger()
 	var err error

@@ -1,3 +1,4 @@
+// Package utils provides common utility functions for hashing, validation, and pagination.
 package utils
 
 import (
@@ -12,6 +13,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// GetPageAndLimit extracts page and limit query parameters from the request.
 func GetPageAndLimit(c *gin.Context) (page int, limit int) {
 	r := c.Request
 	q := r.URL.Query()
@@ -45,6 +47,7 @@ func HashifyBCrypt(text string) string {
 	return string(h)
 }
 
+// CompareBCrypt compares a bcrypt hash with a plain text password.
 func CompareBCrypt(hashed string, plainText string) error {
 	if err := bcrypt.CompareHashAndPassword(
 		[]byte(hashed),

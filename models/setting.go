@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Setting represents a user preference stored in the database.
 type Setting struct {
 	gorm.Model
 

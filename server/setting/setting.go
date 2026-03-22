@@ -16,6 +16,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Setting renders the settings page for the logged-in user.
 func Setting(c *gin.Context) {
 	log := logger.NewLogger()
 	session := sessions.Default(c)
@@ -49,6 +50,7 @@ func Setting(c *gin.Context) {
 	c.HTML(http.StatusOK, "setting.html", tmplCtx)
 }
 
+// DownloadMyData exports the user's saved links in the requested format.
 func DownloadMyData(c *gin.Context) {
 	log := logger.NewLogger()
 

@@ -10,12 +10,14 @@ import (
 	mail "gopkg.in/gomail.v2"
 )
 
+// UserRegister handles registration confirmation emails.
 type UserRegister struct {
 	MailerAPI
 	log  *logrus.Logger
 	user models.User
 }
 
+// Send dispatches the registration confirmation email.
 func (u *UserRegister) Send() {
 	if config.GetEnv() == config.LocalEnv {
 		u.log.WithFields(map[string]any{
@@ -63,6 +65,7 @@ func (u *UserRegister) Send() {
 	}).Info("user registration confirmation mail sent")
 }
 
+// NewUserRegisterMailer creates a new registration mailer for the given user.
 func NewUserRegisterMailer(user models.User) MailerAPI {
 	return &UserRegister{
 		log:  logger.NewLogger(),

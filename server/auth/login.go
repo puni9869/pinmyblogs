@@ -1,3 +1,4 @@
+// Package auth provides authentication handlers for login, signup, and password reset.
 package auth
 
 import (
@@ -14,8 +15,10 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/utils"
 )
 
+// Userkey is the session key used to store the logged-in user's email.
 const Userkey = "user"
 
+// LoginPost handles the login form submission.
 func LoginPost(c *gin.Context) {
 	log := logger.NewLogger()
 	email := c.PostForm("email")
@@ -108,6 +111,7 @@ func LoginPost(c *gin.Context) {
 	c.Abort()
 }
 
+// LoginGet renders the login page or redirects if already logged in.
 func LoginGet(c *gin.Context) {
 	log := logger.NewLogger()
 

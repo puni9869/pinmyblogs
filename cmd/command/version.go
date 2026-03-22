@@ -13,6 +13,7 @@ var Version = cli.Command{
 	Action: versionAction,
 }
 
+// BuildVersion is the application build version, set at compile time.
 var BuildVersion = "v1.0"
 
 // versionAction prints the current version

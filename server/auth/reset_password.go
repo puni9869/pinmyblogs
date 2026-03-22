@@ -19,10 +19,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// ResetPasswordGet renders the password reset request page.
 func ResetPasswordGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "reset.html", nil)
 }
 
+// ResetPasswordPost handles the password reset request form submission.
 func ResetPasswordPost(c *gin.Context) {
 	log := logger.NewLogger()
 
@@ -86,6 +88,7 @@ func ResetPasswordPost(c *gin.Context) {
 	c.Redirect(http.StatusSeeOther, "/reset-password/sent?email="+email)
 }
 
+// ResetPasswordSentGet renders the confirmation page after a reset email is sent.
 func ResetPasswordSentGet(c *gin.Context) {
 	log := logger.NewLogger()
 	email := c.Query("email")
@@ -98,6 +101,7 @@ func ResetPasswordSentGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "reset_password_sent.html", gin.H{"Email": email})
 }
 
+// ResetPasswordSetGet renders the new password form for a given reset hash.
 func ResetPasswordSetGet(c *gin.Context) {
 	log := logger.NewLogger()
 
@@ -106,6 +110,7 @@ func ResetPasswordSetGet(c *gin.Context) {
 	c.HTML(http.StatusOK, "reset_password_set.html", gin.H{"hash": hash})
 }
 
+// ResetPasswordSetPost handles the new password submission and updates the user record.
 func ResetPasswordSetPost(c *gin.Context) {
 	log := logger.NewLogger()
 

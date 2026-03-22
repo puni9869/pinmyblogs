@@ -40,6 +40,7 @@ func UserPublicProfilePage(c *gin.Context) {
 // ================= DOMAIN =================
 //
 
+// User represents a user record for the public profile feature.
 type User struct {
 	ID          int64
 	Username    string
@@ -49,6 +50,7 @@ type User struct {
 	CreatedAt   time.Time
 }
 
+// PublicUser is the public-facing representation of a user profile.
 type PublicUser struct {
 	Username    string
 	DisplayName string
@@ -58,6 +60,7 @@ type PublicUser struct {
 	PublicBlogs []PublicBlog
 }
 
+// PublicBlog represents a blog entry on a public profile.
 type PublicBlog struct {
 	Title       string
 	URL         string

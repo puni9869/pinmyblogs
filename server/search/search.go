@@ -1,3 +1,4 @@
+// Package search provides the search handler for querying saved links.
 package search
 
 import (
@@ -15,6 +16,7 @@ import (
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 )
 
+// Search handles the search query and renders paginated results.
 func Search(c *gin.Context) {
 	log := logger.NewLogger()
 	session := sessions.Default(c)

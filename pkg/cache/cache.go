@@ -1,3 +1,4 @@
+// Package cache provides a generic in-memory key-value store with TTL support.
 package cache
 
 import (

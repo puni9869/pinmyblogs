@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 )
 
+// User represents a registered user account.
 type User struct {
 	ID                  uuid.UUID `gorm:"primaryKey;unique;type:uuid;default:(gen_random_uuid())"` // Standard field for the primary key
 	FirstName           string    // A regular string field

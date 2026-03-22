@@ -1,7 +1,8 @@
+// Package main contains experimental/scratch code.
 package main
 
-//
-//import (
+func main() {}
+
 //	"bufio"
 //	"github.com/puni9869/pinmyblogs/pkg/logger"
 //	"net"

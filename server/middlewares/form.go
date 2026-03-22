@@ -12,6 +12,7 @@ const (
 	formKey    = "__form"
 )
 
+// GetForm returns the bound form object from the Gin context.
 func GetForm(c *gin.Context) any {
 	if f, ok := c.Get(formKey); ok {
 		return f
@@ -19,6 +20,7 @@ func GetForm(c *gin.Context) any {
 	return nil
 }
 
+// GetContext returns the template context data from the Gin context.
 func GetContext(c *gin.Context) gin.H {
 	if ctx, ok := c.Get(contextKey); ok {
 		return ctx.(map[string]any)

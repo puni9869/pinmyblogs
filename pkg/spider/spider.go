@@ -1,18 +1,21 @@
+// Package spider fetches and parses web page metadata for saved URLs.
 package spider
 
 import (
-	"codeberg.org/readeck/go-readability/v2"
 	"context"
 	"encoding/json"
-	"github.com/puni9869/pinmyblogs/models"
-	"github.com/puni9869/pinmyblogs/pkg/database"
-	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"net/http"
 	u "net/url"
 	"strconv"
 	"time"
+
+	"codeberg.org/readeck/go-readability/v2"
+	"github.com/puni9869/pinmyblogs/models"
+	"github.com/puni9869/pinmyblogs/pkg/database"
+	"github.com/puni9869/pinmyblogs/pkg/logger"
 )
 
+// ScrapeUrl fetches a URL and updates its title and summary in the database.
 func ScrapeUrl(url *models.Url) {
 	log := logger.NewLogger()
 	var err error
@@ -62,6 +65,7 @@ func ScrapeUrl(url *models.Url) {
 	log.Info("Updating weblink metadata after fetching.", url.WebLink)
 }
 
+// FetchAndUpdateURL fetches a URL with context timeout and updates its metadata.
 func FetchAndUpdateURL(url *models.Url) {
 	log := logger.NewLogger()
 

@@ -7,7 +7,10 @@ import (
 	"gorm.io/gorm"
 )
 
+// DeletedAt is a nullable time type used for soft-delete timestamps.
 type DeletedAt sql.NullTime
+
+// Url represents a saved weblink belonging to a user.
 type Url struct {
 	ID           uint           `gorm:"primarykey" json:"id"`
 	CreatedAt    time.Time      `json:"createdAt"`

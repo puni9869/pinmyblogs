@@ -1,6 +1,9 @@
 package setting
 
 import (
+	"net/http"
+	"slices"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/puni9869/pinmyblogs/models"
@@ -9,14 +12,13 @@ import (
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/types/forms"
 	"gorm.io/gorm/clause"
-	"net/http"
-	"slices"
 )
 
 var preferences = map[string][]string{
 	"sideNav": {"show", "hide"},
 }
 
+// Prefs handles updating user preferences such as sidebar visibility.
 func Prefs(c *gin.Context) {
 	log := logger.NewLogger()
 	form := middlewares.GetForm(c).(*forms.Prefs)

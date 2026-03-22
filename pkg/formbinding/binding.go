@@ -1,3 +1,4 @@
+// Package formbinding provides form validation helpers and context population.
 package formbinding
 
 import (
@@ -12,11 +13,13 @@ import (
 // #nosec G101
 const passwordRegex = `^[A-Za-z\d\W_]{6,15}$`
 
+// Field defines methods for form field error lookup and password validation.
 type Field interface {
 	Error(phrase string) string
 	IsValid(password string) bool
 }
 
+// FieldErrors maps field names to their error messages.
 type FieldErrors map[string]string
 
 var errs = map[string]string{
@@ -34,6 +37,7 @@ var errs = map[string]string{
 	"unknown":            `Unknown error:`,
 }
 
+// Error returns the error message for the given validation phrase.
 func (e *FieldErrors) Error(phrase string) string {
 	if e, ok := errs[phrase]; ok {
 		return e
@@ -41,6 +45,7 @@ func (e *FieldErrors) Error(phrase string) string {
 	return phrase
 }
 
+// IsValid reports whether the password matches the required pattern.
 func (e *FieldErrors) IsValid(password string) bool {
 	match, err := regexp.MatchString(passwordRegex, password)
 	if err != nil {

@@ -1,3 +1,4 @@
+// Package signup provides user registration services.
 package signup
 
 import (
@@ -12,9 +13,12 @@ import (
 	"gorm.io/gorm"
 )
 
+// ErrDuplicateEmail is returned when a registration email already exists.
+//
 //nolint:staticcheck // ST1005: user-facing error message
 var ErrDuplicateEmail = errors.New("Email already exist")
 
+// Service defines the user registration workflow.
 type Service interface {
 	Register(ctx *gin.Context, user models.User) error
 	Verify()
@@ -54,6 +58,7 @@ func (s *signupClient) Notify(user models.User) {
 	go userMailer.Send()
 }
 
+// NewSignupService creates a new signup service backed by the given database and logger.
 func NewSignupService(db *gorm.DB, logger *logrus.Logger) Service {
 	return &signupClient{
 		db:  db,

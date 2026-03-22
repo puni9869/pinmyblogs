@@ -1,3 +1,4 @@
+// Package config loads and provides access to application configuration.
 package config
 
 import (
@@ -8,9 +9,11 @@ import (
 )
 
 var (
-	defaultEnv   = "local"
-	defaultPath  = "./config"
-	LocalEnv     = "local"
+	defaultEnv  = "local"
+	defaultPath = "./config"
+	// LocalEnv is the local environment identifier.
+	LocalEnv = "local"
+	// ProdEnv is the production environment identifier.
 	ProdEnv      = "prod"
 	environments = []string{"local", "prod"}
 )
@@ -38,6 +41,7 @@ type DatabaseObj struct {
 	FileName     string `json:"fileName,omitempty"`
 }
 
+// Authentication holds feature flags for authentication flows.
 type Authentication struct {
 	EnableLogin                    bool `json:"enableLogin"`
 	OpenDisabledAccountByEmailLink bool `json:"openDisabledAccountByEmailLink"`
@@ -45,6 +49,7 @@ type Authentication struct {
 	EnableForgotPassword           bool `json:"enableForgotPassword"`
 }
 
+// Mailer holds SMTP configuration for outbound email.
 type Mailer struct {
 	SmtpHost   string `json:"smtpHost"`
 	SmtpPort   int    `json:"smtpPort"`
@@ -54,7 +59,7 @@ type Mailer struct {
 	Password   string `json:"password"`
 }
 
-// ConfigProvider ie converted value in go types
+// ConfigProvider is the top-level configuration structure.
 type ConfigProvider struct {
 	EnableSSL         bool                   `json:"enableSSL"`
 	ShareDataOverMail bool                   `json:"shareDataOverMail"`
@@ -64,6 +69,7 @@ type ConfigProvider struct {
 	Mailer            Mailer                 `json:"mailer"`
 }
 
+// C is the global configuration instance populated by LoadConfig.
 var C ConfigProvider
 
 func contains(source []string, target string) bool {
@@ -75,6 +81,7 @@ func contains(source []string, target string) bool {
 	return false
 }
 
+// LoadConfig reads and unmarshals the configuration file for the given environment.
 func LoadConfig(environment string) error {
 	if !contains(environments, environment) {
 		return errors.New("environment is not provided. ie. local or prod")
@@ -96,22 +103,27 @@ func LoadConfig(environment string) error {
 	return nil
 }
 
+// GetString returns a configuration value as a string.
 func GetString(key string) string {
 	return viper.GetString(key)
 }
 
+// GetStringMap returns a configuration value as a map of string to any.
 func GetStringMap(key string) map[string]any {
 	return viper.GetStringMap(key)
 }
 
+// GetEnv returns the current environment name.
 func GetEnv() string {
 	return defaultEnv
 }
 
+// SetKey sets a configuration key to the given value.
 func SetKey(k string, v any) {
 	viper.Set(k, v)
 }
 
+// GetDefaultPath returns the default configuration directory path.
 func GetDefaultPath() string {
 	return defaultPath
 }

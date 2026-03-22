@@ -1,3 +1,4 @@
+// Package middlewares provides Gin middleware for authentication, CORS, sessions, and form binding.
 package middlewares
 
 import (
@@ -8,8 +9,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// Userkey is the session key used to identify the logged-in user.
 const Userkey = "user"
 
+// AuthRequired is a middleware that redirects unauthenticated users to the login page.
 func AuthRequired(c *gin.Context) {
 	session := sessions.Default(c)
 	user := session.Get(Userkey)

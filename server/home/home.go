@@ -16,6 +16,7 @@ import (
 	"github.com/puni9869/pinmyblogs/types/forms"
 )
 
+// AddWeblink handles adding a new weblink for the logged-in user.
 func AddWeblink(c *gin.Context) {
 	log := logger.NewLogger()
 	var err error
@@ -51,6 +52,7 @@ func AddWeblink(c *gin.Context) {
 	c.JSON(http.StatusCreated, gin.H{"Status": "OK", "Message": "Weblink Added."})
 }
 
+// Home renders the main home page with the user's active links.
 func Home(c *gin.Context) {
 	log := logger.NewLogger()
 	session := sessions.Default(c)
@@ -85,6 +87,7 @@ func Home(c *gin.Context) {
 	})
 }
 
+// Favourite renders the home page filtered to favourite links.
 func Favourite(c *gin.Context) {
 	log := logger.NewLogger()
 	session := sessions.Default(c)
@@ -115,6 +118,7 @@ func Favourite(c *gin.Context) {
 	})
 }
 
+// Archived renders the home page filtered to archived links.
 func Archived(c *gin.Context) {
 	log := logger.NewLogger()
 	session := sessions.Default(c)
@@ -145,6 +149,7 @@ func Archived(c *gin.Context) {
 	})
 }
 
+// Trash renders the home page filtered to deleted links.
 func Trash(c *gin.Context) {
 	log := logger.NewLogger()
 	session := sessions.Default(c)
@@ -175,6 +180,7 @@ func Trash(c *gin.Context) {
 	})
 }
 
+// Share renders the share page for a specific link.
 func Share(c *gin.Context) {
 	log := logger.NewLogger()
 	//var err error

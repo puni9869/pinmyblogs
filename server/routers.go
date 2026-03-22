@@ -1,3 +1,4 @@
+// Package server configures HTTP routes and middleware for the application.
 package server
 
 import (
