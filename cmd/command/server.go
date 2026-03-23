@@ -35,7 +35,7 @@ var Server = cli.Command{
 }
 
 // versionAction prints the current version
-func startAction(ctx *cli.Context) error {
+func startAction(_ *cli.Context) error {
 	var err error
 	log := logger.NewLogger()
 	defer func() {

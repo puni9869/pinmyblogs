@@ -8,7 +8,6 @@ import (
 	"github.com/puni9869/pinmyblogs/pkg/database"
 	"github.com/puni9869/pinmyblogs/pkg/logger"
 	"github.com/puni9869/pinmyblogs/server/auth"
-	"github.com/puni9869/pinmyblogs/server/blankeditor"
 	"github.com/puni9869/pinmyblogs/server/home"
 	"github.com/puni9869/pinmyblogs/server/middlewares"
 	"github.com/puni9869/pinmyblogs/server/public"
@@ -47,7 +46,6 @@ func RegisterRoutes(r *gin.Engine, sessionStore session.Store) {
 	authRouters := r.Group("")
 	{
 		authRouters.Use(middlewares.AuthRequired)
-		authRouters.GET("/notes", blankeditor.EditorGet)
 		authRouters.Any("/", home.Home)
 		authRouters.Any("/home", home.Home)
 		authRouters.GET("/favourite", home.Favourite)
